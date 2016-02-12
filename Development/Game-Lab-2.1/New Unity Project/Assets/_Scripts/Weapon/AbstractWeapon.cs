@@ -12,7 +12,7 @@ public class AbstractWeapon : MonoBehaviour {
 	public float maxFieldOfView;
 	public float minFieldOfView;
 
-	public void Start(){
+    public void Start(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
@@ -21,7 +21,7 @@ public class AbstractWeapon : MonoBehaviour {
 
 	public void Shooting(){
 		Debug.DrawRay (transform.position, transform.forward*5000, Color.blue, 4);
-		if (Physics.Raycast (transform.position, transform.forward, out rayHit, rayDis)) {
+		if (Physics.Raycast (transform.position, camero.transform.forward, out rayHit, rayDis)) {
 			switch (rayHit.transform.tag) {
 			case "Head":
 				print ("Hit the Head");
@@ -33,7 +33,8 @@ public class AbstractWeapon : MonoBehaviour {
 				break;
 			case "Body":
 				print ("Hit the Body");
-				Destroy (rayHit.transform.gameObject.GetComponentInParent<GameObject>());
+                    GameObject parento = rayHit.transform.parent.gameObject;
+                Destroy (parento);
 				break;
 			default:
 				print ("NOT AN ENEMY!");
@@ -53,12 +54,14 @@ public class AbstractWeapon : MonoBehaviour {
 		if (!aim) {
 			if (camero.GetComponent<Camera> ().fieldOfView < maxFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView += zoomSpeed * Time.deltaTime;
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.localPosition = new Vector3(0, -0.16f, 1.064f);
 			}
 		}
 		else {
 			if (camero.GetComponent<Camera> ().fieldOfView > minFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView -= zoomSpeed * Time.deltaTime;
-			}
+            }
 		}
 		return aim;
 	}
