@@ -8,8 +8,6 @@ public class Pistol : AbstractWeapon {
 		camero = GameObject.Find ("Main Camera");
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
 		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
-		startPos = transform.localPosition;
-		startRot = transform.rotation;
 	}
 
 	public override void Shooting(){
@@ -51,18 +49,14 @@ public class Pistol : AbstractWeapon {
 		if (!aim) {
 			if (camero.GetComponent<Camera> ().fieldOfView < maxFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView += zoomSpeed * Time.deltaTime;
-				//Vervang onderste code later met animation
-				transform.rotation = startRot;
-				transform.localPosition = startPos;
+                GetComponent<Animator>().SetBool("aimAnimation", false);
 			}
 		}
 		else {
 			if (camero.GetComponent<Camera> ().fieldOfView > minFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView -= zoomSpeed * Time.deltaTime;
-				//Vervang onderste code later met animation
-				transform.rotation = new Quaternion(0, 0, 0, 0);
-				transform.localPosition = new Vector3(0, -0.16f, 1.064f);
-			}
+                GetComponent<Animator>().SetBool("aimAnimation", true);
+            }
 		}
 		return aim;
 	}

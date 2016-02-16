@@ -11,8 +11,6 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public float zoomSpeed;
 	public float maxFieldOfView;
 	public float minFieldOfView;
-	public Vector3 startPos;
-	public Quaternion startRot;
 
     public void Start(){
 //		player = GameObject.FindWithTag ("Player");
