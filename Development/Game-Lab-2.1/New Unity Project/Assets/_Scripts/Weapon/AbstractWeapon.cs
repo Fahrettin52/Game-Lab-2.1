@@ -6,20 +6,28 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public GameObject camero;
 	public bool aiming;
 	public float rayDis;
+	public float shootDirValueX;
+	public float shootDirValueY;
+	public Vector3 shootDir;
 	public RaycastHit rayHit;
 
 	public float zoomSpeed;
 	public float maxFieldOfView;
 	public float minFieldOfView;
 
-    public void Start(){
-//		player = GameObject.FindWithTag ("Player");
-//		camero = GameObject.Find ("Main Camera");
-//		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
-//		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
-	}
+	public float projectileDamage;
+	public float projectileSpeed;
+	public float effectiveRange;
+
+	public abstract void OnEnable ();
+
+	public abstract void FillDelegate ();
 
 	public abstract void Shooting ();
+
+	public abstract void DistanceChecker (Vector3 savedPos);
+
+	public abstract IEnumerator ImpactDelay (float impactTime, float damage);
 
 	public abstract void Reloading ();
 
