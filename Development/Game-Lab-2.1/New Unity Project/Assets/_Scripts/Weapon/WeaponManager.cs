@@ -17,9 +17,7 @@ public class WeaponManager : MonoBehaviour {
 
 	public void Update(){
 		if (shootDelegate != null || aimDelegate != null) {
-			if (Input.GetButtonDown ("Fire1")) {
-				shootDelegate ();
-			}
+			shootDelegate ();
 			if (Input.GetButton ("Fire2")) {
 				aimDelegate (true);
 			} else {
