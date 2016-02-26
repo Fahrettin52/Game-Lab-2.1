@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour {
 	public delegate bool AimDelegate (bool aims);
 	public WeaponDelegate shootDelegate;
 	public AimDelegate aimDelegate;
+    private bool aiming;
 
 	public List<GameObject> weaponList = new List<GameObject>();
 	public float curWeapon;
@@ -19,12 +20,14 @@ public class WeaponManager : MonoBehaviour {
 		if (shootDelegate != null || aimDelegate != null) {
 			shootDelegate ();
 			if (Input.GetButton ("Fire2")) {
-				aimDelegate (true);
-			} else {
-				aimDelegate (false);
+                aiming = true;
+			} 
+            else {
+                aiming = false;
 			}
+            aimDelegate(aiming);
 		}
-		if(Input.GetAxis("Mouse ScrollWheel") > 0){
+		if(Input.GetAxis("Mouse ScrollWheel") > 0 && aiming == false){
 			if (curWeapon < weaponList.Count-1) {
 				curWeapon++;
 				WeaponSwitch ();
@@ -34,7 +37,7 @@ public class WeaponManager : MonoBehaviour {
 				WeaponSwitch ();
 			}
 		}
-		if(Input.GetAxis("Mouse ScrollWheel") < 0){
+		if(Input.GetAxis("Mouse ScrollWheel") < 0 && aiming == false) {
 			if (curWeapon > 0) {
 				curWeapon--;
 				WeaponSwitch ();
