@@ -13,10 +13,10 @@ public class CameraControl : MonoBehaviour {
 	}
 
 	void Update(){
-		CamRotation ();
+		RotationChecker ();
 	}
 
-	public void CamRotation(){
+	public void RotationChecker(){
 		camRotationX += Input.GetAxis ("Mouse X") * mouseSensetivity * Time.deltaTime;
 		camRotationY -= Input.GetAxis ("Mouse Y") * mouseSensetivity * Time.deltaTime;
 		camRotationY = Mathf.Clamp (camRotationY, -rotationLimit, rotationLimit);

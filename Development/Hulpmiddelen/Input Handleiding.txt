@@ -1,0 +1,19 @@
+5.3 Controls 
+•	Keyboard en muis of controller.
+•	W, S voor lopen
+•	Linker muis voor schieten / melee mode slaan 
+•	E: interactie / praten.
+•	Rechtenmuis: Mikken
+•	Scrollen voor weapon switch
+•	1 ammo switch
+•	A, D Voor streven
+•	Muis voor camera look
+•	F: quick stab
+•	Shift: renen
+•	C: crouch
+•	G: grenade 
+•	R: Reload
+•	Middle mouse click: Fire selector
+•	2 granade cycle
+•	3 om te switchen tussen med- en stimpacks
+•	Esc is voor pauzeren
