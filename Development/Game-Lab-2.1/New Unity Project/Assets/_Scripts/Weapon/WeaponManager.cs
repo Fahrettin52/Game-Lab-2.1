@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour {
 	public float curWeapon;
 
 	void Start(){
+		curWeapon = -1;
 		WeaponSwitch ();
 	}
 
@@ -62,8 +63,8 @@ public class WeaponManager : MonoBehaviour {
 
     public void WeaponObtained(GameObject newWeapon) {
         weaponList.Add(newWeapon);
+		curWeapon++;
         WeaponSwitch();
-        //Destroy(newWeapon.gameObject);
     }
 
     public void AmmoSwitch(){
