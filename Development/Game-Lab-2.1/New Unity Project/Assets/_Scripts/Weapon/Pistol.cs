@@ -46,7 +46,8 @@ public class Pistol : AbstractWeapon {
 		switch (rayHit.transform.tag) {
 		case "Head":
 			print ("Hit the Head, damage x5");
-			Destroy (rayHit.transform.gameObject);
+            GameObject parento = rayHit.transform.parent.gameObject;
+            Destroy(parento);
 			break;
 		case "Limbs":
 			print ("Hit Limb, damage x2");
@@ -54,10 +55,9 @@ public class Pistol : AbstractWeapon {
 			break;
 		case "Body":
 			print ("Hit the Body, damage x3");
-			//Destroyen van de parent voorbeeld:
-			GameObject parento = rayHit.transform.parent.gameObject;
-			Destroy (parento);
-			break;
+            //Destroyen van de parent voorbeeld:
+            Destroy(rayHit.transform.gameObject);
+            break;
 		default:
 			print ("NOT AN ENEMY!");
 			break;

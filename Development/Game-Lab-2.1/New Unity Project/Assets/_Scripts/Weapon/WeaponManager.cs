@@ -50,14 +50,14 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void WeaponSwitch(){
-		for(int i = 0; i < weaponList.Count; i++){
-			if (i == curWeapon) {
-				weaponList [i].SetActive (true);
-			}
-			else {
-				weaponList [i].SetActive (false);
-			}
-		}
+        for (int i = 0; i < weaponList.Count; i++) {
+            if (i == curWeapon) {
+                weaponList[i].SetActive(true);
+            } 
+            else {
+                weaponList[i].SetActive(false);
+            }
+        }
 	}
 
 	public void WeaponObtained(){
