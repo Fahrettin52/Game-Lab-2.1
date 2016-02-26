@@ -60,10 +60,6 @@ public class WeaponManager : MonoBehaviour {
         }
 	}
 
-	public void WeaponObtained(){
-		
-	}
-
 	public void AmmoSwitch(){
 	
 	}
