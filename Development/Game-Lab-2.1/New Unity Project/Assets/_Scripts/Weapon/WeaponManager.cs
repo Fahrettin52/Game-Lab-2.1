@@ -60,7 +60,13 @@ public class WeaponManager : MonoBehaviour {
         }
 	}
 
-	public void AmmoSwitch(){
+    public void WeaponObtained(GameObject newWeapon) {
+        weaponList.Add(newWeapon);
+        WeaponSwitch();
+        //Destroy(newWeapon.gameObject);
+    }
+
+    public void AmmoSwitch(){
 	
 	}
 

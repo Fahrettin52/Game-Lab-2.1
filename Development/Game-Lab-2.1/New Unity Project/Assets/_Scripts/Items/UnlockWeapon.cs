@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 public class UnlockWeapon : WeaponManager {
 
-    public GameObject pistol;
+    public GameObject pickedWeapon;
 
     public void OnTriggerEnter(Collider trigger) {
         if (trigger.tag == "Player") {
-            weaponList.Add(pistol);
-            WeaponSwitch();
+            pickedWeapon = this.gameObject;
+            WeaponObtained(pickedWeapon);
         }
-        Destroy(gameObject);
     }
 }
