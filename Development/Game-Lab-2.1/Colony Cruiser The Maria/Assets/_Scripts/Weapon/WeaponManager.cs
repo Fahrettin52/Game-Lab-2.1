@@ -62,8 +62,8 @@ public class WeaponManager : MonoBehaviour {
 	}
 
     public void WeaponObtained(GameObject newWeapon) {
+        curWeapon++;
         weaponList.Add(newWeapon);
-		curWeapon++;
         WeaponSwitch();
     }
 
