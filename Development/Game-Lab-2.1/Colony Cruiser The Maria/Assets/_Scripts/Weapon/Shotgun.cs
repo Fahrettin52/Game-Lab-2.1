@@ -37,24 +37,18 @@ public class Shotgun : AbstractWeapon {
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
-		AmmoSwitch (curAmmoType);
 		FillDelegate ();
 	}
 
-	public void Update(){
-		if(Input.GetButtonDown("SwitchAmmo")){
-			if (curAmmoType < 3) {
-				curAmmoType++;
-			}
-			if(curAmmoType == 3){
-				curAmmoType = 0;
-			}
-			AmmoSwitch (curAmmoType);
+	void AmmoSwitch(){
+		print ("SWITCHING!!");
+		if (curAmmoType < 3) {
+			curAmmoType++;
 		}
-	}
-
-	void AmmoSwitch(int curAmmo){
-		switch (curAmmo){
+		if(curAmmoType == 3){
+			curAmmoType = 0;
+		}
+		switch (curAmmoType){
 		case 0:
 			loadedAmmo = birdAmmo;
 			shotCount = birdShotCount;
@@ -79,8 +73,10 @@ public class Shotgun : AbstractWeapon {
 	public override void FillDelegate(){
 		player.GetComponent<WeaponManager> ().shootDelegate = null;
 		player.GetComponent<WeaponManager> ().aimDelegate = null;
+		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = null;
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
 		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
+		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
 	}
 
 	public override void Shooting(){

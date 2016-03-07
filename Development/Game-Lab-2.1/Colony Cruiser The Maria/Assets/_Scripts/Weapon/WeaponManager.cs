@@ -6,11 +6,15 @@ public class WeaponManager : MonoBehaviour {
 	public delegate void WeaponDelegate();
 	public delegate bool AimDelegate (bool aims);
 	public WeaponDelegate shootDelegate;
+	public WeaponDelegate ammoSwitchDelegate;
 	public AimDelegate aimDelegate;
     private bool aiming;
 
 	public List<GameObject> weaponList = new List<GameObject>();
 	public float curWeapon;
+
+	public GameObject[] grenades;
+	public int curGrenade;
 
 	void Start(){
 		curWeapon = -1;
@@ -48,6 +52,8 @@ public class WeaponManager : MonoBehaviour {
 				WeaponSwitch ();
 			}
 		}
+		AmmoSwitch ();
+		GrenadeSwitch ();
 	}
 
 	public void WeaponSwitch(){
@@ -68,10 +74,27 @@ public class WeaponManager : MonoBehaviour {
     }
 
     public void AmmoSwitch(){
-	
+		if (Input.GetButtonDown ("SwitchAmmo") && ammoSwitchDelegate != null) {
+			ammoSwitchDelegate();
+		}
 	}
 
 	public void GrenadeSwitch(){
-		
+		if(Input.GetButtonDown("SwitchGrenades")){
+			if (curGrenade < grenades.Length - 1) {
+				curGrenade++;
+			}
+			else {
+				curGrenade = 0;
+			}
+			for (int i = 0; i < grenades.Length; i++) {
+				if (i == curGrenade) {
+					grenades[i].SetActive(true);
+				} 
+				else {
+					grenades[i].SetActive(false);
+				}
+			}
+		}
 	}
 }
