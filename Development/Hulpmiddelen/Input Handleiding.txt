@@ -6,6 +6,8 @@
 •	Rechtenmuis: Mikken
 •	Scrollen voor weapon switch
 •	1 ammo switch
+•	2 granade cycle
+•	3 om te switchen tussen med- en stimpacks
 •	A, D Voor streven
 •	Muis voor camera look
 •	F: quick stab
@@ -14,6 +16,4 @@
 •	G: grenade 
 •	R: Reload
 •	Middle mouse click: Fire selector
-•	2 granade cycle
-•	3 om te switchen tussen med- en stimpacks
 •	Esc is voor pauzeren
