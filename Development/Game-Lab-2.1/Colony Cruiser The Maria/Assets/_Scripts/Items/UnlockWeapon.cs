@@ -5,10 +5,8 @@ public class UnlockWeapon : MonoBehaviour {
 
     public GameObject pickedWeapon;
 
-    public void OnTriggerEnter(Collider trigger) {
-        if (trigger.tag == "Player") {
-			trigger.GetComponent<WeaponManager>().WeaponObtained(pickedWeapon);
-			Destroy (gameObject);
-        }
+    public void Unlock(GameObject player) {
+        player.GetComponent<WeaponManager>().WeaponObtained(pickedWeapon);
+	    Destroy(gameObject);
     }
 }

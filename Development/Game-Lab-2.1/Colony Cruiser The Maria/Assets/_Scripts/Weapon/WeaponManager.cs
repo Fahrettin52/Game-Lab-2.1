@@ -80,7 +80,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void GrenadeSwitch(){
-		if(Input.GetButtonDown("SwitchGrenades")){
+		if(Input.GetButtonDown("SwitchGrenade")){
 			if (curGrenade < grenades.Length - 1) {
 				curGrenade++;
 			}
