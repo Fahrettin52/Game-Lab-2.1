@@ -9,6 +9,18 @@ public class Movement : MonoBehaviour {
 
     public int moveSpeed;
     public int ladderSpeed;
+    public int coverSpeed;
+    public int runSpeed;
+    public int startSpeed;
+    public int crouchSpeed;
+    public bool iscrouching;
+    public bool isCovering;
+
+    public void Start() {
+        startSpeed = moveSpeed;
+        iscrouching = false;
+        iscrouching = false;
+    }
 
     void FixedUpdate() {
         switch (myMovement) {
@@ -28,6 +40,25 @@ public class Movement : MonoBehaviour {
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
             transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
         }
+
+        if (Input.GetButtonDown("Crouch") && iscrouching == false){
+            moveSpeed = crouchSpeed;
+            GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
+            iscrouching = true;     
+        } 
+        else if (Input.GetButtonDown("Crouch") && iscrouching == true){
+            GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+            moveSpeed = startSpeed;
+            iscrouching = false;
+        }
+
+        if (Input.GetButton("Run") && iscrouching == false) {
+            moveSpeed = runSpeed;
+        } 
+
+        if (Input.GetButtonUp("Run")) {
+            moveSpeed = startSpeed;
+        }
     }
 
     public void LadderChecker() {
@@ -37,13 +68,32 @@ public class Movement : MonoBehaviour {
     }
 
     public void CoverChecker() {
+        if (Input.GetAxis("Horizontal") != 0) {
+            transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * coverSpeed);
+        }
     }
 
     public void OnTriggerStay(Collider collider) {
         if (collider.transform.tag == "Ladder") {
             GetComponent<Rigidbody>().useGravity = false;
             myMovement = MovementType.Ladder;
-        } 
+        }
+        if (collider.transform.tag == "Cover" && Input.GetButtonDown ("Interact")) {
+            if (myMovement == MovementType.Normal) {
+                GetComponent<CameraControl>().myView = CameraControl.ViewType.Cover;
+                transform.localRotation = Quaternion.Euler(0, collider.transform.rotation.y - 180, 0);
+                GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
+                myMovement = MovementType.Cover;
+
+            } 
+            else if (collider.transform.tag == "Cover" && Input.GetButtonDown("Interact")) {
+                if (myMovement == MovementType.Cover) {
+                    GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
+                    GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+                    myMovement = MovementType.Normal;
+                }
+            }
+        }
     }
     
     public void OnTriggerExit(Collider collider) {
