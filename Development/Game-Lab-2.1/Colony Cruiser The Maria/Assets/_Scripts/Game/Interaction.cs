@@ -10,48 +10,48 @@ public class Interaction : MonoBehaviour {
     public void Interact(GameObject player) {
         switch (myType) {
             case InteractionType.Door:
-                interactDoor();
+                InteractDoor();
                 break;
             case InteractionType.Weapon:
-                interactWeapon(player);
+                InteractWeapon(player);
                 break;
             case InteractionType.HealthPack:
-                interactHealthPack(player);
+                InteractHealthPack(player);
                 break;
             case InteractionType.StimPack:
-                interactStimPack(player);
+                InteractStimPack(player);
                 break;
             case InteractionType.Displai:
-                interactDisplai();
+                InteractDisplai();
                 break;
             case InteractionType.CodeBreaker:
-                interactCodeBreaker();
+                InteractCodeBreaker();
                 break;
         }
     }
 
-    public void interactDoor() {
+    public void InteractDoor() {
         print("This is a door");
     }
 
-    public void interactWeapon(GameObject player) {
+    public void InteractWeapon(GameObject player) {
         gameObject.GetComponent<UnlockWeapon>().Unlock(player);
         print("This is a Weapon");
     }
 
-    public void interactHealthPack(GameObject player) {
+    public void InteractHealthPack(GameObject player) {
         print("This is a Healthpack");
     }
 
-    public void interactStimPack(GameObject player) {
+    public void InteractStimPack(GameObject player) {
         print("This is a Stimpack");
     }
 
-    public void interactDisplai() {
+    public void InteractDisplai() {
         print("This is a Display");
     }
 
-    public void interactCodeBreaker() {
+    public void InteractCodeBreaker() {
         print("This is a Codebreaker");
     }
 }

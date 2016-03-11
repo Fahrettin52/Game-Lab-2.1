@@ -19,25 +19,25 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public float projectileSpeed;
 	public float effectiveRange;
 
-	public abstract void OnEnable ();
+    public abstract void Shooting();
 
-	public abstract void FillDelegate ();
+    public abstract void Reloading();
 
-	public abstract void Shooting ();
+    public abstract void OnEnable ();
+
+    public abstract bool Aiming(bool aim);
+
+    public abstract void AmmoRemove();
+
+    public abstract void AmmoAdd();
+
+    public abstract void AmmoEffect();
+
+    public abstract void HitChecker();
+
+    public abstract void FillDelegate ();	
 
 	public abstract void DistanceChecker (Vector3 savedPos);
 
 	public abstract IEnumerator ImpactDelay (float impactTime, float damage);
-
-	public abstract void Reloading ();
-
-	public abstract bool Aiming (bool aim);
-
-	public abstract void AmmoRemove ();
-
-	public abstract void AmmoAdd ();
-
-	public abstract void AmmoEffect ();
-
-	public abstract void HitChecker ();
 }

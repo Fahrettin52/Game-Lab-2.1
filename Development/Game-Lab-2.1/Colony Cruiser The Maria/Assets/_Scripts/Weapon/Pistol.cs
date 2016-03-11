@@ -17,8 +17,8 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void Shooting(){
-		if (Input.GetButtonDown ("Fire1")) {
 			Vector3 playerPos = player.transform.position;
+		if (Input.GetButtonDown ("Fire1")) {
 			shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 			Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
 			if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
@@ -65,10 +65,6 @@ public class Pistol : AbstractWeapon {
 		yield return new WaitForSeconds(impactTime);
 	}
 
-	public override void Reloading(){
-
-	}
-
 	public override bool Aiming(bool aim){
 		if (!aim) {
 			if (camero.GetComponent<Camera> ().fieldOfView < maxFieldOfView) {
@@ -100,4 +96,8 @@ public class Pistol : AbstractWeapon {
 	public override void HitChecker(){
 
 	}
+
+    public override void Reloading() {
+
+    }
 }

@@ -5,11 +5,7 @@ public class GameManager : MonoBehaviour {
 	//Ik moet er nog voor zorgen dat wanneer we in slowmo zitten hij niet terug gaat naar 1 maar naar de slowmo
 	//Wanneer het spel eenmaal gepaused is zal de HUD moeten veranderen naar de pause menu
 	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (Input.GetButtonDown ("Cancel")) {
 			PauseGame (1);

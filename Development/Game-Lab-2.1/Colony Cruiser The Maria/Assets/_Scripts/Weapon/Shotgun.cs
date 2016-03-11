@@ -2,12 +2,6 @@
 using System.Collections;
 
 public class Shotgun : AbstractWeapon {
-//	public enum AmmoType{
-//		BirdShot,
-//		BuckShot,
-//		SlugShot
-//	}
-//	public AmmoType ammoType;
 
 	public float shotCount;
 	public float birdShotCount;
