@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-    public enum MovementType { Normal, Ladder, Cover, Death};
+    public enum MovementType { Normal, Ladder, Cover, Dead};
 
     public MovementType myMovement;
 
