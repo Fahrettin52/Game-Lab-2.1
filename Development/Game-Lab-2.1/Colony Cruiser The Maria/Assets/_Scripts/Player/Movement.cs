@@ -68,10 +68,26 @@ public class Movement : MonoBehaviour {
     }
 
     public void CoverChecker() {
+        if (Input.GetAxis("Vertical") != 0) {
+            if (GetComponent<CameraControl>().camRotationX >= 15 && GetComponent<CameraControl>().camRotationX <= 120) {
+                transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
+            }
+
+            if (GetComponent<CameraControl>().camRotationX <= -15 && GetComponent<CameraControl>().camRotationX >= -120) {
+                transform.Translate(new Vector3(-Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
+            }
+        }
+        if (Input.GetAxis("Vertical") != 0) {
+            if (GetComponent<CameraControl>().camRotationX > -15 && GetComponent<CameraControl>().camRotationX < 15) {
+                GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
+                GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+                myMovement = MovementType.Normal;
+            }
+        }
         if (Input.GetAxis("Horizontal") != 0) {
             transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * coverSpeed);
         }
-    }
+     }
 
     public void OnTriggerStay(Collider collider) {
         if (collider.transform.tag == "Ladder") {
@@ -100,6 +116,14 @@ public class Movement : MonoBehaviour {
         if (collider.transform.tag == "Ladder") {
             GetComponent<Rigidbody>().useGravity = true;
             myMovement = MovementType.Normal;
+        }
+
+        if (collider.transform.tag == "Cover") {
+            if (myMovement == MovementType.Cover) { 
+                GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
+                GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+                myMovement = MovementType.Normal;
+            }
         }
     }
 }

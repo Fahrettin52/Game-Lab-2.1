@@ -7,10 +7,11 @@ public class CameraControl : MonoBehaviour {
 
     public ViewType myView;
 
-    private float camRotationX;
-	private float camRotationY;
+    public float camRotationX;
+	public float camRotationY;
 	public float mouseSensetivity;
 	public float rotationLimit;
+    public float rotationCover;
 	public GameObject camero;
 
 	void Start(){
@@ -38,6 +39,7 @@ public class CameraControl : MonoBehaviour {
 
     public void CoverRotation() {
         camRotationX += Input.GetAxis("Mouse X") * mouseSensetivity * Time.deltaTime;
+        camRotationX = Mathf.Clamp(camRotationX, -rotationCover, rotationCover);
         camRotationY -= Input.GetAxis("Mouse Y") * mouseSensetivity * Time.deltaTime;
         camRotationY = Mathf.Clamp(camRotationY, -rotationLimit, rotationLimit);
         camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
