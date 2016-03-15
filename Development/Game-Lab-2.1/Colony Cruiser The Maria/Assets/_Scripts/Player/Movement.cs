@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour {
     public void Start() {
         startSpeed = moveSpeed;
         iscrouching = false;
-        iscrouching = false;
         mayJump = true;
     }
 

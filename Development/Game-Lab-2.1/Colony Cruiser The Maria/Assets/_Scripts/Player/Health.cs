@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
 	public int health;
@@ -7,21 +8,19 @@ public class Health : MonoBehaviour {
 	private int startHealth;
 	public float deathDuration;
 	public Transform respawnPoint;
+	public CanvasGroup gameOverHud;
 
 	void Start () {
 		startHealth = health;
 		maxHealth = health;
 	}
 
-	//Dit is om healing en damaging te testen
-//	void Update () {
-//		if(Input.GetButtonDown("Jump")){
-//			Damaging (25);
-//		}
-//		if(Input.GetButtonDown("ActivatePack")){
-//			Healing (25);
-//		}
-//	}
+	//Dit is om damaging te testen
+	void Update () {
+		if(Input.GetButtonDown("Jump")){
+			Damaging (25);
+		}
+	}
 
 	public void Healing(int toHeal){
 		if(health < maxHealth){
@@ -44,17 +43,19 @@ public class Health : MonoBehaviour {
 
 	public void Death(){
 		print ("Dieded!!");
-		//Activeer hier de death/gameover screen
+		gameOverHud.alpha = 1;
 		GetComponent<Movement> ().myMovement = Movement.MovementType.Dead;
+		GetComponent<CameraControl> ().myView = CameraControl.ViewType.Dead;
 		transform.position = respawnPoint.position;
 		transform.rotation = respawnPoint.rotation;
 		health = startHealth;
-		Rebirth (deathDuration);
+		StartCoroutine(Rebirth (deathDuration));
 	}
 
 	public IEnumerator Rebirth(float rebirthDelay){
-		//Verwijder hier death/gameover screen
-		GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;
 		yield return new WaitForSeconds(rebirthDelay);
+		gameOverHud.alpha = 0;
+		GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;
+		GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour {
 
-    public enum ViewType { Normal, Cover };
+    public enum ViewType { Normal, Cover, Dead};
 
     public ViewType myView;
 

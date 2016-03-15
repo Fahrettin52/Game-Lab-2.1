@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Shotgun : AbstractWeapon {
 
+	public int maxAmmoType;
 	public float shotCount;
 	public float birdShotCount;
 	public float buckShotCount;
@@ -36,10 +37,10 @@ public class Shotgun : AbstractWeapon {
 
 	void AmmoSwitch(){
 		print ("SWITCHING!!");
-		if (curAmmoType < 3) {
+		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
-		if(curAmmoType == 3){
+		if(curAmmoType == maxAmmoType){
 			curAmmoType = 0;
 		}
 		switch (curAmmoType){
