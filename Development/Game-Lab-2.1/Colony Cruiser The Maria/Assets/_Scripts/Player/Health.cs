@@ -5,6 +5,7 @@ public class Health : MonoBehaviour {
 	public int health;
 	public int maxHealth;
 	private int startHealth;
+	public float deathDuration;
 	public Transform respawnPoint;
 
 	void Start () {
@@ -43,9 +44,17 @@ public class Health : MonoBehaviour {
 
 	public void Death(){
 		print ("Dieded!!");
-		//Speel hier de death/gameover screen af
+		//Activeer hier de death/gameover screen
+		GetComponent<Movement> ().myMovement = Movement.MovementType.Dead;
 		transform.position = respawnPoint.position;
 		transform.rotation = respawnPoint.rotation;
 		health = startHealth;
+		Rebirth (deathDuration);
+	}
+
+	public IEnumerator Rebirth(float rebirthDelay){
+		//Verwijder hier death/gameover screen
+		GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;
+		yield return new WaitForSeconds(rebirthDelay);
 	}
 }
