@@ -13,14 +13,12 @@ public class Movement : MonoBehaviour {
     public int runSpeed;
     public int startSpeed;
     public int crouchSpeed;
-    public bool iscrouching;
-    public bool isCovering;
+    public bool Iscrouching;
     public bool mayJump;
 
     public void Start() {
         startSpeed = moveSpeed;
-        iscrouching = false;
-        iscrouching = false;
+        Iscrouching = false;
         mayJump = true;
     }
 
@@ -43,18 +41,18 @@ public class Movement : MonoBehaviour {
             transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
         }
 
-        if (Input.GetButtonDown("Crouch") && iscrouching == false){
+        if (Input.GetButtonDown("Crouch") && Iscrouching == false){
             moveSpeed = crouchSpeed;
             GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
-            iscrouching = true;     
+            Iscrouching = true;     
         } 
-        else if (Input.GetButtonDown("Crouch") && iscrouching == true){
+        else if (Input.GetButtonDown("Crouch") && Iscrouching == true){
             GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
             moveSpeed = startSpeed;
-            iscrouching = false;
+            Iscrouching = false;
         }
 
-        if (Input.GetButton("Run") && iscrouching == false) {
+        if (Input.GetButton("Run") && Iscrouching == false) {
             moveSpeed = runSpeed;
         } 
 
@@ -76,16 +74,16 @@ public class Movement : MonoBehaviour {
 
     public void CoverChecker() {
         if (Input.GetAxis("Vertical") != 0) {
-            if (GetComponent<CameraControl>().camRotationX >= 15 && GetComponent<CameraControl>().camRotationX <= 120) {
+            if (GetComponent<CameraControl>().camRotationX >= 25 && GetComponent<CameraControl>().camRotationX <= 125) {
                 transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
             }
 
-            if (GetComponent<CameraControl>().camRotationX <= -15 && GetComponent<CameraControl>().camRotationX >= -120) {
+            if (GetComponent<CameraControl>().camRotationX <= -25 && GetComponent<CameraControl>().camRotationX >= -125) {
                 transform.Translate(new Vector3(-Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
             }
         }
         if (Input.GetAxis("Vertical") != 0) {
-            if (GetComponent<CameraControl>().camRotationX > -15 && GetComponent<CameraControl>().camRotationX < 15) {
+            if (GetComponent<CameraControl>().camRotationX > -25 && GetComponent<CameraControl>().camRotationX < 25) {
                 GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
                 GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
                 myMovement = MovementType.Normal;
@@ -99,18 +97,22 @@ public class Movement : MonoBehaviour {
             myMovement = MovementType.Ladder;
         }
         if (collider.transform.tag == "Cover" && Input.GetButtonDown ("Interact")) {
+            print("1");
             if (myMovement == MovementType.Normal) {
+                print("2");
                 GetComponent<CameraControl>().myView = CameraControl.ViewType.Cover;
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
                 transform.localRotation = Quaternion.Euler(0, collider.transform.rotation.y -180, 0);
                 GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
                 myMovement = MovementType.Cover;
             } 
-            else if (collider.transform.tag == "Cover" && Input.GetButtonDown("Interact")) {
+            else if (Input.GetButtonDown("Interact")) {
+                print("3");
                 if (myMovement == MovementType.Cover) {
+                    print("4");
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
                     GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
                     myMovement = MovementType.Normal;
-                    transform.localRotation = Quaternion.Euler(0, -180, 0);
                 }
             }
         }
