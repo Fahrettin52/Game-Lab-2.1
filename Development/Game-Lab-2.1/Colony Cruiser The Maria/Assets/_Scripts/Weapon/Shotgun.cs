@@ -69,26 +69,26 @@ public class Shotgun : AbstractWeapon {
 		player.GetComponent<WeaponManager> ().shootDelegate = null;
 		player.GetComponent<WeaponManager> ().aimDelegate = null;
 		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = null;
+		player.GetComponent<WeaponManager> ().quickMeleeDelegate = null;
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
 		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
 		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
+		player.GetComponent<WeaponManager> ().quickMeleeDelegate = QuickMelee;
 	}
 
 	public override void Shooting(){
-		if (Input.GetButtonDown ("Fire1")) {
-			if (loadedAmmo > 0) {
-				for (int i = 0; i < shotCount; i++) {
-					Vector3 playerPos = player.transform.position;
-					shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-					Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
-					if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-						DistanceChecker (playerPos);		
-					} else {
-						print ("MISSED");
-					}
+		if (loadedAmmo > 0) {
+			for (int i = 0; i < shotCount; i++) {
+				Vector3 playerPos = player.transform.position;
+				shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+				if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
+					DistanceChecker (playerPos);		
+				} else {
+					print ("MISSED");
 				}
-				AmmoRemove ();
 			}
+			AmmoRemove ();
 		}
 		if(Input.GetButtonDown("Reload") || loadedAmmo == 0){
 			if(loadedAmmo < magSize) {
@@ -225,6 +225,10 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void HitChecker(){
+
+	}
+
+	public override void QuickMelee(){
 
 	}
 }

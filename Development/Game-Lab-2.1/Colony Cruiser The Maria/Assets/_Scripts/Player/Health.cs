@@ -15,13 +15,6 @@ public class Health : MonoBehaviour {
 		maxHealth = health;
 	}
 
-	//Dit is om damaging te testen
-	void Update () {
-		if(Input.GetButtonDown("Jump")){
-			Damaging (25);
-		}
-	}
-
 	public void Healing(int toHeal){
 		if(health < maxHealth){
 			health += toHeal;

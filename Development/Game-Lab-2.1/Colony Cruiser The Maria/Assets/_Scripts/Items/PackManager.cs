@@ -11,6 +11,7 @@ public class PackManager : MonoBehaviour {
 	public int medPackCount;
 	public int stimPackCount;
 	public int healAmount;
+	public GameObject gameManager;
 
 	void Update () {
 		if(Input.GetButtonDown("SwitchPack")){
@@ -29,7 +30,8 @@ public class PackManager : MonoBehaviour {
 	public void MedPackChecker(){
 		if(medPackCount > 0 && Input.GetButtonDown("ActivatePack")){
 			print ("heal de speler");
-			GetComponent<Health> ().Healing (healAmount);
+			//activeer hier de healing
+			//GetComponent<Health> ().Healing (healAmount);
 			medPackCount--;
 		}
 		else if (medPackCount < 1 && stimPackCount > 0) {
@@ -40,6 +42,7 @@ public class PackManager : MonoBehaviour {
 	public void StimPackChecker(){
 		if (stimPackCount > 0 && Input.GetButtonDown ("ActivatePack")) {
 			print ("Activer slow-mo");
+			//Activeer hier de slowmo
 			//gameManager.GetComponent<GameManager> ().gameState = GameManager.GameState.Slowmo;
 			stimPackCount--;
 		} 

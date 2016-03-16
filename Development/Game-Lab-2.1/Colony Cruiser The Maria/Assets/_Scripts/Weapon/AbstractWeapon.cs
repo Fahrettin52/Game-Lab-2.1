@@ -40,4 +40,6 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public abstract void DistanceChecker (Vector3 savedPos);
 
 	public abstract IEnumerator ImpactDelay (float impactTime, float damage);
+
+	public abstract void QuickMelee ();
 }

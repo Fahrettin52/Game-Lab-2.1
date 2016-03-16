@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 		defaultTimeScale = Time.timeScale;
 	}
 
-	void Update () {
+	void Update(){
 		switch (gameState) {
 		case GameState.Normal:
 			curTimeScale = defaultTimeScale;

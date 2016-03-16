@@ -12,20 +12,20 @@ public class Pistol : AbstractWeapon {
 	public override void FillDelegate(){
 		player.GetComponent<WeaponManager> ().shootDelegate = null;
 		player.GetComponent<WeaponManager> ().aimDelegate = null;
+		player.GetComponent<WeaponManager> ().quickMeleeDelegate = null;
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
 		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
+		player.GetComponent<WeaponManager> ().quickMeleeDelegate = QuickMelee;
 	}
 
 	public override void Shooting(){
-			Vector3 playerPos = player.transform.position;
-		if (Input.GetButtonDown ("Fire1")) {
-			shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-			Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
-			if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-				DistanceChecker (playerPos);		
-			} else {
-				print ("MISSED");
-			}
+		Vector3 playerPos = player.transform.position;
+		shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+		Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+		if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
+			DistanceChecker (playerPos);		
+		} else {
+			print ("MISSED");
 		}
 	}
 
@@ -100,4 +100,8 @@ public class Pistol : AbstractWeapon {
     public override void Reloading() {
 
     }
+
+	public override void QuickMelee(){
+	
+	}
 }

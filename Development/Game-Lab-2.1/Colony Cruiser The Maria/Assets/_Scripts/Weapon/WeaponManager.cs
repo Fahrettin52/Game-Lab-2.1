@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour {
 	public delegate bool AimDelegate (bool aims);
 	public WeaponDelegate shootDelegate;
 	public WeaponDelegate ammoSwitchDelegate;
+	public WeaponDelegate quickMeleeDelegate;
 	public AimDelegate aimDelegate;
     private bool aiming;
 
@@ -16,22 +17,36 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject[] grenades;
 	public int curGrenade;
 
-	void Start(){
-		curWeapon = -1;
-		WeaponSwitch ();
+	public void Update(){
+		WeaponAction ();
+		WeaponControl ();
 	}
 
-	public void Update(){
-		if (shootDelegate != null || aimDelegate != null) {
-			shootDelegate ();
-			if (Input.GetButton ("Fire2")) {
-                aiming = true;
-			} 
-            else {
-                aiming = false;
+	public void WeaponAction(){
+		if (shootDelegate != null) {
+			if (Input.GetButtonDown ("Fire1")) {
+				shootDelegate ();
 			}
-            aimDelegate(aiming);
 		}
+		if (aimDelegate != null) {
+			if(Input.GetButton ("Fire2")){
+				aiming = true;
+			} 
+			else {
+				aiming = false;
+			}
+			aimDelegate (aiming);
+		}
+		else {
+			if (Input.GetButtonDown ("Fire2")) {
+				quickMeleeDelegate ();
+			}
+		}
+	}
+
+	public void WeaponControl(){
+		AmmoSwitch ();
+		GrenadeSwitch ();
 		if(Input.GetAxis("Mouse ScrollWheel") > 0 && aiming == false){
 			if (curWeapon < weaponList.Count-1) {
 				curWeapon++;
@@ -52,8 +67,6 @@ public class WeaponManager : MonoBehaviour {
 				WeaponSwitch ();
 			}
 		}
-		AmmoSwitch ();
-		GrenadeSwitch ();
 	}
 
 	public void WeaponSwitch(){
