@@ -17,10 +17,19 @@ public class Movement : MonoBehaviour {
     public bool isCovering;
     public bool mayJump;
 
+    public float rayDistance;
+    public RaycastHit hitObject;
+
+    private Vector3 myNormal;
+
     public void Start() {
         startSpeed = moveSpeed;
         iscrouching = false;
         mayJump = true;
+    }
+
+    void Update() {
+        Cover();
     }
 
     void FixedUpdate() {
@@ -88,25 +97,6 @@ public class Movement : MonoBehaviour {
         }
      }
 
-    public void OnTriggerStay(Collider collider) {
-        if (collider.transform.tag == "Cover" && Input.GetButtonDown ("Interact")) {
-            if (myMovement == MovementType.Normal) {
-                GetComponent<CameraControl>().myView = CameraControl.ViewType.Cover;
-                transform.localRotation = Quaternion.Euler(0, collider.transform.rotation.y -180, 0);
-                GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
-                myMovement = MovementType.Cover;
-            } 
-            else if (collider.transform.tag == "Cover" && Input.GetButtonDown("Interact")) {
-                if (myMovement == MovementType.Cover) {
-                    GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
-                    GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
-                    myMovement = MovementType.Normal;
-                    transform.localRotation = Quaternion.Euler(0, -180, 0);
-                }
-            }
-        }
-    }
-
     public void OnTriggerEnter(Collider collider) {
         if (collider.transform.tag == "Ladder") {
             GetComponent<Rigidbody>().useGravity = false;
@@ -131,5 +121,44 @@ public class Movement : MonoBehaviour {
 
     public void OnCollisionEnter(Collision collider) {
         mayJump = true;
+    }
+
+    public void Cover() {
+        if (Input.GetButtonDown("Interact")) {
+            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.blue, rayDistance);
+            if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
+                if (hitObject.transform.tag == "Cover") {
+                    myNormal = hitObject.normal * 10 + hitObject.point;
+                    print(myNormal);
+
+                    transform.LookAt(myNormal);
+
+                    //GetComponentInChildren<Camera>().transform.LookAt(myNormal);
+
+                    //transform.position = hitObject.point;
+
+                    //transform.rotation.SetLookRotation(myNormal, Vector3.up);
+
+                    //print(this.transform.rotation);
+                    //if (myMovement == MovementType.Normal) {
+                    //    GetComponent<CameraControl>().myView = CameraControl.ViewType.Cover;
+                    //    transform.localRotation = Quaternion.Euler(0, hitObject.transform.rotation.y - 180, 0);
+                    //    GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
+                    //    myMovement = MovementType.Cover;
+                    //}
+                    //else if (hitObject.transform.tag == "Cover" && Input.GetButtonDown("Interact")) {
+                    //    if (myMovement == MovementType.Cover) {
+                    //        GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
+                    //        GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+                    //        myMovement = MovementType.Normal;
+                    //        transform.localRotation = Quaternion.Euler(0, -180, 0);
+                    //    }
+                    //}
+                }
+            }
+            else {
+                return;
+            }
+        }      
     }
 }

@@ -12,14 +12,11 @@ public class Interact : MonoBehaviour {
 
     public void InterAction() {
         if (Input.GetButtonDown("Interact")) {
-            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.blue, 1);
+            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.blue, rayDistance);
             if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
                 if (hitObject.transform.tag == "Interactable") {
                     hitObject.transform.GetComponent<Interaction>().Interact(gameObject);
                 } 
-                else {
-                    return;
-                }
             } 
             else {
                 return;
