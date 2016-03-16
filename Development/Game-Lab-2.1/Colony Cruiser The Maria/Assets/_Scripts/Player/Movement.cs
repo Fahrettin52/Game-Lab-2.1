@@ -38,9 +38,7 @@ public class Movement : MonoBehaviour {
     }
 
     public void MovingChecker() {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-            transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
-        }
+        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
 
         if (Input.GetButtonDown("Crouch") && iscrouching == false){
             moveSpeed = crouchSpeed;
@@ -57,7 +55,7 @@ public class Movement : MonoBehaviour {
             moveSpeed = runSpeed;
         } 
 
-        if (Input.GetButtonUp("Run")) {
+        if (Input.GetButtonUp("Run") && iscrouching == false) {
             moveSpeed = startSpeed;
         }
 
@@ -68,9 +66,7 @@ public class Movement : MonoBehaviour {
     }
 
     public void LadderChecker() {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-            transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * ladderSpeed);
-        }
+        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * ladderSpeed);
     }
 
     public void CoverChecker() {
@@ -93,10 +89,6 @@ public class Movement : MonoBehaviour {
      }
 
     public void OnTriggerStay(Collider collider) {
-        if (collider.transform.tag == "Ladder") {
-            GetComponent<Rigidbody>().useGravity = false;
-            myMovement = MovementType.Ladder;
-        }
         if (collider.transform.tag == "Cover" && Input.GetButtonDown ("Interact")) {
             if (myMovement == MovementType.Normal) {
                 GetComponent<CameraControl>().myView = CameraControl.ViewType.Cover;
@@ -114,7 +106,14 @@ public class Movement : MonoBehaviour {
             }
         }
     }
-    
+
+    public void OnTriggerEnter(Collider collider) {
+        if (collider.transform.tag == "Ladder") {
+            GetComponent<Rigidbody>().useGravity = false;
+            myMovement = MovementType.Ladder;
+        }
+    }
+
     public void OnTriggerExit(Collider collider) {
         if (collider.transform.tag == "Ladder") {
             GetComponent<Rigidbody>().useGravity = true;
@@ -128,8 +127,8 @@ public class Movement : MonoBehaviour {
                 myMovement = MovementType.Normal;
             }
         }
-    }
-        
+    }      
+
     public void OnCollisionEnter(Collision collider) {
         mayJump = true;
     }
