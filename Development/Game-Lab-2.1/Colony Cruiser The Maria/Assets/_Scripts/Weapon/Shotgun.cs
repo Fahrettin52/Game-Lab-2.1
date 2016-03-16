@@ -186,14 +186,14 @@ public class Shotgun : AbstractWeapon {
 		if (!aim) {
 			if (camero.GetComponent<Camera> ().fieldOfView < maxFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView += zoomSpeed * Time.deltaTime;
-				//Vervang onderste code later met animation
-			}
+                GetComponent<Animator>().SetBool("aimAnimation", false);
+            }
 		}
 		else {
 			if (camero.GetComponent<Camera> ().fieldOfView > minFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView -= zoomSpeed * Time.deltaTime;
-				//Vervang onderste code later met animation
-			}
+                GetComponent<Animator>().SetBool("aimAnimation", true);
+            }
 		}
 		return aim;
 	}
