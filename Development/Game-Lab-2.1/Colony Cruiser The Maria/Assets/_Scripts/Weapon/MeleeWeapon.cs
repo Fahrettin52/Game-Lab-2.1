@@ -4,6 +4,9 @@ using System.Collections;
 public class MeleeWeapon : MonoBehaviour {
 	private GameObject player;
 	private Animator myAnimator;
+	public AnimatorStateInfo myStateInfo;
+	public int idleHash = Animator.StringToHash("FistIdlePH");
+	public bool mayMelee;
 
 	void Start(){
 		myAnimator = GetComponent<Animator> ();
@@ -15,6 +18,12 @@ public class MeleeWeapon : MonoBehaviour {
 		FillDelegate ();
 	}
 
+	void Update(){
+		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
+		print ("myStateInfo = " + myStateInfo.shortNameHash);
+		print ("idlestate info = " + idleHash);
+	}
+
 	public void FillDelegate(){
 		player.GetComponent<WeaponManager> ().shootDelegate = null;
 		player.GetComponent<WeaponManager> ().aimDelegate = null;
@@ -24,11 +33,23 @@ public class MeleeWeapon : MonoBehaviour {
 	}
 
 	public void Melee(){
-		myAnimator.SetTrigger("Melee");
+		if(myStateInfo.shortNameHash == idleHash){
+			mayMelee = true;
+			myAnimator.SetBool("Melee", mayMelee);
+		}
 	}
 
 	public void QuickMelee(){
-		myAnimator.SetTrigger("QuickMelee");
+		if (myStateInfo.shortNameHash == idleHash) {
+			mayMelee = true;
+			myAnimator.SetBool ("QuickMelee", mayMelee);
+		}
+	}
+
+	public void FalsifyMelee(){
+		mayMelee = false;
+		myAnimator.SetBool("Melee", mayMelee);
+		myAnimator.SetBool("QuickMelee", mayMelee);
 	}
 
 	public void ActivateCollider(){
