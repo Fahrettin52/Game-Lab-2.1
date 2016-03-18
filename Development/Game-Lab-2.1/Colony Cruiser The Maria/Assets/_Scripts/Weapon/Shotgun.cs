@@ -77,23 +77,25 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void Shooting(){
-		if (loadedAmmo > 0) {
-			for (int i = 0; i < shotCount; i++) {
-				Vector3 playerPos = player.transform.position;
-				shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-				Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
-				if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-					DistanceChecker (playerPos);		
-				} else {
-					print ("MISSED");
+		if (Input.GetButtonDown ("Fire1")) {
+			if (loadedAmmo > 0) {
+				for (int i = 0; i < shotCount; i++) {
+					Vector3 playerPos = player.transform.position;
+					shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+					Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+					if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
+						DistanceChecker (playerPos);		
+					} else {
+						print ("MISSED");
+					}
 				}
+				AmmoRemove ();
 			}
-			AmmoRemove ();
-		}
-		if(Input.GetButtonDown("Reload") || loadedAmmo == 0){
-			if(loadedAmmo < magSize) {
-				print ("Reloading");
-				Reloading ();
+			if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
+				if (loadedAmmo < magSize) {
+					print ("Reloading");
+					Reloading ();
+				}
 			}
 		}
 	}

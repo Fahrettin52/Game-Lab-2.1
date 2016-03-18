@@ -5,23 +5,14 @@ public class MeleeWeapon : MonoBehaviour {
 	private GameObject player;
 	private Animator myAnimator;
 	public AnimatorStateInfo myStateInfo;
-	public int idleHash = Animator.StringToHash("FistIdlePH");
-	public bool mayMelee;
+	private int idleHash = Animator.StringToHash("FistIdlePH");
+	private float hitTime;
+	public float hitRate;
 
-	void Start(){
+	void OnEnable(){
 		myAnimator = GetComponent<Animator> ();
 		player = GameObject.FindWithTag ("Player");
 		FillDelegate ();
-	}
-
-	void OnEnabled(){
-		FillDelegate ();
-	}
-
-	void Update(){
-		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
-		print ("myStateInfo = " + myStateInfo.shortNameHash);
-		print ("idlestate info = " + idleHash);
 	}
 
 	public void FillDelegate(){
@@ -33,23 +24,27 @@ public class MeleeWeapon : MonoBehaviour {
 	}
 
 	public void Melee(){
-		if(myStateInfo.shortNameHash == idleHash){
-			mayMelee = true;
-			myAnimator.SetBool("Melee", mayMelee);
+		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
+		if (Input.GetButtonDown ("Fire1")) {
+			if(Time.time > hitTime){
+				hitTime = Time.time + hitRate;
+				if (myStateInfo.shortNameHash == idleHash) {
+					myAnimator.SetTrigger ("Melee");
+				}
+			}
 		}
 	}
 
 	public void QuickMelee(){
-		if (myStateInfo.shortNameHash == idleHash) {
-			mayMelee = true;
-			myAnimator.SetBool ("QuickMelee", mayMelee);
+		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
+		if (Input.GetButtonDown ("Fire2")) {
+			if (Time.time > hitTime) {
+				if (myStateInfo.shortNameHash == idleHash) {
+					myAnimator.SetTrigger ("QuickMelee");
+				}
+				hitTime = Time.time + hitRate;
+			}
 		}
-	}
-
-	public void FalsifyMelee(){
-		mayMelee = false;
-		myAnimator.SetBool("Melee", mayMelee);
-		myAnimator.SetBool("QuickMelee", mayMelee);
 	}
 
 	public void ActivateCollider(){
@@ -60,7 +55,7 @@ public class MeleeWeapon : MonoBehaviour {
 		GetComponent<BoxCollider> ().enabled = false;
 	}
 
-	public void OnCollisionEnter(Collision col){
+	public void OnTriggerEnter(Collider col){
 		print ("Collided!");
 		switch (col.transform.tag) {
 		case "Head":

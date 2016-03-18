@@ -24,9 +24,7 @@ public class WeaponManager : MonoBehaviour {
 
 	public void WeaponAction(){
 		if (shootDelegate != null) {
-			if (Input.GetButtonDown ("Fire1")) {
-				shootDelegate ();
-			}
+			shootDelegate ();
 		}
 		if (aimDelegate != null) {
 			if(Input.GetButton ("Fire2")){
@@ -38,9 +36,7 @@ public class WeaponManager : MonoBehaviour {
 			aimDelegate (aiming);
 		}
 		else {
-			if (Input.GetButtonDown ("Fire2")) {
-				quickMeleeDelegate ();
-			}
+			quickMeleeDelegate ();
 		}
 	}
 
