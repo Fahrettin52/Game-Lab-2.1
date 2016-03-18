@@ -22,6 +22,8 @@ public class Movement : MonoBehaviour {
 
     private Vector3 myNormal;
 
+    public GameObject testPosition;
+
     public void Start() {
         startSpeed = moveSpeed;
         iscrouching = false;
@@ -128,14 +130,14 @@ public class Movement : MonoBehaviour {
             Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.blue, rayDistance);
             if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
                 if (hitObject.transform.tag == "Cover") {
+                    GetComponentInChildren<CameraControl>().myView = CameraControl.ViewType.Cover;
                     myNormal = hitObject.normal * 10 + hitObject.point;
-                    print(myNormal);
-
-                    transform.LookAt(myNormal);
+                    Instantiate(testPosition, myNormal, testPosition.transform.rotation);
+                    //transform.position = hitObject.point - new Vector3(0, 0 , +1);
+                    transform.position = hitObject.normal * 1 + hitObject.point;
+                    transform.LookAt(testPosition.transform.position);
 
                     //GetComponentInChildren<Camera>().transform.LookAt(myNormal);
-
-                    //transform.position = hitObject.point;
 
                     //transform.rotation.SetLookRotation(myNormal, Vector3.up);
 
