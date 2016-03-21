@@ -38,8 +38,8 @@ public class CameraControl : MonoBehaviour {
 	}
 
     public void CoverRotation() {
-        //camRotationX += Input.GetAxis("Mouse X") * mouseSensetivity * Time.deltaTime;
-        //camRotationY -= Input.GetAxis("Mouse Y") * mouseSensetivity * Time.deltaTime;
+        camRotationX += Input.GetAxis("Mouse X") * mouseSensetivity * Time.deltaTime;
+        camRotationY -= Input.GetAxis("Mouse Y") * mouseSensetivity * Time.deltaTime;
         camRotationX = Mathf.Clamp(camRotationX, -rotationCover, rotationCover);
         camRotationY = Mathf.Clamp(camRotationY, -rotationLimit, rotationLimit);
         camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
