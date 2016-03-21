@@ -36,17 +36,17 @@ public class Health : MonoBehaviour {
 		HealerAndDamager ();
 	}
 
-	public void HealerAndDamager(){
+	private void HealerAndDamager(){
 		while (recievedAmount > 0) {
 			recievedAmount--;
 			if (recievedString == stringForHealing) {
 				if (health < maxHealth) {
 					health++;
 				}
-			} else if (recievedString == stringForDamage) {
+			}  else if (recievedString == stringForDamage) {
 				if (health > 1) {
 					health--;
-				} 
+				}  
 				else {
 					Death ();
 				}
@@ -67,7 +67,7 @@ public class Health : MonoBehaviour {
 				case DangerLevelState.Med:
 					if (recievedString == stringForHealing) {
 						dangerLevelState = DangerLevelState.Low;
-					} 
+					}  
 					else if (recievedString == stringForDamage) {
 						dangerLevelState = DangerLevelState.High;
 					}
@@ -87,8 +87,9 @@ public class Health : MonoBehaviour {
 
 	public void HealOrDamage(string enterHealOrDamage, float amount){
 		recievedString = enterHealOrDamage;
-		recievedAmount = amount;
+		recievedAmount += amount;
 	}
+
 
 	public void LevelStateFiller(){
 		switch (dangerLevelState) {
