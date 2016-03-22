@@ -4,6 +4,8 @@ using System.Collections;
 public abstract class AbstractWeapon : MonoBehaviour {
 	public GameObject player;
 	public GameObject camero;
+	public Sprite myWeaponIcon;
+	public string myAmmoCount;
 	public bool aiming;
 	public float rayDis;
 	public float shootDirValueX;
@@ -42,4 +44,6 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public abstract IEnumerator ImpactDelay (float impactTime, float damage);
 
 	public abstract void QuickMelee ();
+
+	public abstract void UIChecker();
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour {
 	public delegate void WeaponDelegate();
@@ -13,6 +14,8 @@ public class WeaponManager : MonoBehaviour {
 
 	public List<GameObject> weaponList = new List<GameObject>();
 	public float curWeapon;
+	public Image weaponIcon;
+	public Text ammoCountHolder;
 
 	public GameObject[] grenades;
 	public int curGrenade;

@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class Shotgun : AbstractWeapon {
-
 	public int maxAmmoType;
 	public float shotCount;
 	public float birdShotCount;
 	public float buckShotCount;
 	public float slugShotCount;
-	int curAmmoType;
+	public int curAmmoType;
+	private int curAmmoTypeText;
 
 	public float birdDirValueX;
 	public float birdDirValueY;
@@ -17,7 +17,10 @@ public class Shotgun : AbstractWeapon {
 	public float slugDirValueX;
 	public float slugDirValueY;
 
-	int loadedAmmo;
+	private int loadedAmmo;
+	public int maxBirdAmmo;
+	public int maxBuckAmmo;
+	public int maxSlugAmmo;
 	public int birdTotalAmmo;
 	public int buckTotalAmmo;
 	public int slugTotalAmmo;
@@ -32,35 +35,44 @@ public class Shotgun : AbstractWeapon {
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
+		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
+		AmmoCycle ();
+		UIChecker ();
 	}
 
-	void AmmoSwitch(){
-		print ("SWITCHING!!");
+	public void AmmoSwitch(){
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
 		if(curAmmoType == maxAmmoType){
 			curAmmoType = 0;
 		}
+		AmmoCycle ();
+	}
+
+	public void AmmoCycle(){
 		switch (curAmmoType){
 		case 0:
 			loadedAmmo = birdAmmo;
 			shotCount = birdShotCount;
 			shootDirValueX = birdDirValueX;
 			shootDirValueY = birdDirValueY;
+			curAmmoTypeText = birdTotalAmmo;
 			break;
 		case 1:
 			loadedAmmo = buckAmmo;
 			shotCount = buckShotCount;
 			shootDirValueX = buckDirValueX;
 			shootDirValueY = buckDirValueY;
+			curAmmoTypeText = buckTotalAmmo;
 			break;
 		case 2:
 			loadedAmmo = slugAmmo;
 			shotCount = slugShotCount;
 			shootDirValueX = slugDirValueX;
 			shootDirValueY = slugDirValueY;
+			curAmmoTypeText = slugTotalAmmo;
 			break;
 		}
 	}
@@ -82,22 +94,24 @@ public class Shotgun : AbstractWeapon {
 				for (int i = 0; i < shotCount; i++) {
 					Vector3 playerPos = player.transform.position;
 					shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-					Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+					//Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
 					if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
 						DistanceChecker (playerPos);		
-					} else {
+					}
+					else {
 						print ("MISSED");
 					}
 				}
 				AmmoRemove ();
 			}
-			if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
-				if (loadedAmmo < magSize) {
-					print ("Reloading");
-					Reloading ();
-				}
+		}
+		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
+			if (loadedAmmo < magSize) {
+				print ("Reloading");
+				Reloading ();
 			}
 		}
+		UIChecker ();
 	}
 
 	public override void DistanceChecker(Vector3 savedPos){
@@ -142,12 +156,17 @@ public class Shotgun : AbstractWeapon {
 		case 0:
 			if (birdTotalAmmo > 0) {
 				int leftoverAmmo = birdMag - birdAmmo;
+				print (curAmmoTypeText);
 				for (int i = 0; leftoverAmmo > 0; i++) {
 					birdTotalAmmo--;
 					birdAmmo++;
 					leftoverAmmo--;
+					if (birdTotalAmmo < 1) {
+						break;
+					}
 				}
 				loadedAmmo = birdAmmo;
+				curAmmoTypeText = birdTotalAmmo;
 			}
 			else {
 				print ("Out of birdshot Magazines!");
@@ -160,8 +179,12 @@ public class Shotgun : AbstractWeapon {
 					buckTotalAmmo--;
 					buckAmmo++;
 					leftoverAmmo--;
+					if (buckTotalAmmo < 1) {
+						break;
+					}
 				}
 				loadedAmmo = buckAmmo;
+				curAmmoTypeText = buckTotalAmmo;
 			}
 			else {
 				print ("Out of buckshot Magazines!");
@@ -174,8 +197,12 @@ public class Shotgun : AbstractWeapon {
 					slugTotalAmmo--;
 					slugAmmo++;
 					leftoverAmmo--;
+					if (slugTotalAmmo < 1) {
+						break;
+					}
 				}
 				loadedAmmo = slugAmmo;
+				curAmmoTypeText = slugTotalAmmo;
 			}
 			else {
 				print ("Out of slugshot Magazines!");
@@ -232,5 +259,9 @@ public class Shotgun : AbstractWeapon {
 
 	public override void QuickMelee(){
 
+	}
+
+	public override void UIChecker(){
+		player.GetComponent<WeaponManager> ().ammoCountHolder.text = (loadedAmmo + "/" + curAmmoTypeText);
 	}
 }

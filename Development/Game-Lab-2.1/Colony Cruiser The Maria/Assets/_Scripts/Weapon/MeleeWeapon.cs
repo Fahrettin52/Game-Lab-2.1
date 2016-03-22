@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MeleeWeapon : MonoBehaviour {
 	private GameObject player;
@@ -8,10 +9,12 @@ public class MeleeWeapon : MonoBehaviour {
 	private int idleHash = Animator.StringToHash("FistIdlePH");
 	private float hitTime;
 	public float hitRate;
+	public Sprite myWeaponIcon;
 
 	void OnEnable(){
 		myAnimator = GetComponent<Animator> ();
 		player = GameObject.FindWithTag ("Player");
+		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
 	}
 

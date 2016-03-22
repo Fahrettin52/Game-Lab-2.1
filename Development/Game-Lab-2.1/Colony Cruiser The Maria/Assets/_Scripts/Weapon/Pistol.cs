@@ -6,6 +6,7 @@ public class Pistol : AbstractWeapon {
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
+		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
 	}
 
@@ -105,5 +106,9 @@ public class Pistol : AbstractWeapon {
 
 	public override void QuickMelee(){
 	
+	}
+
+	public override void UIChecker(){
+		
 	}
 }
