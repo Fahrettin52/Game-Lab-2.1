@@ -7,10 +7,10 @@ public class Interact : MonoBehaviour {
     public RaycastHit hitObject;
 
 	void Update () {
-        InterAction();
+        Interaction();
     }
 
-    public void InterAction() {
+    public void Interaction() {
         if (Input.GetButtonDown("Interact")) {
             Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.blue, rayDistance);
             if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
