@@ -2,13 +2,9 @@
 using System.Collections;
 
 public class Shotgun : AbstractWeapon {
-	public int maxAmmoType;
-	public float shotCount;
 	public float birdShotCount;
 	public float buckShotCount;
 	public float slugShotCount;
-	public int curAmmoType;
-	private int curAmmoTypeText;
 
 	public float birdDirValueX;
 	public float birdDirValueY;
@@ -17,7 +13,6 @@ public class Shotgun : AbstractWeapon {
 	public float slugDirValueX;
 	public float slugDirValueY;
 
-	private int loadedAmmo;
 	public int maxBirdAmmo;
 	public int maxBuckAmmo;
 	public int maxSlugAmmo;
@@ -30,7 +25,6 @@ public class Shotgun : AbstractWeapon {
 	public int birdMag;
 	public int buckMag;
 	public int slugMag;
-	public int magSize;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");

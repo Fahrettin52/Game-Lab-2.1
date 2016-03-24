@@ -21,6 +21,13 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public float projectileSpeed;
 	public float effectiveRange;
 
+	public int loadedAmmo;
+	public int curAmmoType;
+	public int curAmmoTypeText;
+	public int maxAmmoType;
+	public float shotCount;
+	public int magSize;
+
     public abstract void Shooting();
 
     public abstract void Reloading();
