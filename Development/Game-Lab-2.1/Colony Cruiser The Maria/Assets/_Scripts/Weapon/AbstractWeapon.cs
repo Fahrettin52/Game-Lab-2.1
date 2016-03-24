@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public abstract class AbstractWeapon : MonoBehaviour {
+
+	public Image recticale;
+	public Image recticaleHit;
+
 	public GameObject player;
 	public GameObject camero;
 	public Sprite myWeaponIcon;

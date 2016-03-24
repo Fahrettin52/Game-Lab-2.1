@@ -153,6 +153,8 @@ public class AssaultRifle : AbstractWeapon {
 		yield return new WaitForSeconds(impactTime);
 		switch (rayHit.transform.tag) {
 		case "Head":
+			recticale.enabled = false;
+			recticaleHit.enabled = true;	
 			print ("Hit the Head, damage x3");
 			Destroy (rayHit.transform.gameObject);
 			break;
