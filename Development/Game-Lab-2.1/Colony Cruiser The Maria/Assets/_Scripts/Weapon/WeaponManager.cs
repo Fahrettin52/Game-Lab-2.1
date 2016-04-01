@@ -18,6 +18,7 @@ public class WeaponManager : MonoBehaviour {
 	public Text ammoCountHolder;
 
 	public GameObject[] grenades;
+	public Transform hand;
 	public int curGrenade;
 
 	public void Update(){
@@ -88,6 +89,13 @@ public class WeaponManager : MonoBehaviour {
     public void AmmoSwitch(){
 		if (Input.GetButtonDown ("SwitchAmmo") && ammoSwitchDelegate != null) {
 			ammoSwitchDelegate();
+		}
+	}
+
+	public void ThrowGrenade(){
+		if(Input.GetButtonDown("Grenade")){
+			//moet hier de granaat gooien
+			Instantiate(grenades[curGrenade], hand.position, hand.rotation);
 		}
 	}
 
