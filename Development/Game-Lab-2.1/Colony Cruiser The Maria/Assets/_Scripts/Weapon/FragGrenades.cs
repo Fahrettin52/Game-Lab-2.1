@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FragGrenades : AbstractGrenades {
-	
+	public List<GameObject> targetList = new List<GameObject>();
+	public string[] enemyStrings;
+
+	public void Update(){
+		TimerToExplode ();
+	}
+
 	public override void TimerToExplode(){
 		myTimer -= Time.deltaTime;
 		if(myTimer < 0){
-			//Activeer triggerveld hier
+			gameObject.GetComponent<SphereCollider> ().enabled = true;
+			myTimer = 0;
 		}
 	}
 
@@ -15,11 +23,12 @@ public class FragGrenades : AbstractGrenades {
 	}
 
 	public void OnTriggerEnter(Collider col){
-		if(col.transform.tag == "Enemy"){
-			//Damage hier de enemy
+		for(int i = 0; i < enemyStrings.Length; i++){
+			if(col.transform.tag == enemyStrings[i] || col.transform.tag == "Player"){
+				targetList.Add (col.gameObject);
+			}
 		}
-		if(col.transform.tag == "Player"){
-			col.transform.GetComponent<Health> ().HealOrDamage ("damage", damage);
-		}
+		print ("Aantal targets hit = " + targetList.Count);
+		GrenadeEffect ();
 	}
 }
