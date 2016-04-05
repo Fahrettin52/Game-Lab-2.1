@@ -24,6 +24,7 @@ public class WeaponManager : MonoBehaviour {
 	public void Update(){
 		WeaponAction ();
 		WeaponControl ();
+		ThrowGrenade ();
 	}
 
 	public void WeaponAction(){
@@ -101,19 +102,11 @@ public class WeaponManager : MonoBehaviour {
 
 	public void GrenadeSwitch(){
 		if(Input.GetButtonDown("SwitchGrenade")){
-			if (curGrenade < grenades.Length - 1) {
+			if (curGrenade < grenades.Length) {
 				curGrenade++;
 			}
 			else {
 				curGrenade = 0;
-			}
-			for (int i = 0; i < grenades.Length; i++) {
-				if (i == curGrenade) {
-					grenades[i].SetActive(true);
-				} 
-				else {
-					grenades[i].SetActive(false);
-				}
 			}
 		}
 	}
