@@ -31,7 +31,13 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void Shooting(){
-		if (Input.GetButton ("Fire1")) {
+		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
+			if (loadedAmmo < magSize) {
+				print ("Reloading");
+				Reloading ();
+			}
+		}
+		if (Input.GetButton ("Fire1") && loadedAmmo > 0) {
 			if (waitTilNextFire <= 0) {
 				Vector3 playerPos = player.transform.position;
 				shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
@@ -44,16 +50,9 @@ public class AssaultRifle : AbstractWeapon {
 					print ("MISSED");
 				}
 				AmmoRemove ();
-
-				if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
-					if (loadedAmmo < magSize) {
-						print ("Reloading");
-						Reloading ();
-					}
-				}
 			}
-			UIChecker ();
 		}
+		UIChecker ();
 		waitTilNextFire -= Time.deltaTime * fireSpeed;
 	}
 
@@ -74,8 +73,9 @@ public class AssaultRifle : AbstractWeapon {
 				}
 				loadedAmmo = normalAmmo;
 				curAmmoTypeText = normalTotalAmmo;
-			} else {
-				print ("Out of birdshot Magazines!");
+			} 
+			else {
+				print ("Out of Normal Magazines!");
 			}
 			break;
 		case 1:
@@ -92,7 +92,7 @@ public class AssaultRifle : AbstractWeapon {
 				loadedAmmo = flechetteAmmo;
 				curAmmoTypeText = flechetteTotalAmmo;
 			} else {
-				print ("Out of buckshot Magazines!");
+				print ("Out of Flechette Magazines!");
 			}
 			break;
 		}
@@ -137,7 +137,11 @@ public class AssaultRifle : AbstractWeapon {
 		}
 	}
 
-	public override void AmmoAdd(){}
+	public override void AmmoAdd(){
+		print ("3") ;
+		normalTotalAmmo += 30;
+		curAmmoTypeText = normalTotalAmmo;
+	}
 
 	public override void AmmoEffect(){}
 
