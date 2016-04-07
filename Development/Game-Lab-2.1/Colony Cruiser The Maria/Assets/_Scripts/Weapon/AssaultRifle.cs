@@ -10,6 +10,7 @@ public class AssaultRifle : AbstractWeapon {
 	public int flechetteTotalAmmo;
 	public int normalMag;
 	public int flachetteMag;
+	public int fullNormalAmmo;
 
 	public float normalShotCount;
 	public float flechetteShotCount;
@@ -61,16 +62,8 @@ public class AssaultRifle : AbstractWeapon {
 		switch (curLoadedAmmo) {
 		case 0:
 			if (normalTotalAmmo > 0) {
-				int leftoverAmmo = normalMag - normalAmmo;
-				print (curAmmoTypeText);
-				for (int i = 0; leftoverAmmo > 0; i++) {
-					normalTotalAmmo--;
-					normalAmmo++;
-					leftoverAmmo--;
-					if (normalTotalAmmo < 1) {
-						break;
-					}
-				}
+				normalAmmo = magSize;
+				normalTotalAmmo -= magSize;
 				loadedAmmo = normalAmmo;
 				curAmmoTypeText = normalTotalAmmo;
 			} 
@@ -138,8 +131,7 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void AmmoAdd(){
-		print ("3") ;
-		normalTotalAmmo += 30;
+		normalTotalAmmo += magSize;
 		curAmmoTypeText = normalTotalAmmo;
 	}
 
