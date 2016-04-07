@@ -17,22 +17,44 @@ public class AssaultRifle : AbstractWeapon {
 	public float NormalDirValueY;
 	public float flechetteDirValueX;
 	public float flechetteirValueY;
+	public float fireSpeed;
+	public float waitTilNextFire; 
+
 	public GameObject bulletHole;
 	public GameObject bulletStart;
 
-	public float fireRate = 0.5f;
-	public float nextFire = 0.0f;
+
 
 	public void Update (){
 		GetComponent<LineRenderer>().SetPosition (0, bulletStart.transform.position);
-		GetComponent<LineRenderer> ().SetPosition (1, rayHit.point);
+		GetComponent<LineRenderer>().SetPosition (1, camero.transform.forward * 10 + camero.transform.position);
 	}
 
 	public override void Shooting(){
-		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
-			nextFire = Time.time + fireRate;
-			ForceFire ();
+		if (Input.GetButton ("Fire1")) {
+			if (waitTilNextFire <= 0) {
+				Vector3 playerPos = player.transform.position;
+				shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+				waitTilNextFire = 1;
+				if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
+					DistanceChecker (playerPos);		
+				} 
+				else {
+					print ("MISSED");
+				}
+				AmmoRemove ();
+
+				if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
+					if (loadedAmmo < magSize) {
+						print ("Reloading");
+						Reloading ();
+					}
+				}
+			}
+			UIChecker ();
 		}
+		waitTilNextFire -= Time.deltaTime * fireSpeed;
 	}
 
 	public override void Reloading(){
@@ -204,26 +226,5 @@ public class AssaultRifle : AbstractWeapon {
 			curAmmoTypeText = flechetteTotalAmmo;
 			break;
 		}
-	}
-
-	public void ForceFire () {
-		Vector3 playerPos = player.transform.position;
-		shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-		Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
-		if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-			DistanceChecker (playerPos);		
-		} 
-		else {
-			print ("MISSED");
-		}
-		AmmoRemove ();
-
-		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
-			if (loadedAmmo < magSize) {
-				print ("Reloading");
-				Reloading ();
-			}
-		}
-		UIChecker ();
 	}
 }
