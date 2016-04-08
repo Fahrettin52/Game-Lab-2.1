@@ -3,46 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class FragGrenades : AbstractGrenades {
-	public List<GameObject> targetList = new List<GameObject>();
-	public string[] enemyStrings;
 	public Rigidbody rigidBody;
 	public float throwingPower;
-	public float maxRange;
-	public bool colliderEnabled;
+	public float radius;
+	public float power;
 
 	public void OnEnable(){
 		rigidBody = GetComponent<Rigidbody> ();
 		rigidBody.AddForce (transform.forward * throwingPower);
-		StartCoroutine("TimerToExplode");
-	}
-
-	public void Update(){
-		gameObject.GetComponent<SphereCollider> ().enabled = colliderEnabled;
+		StartCoroutine ("TimerToExplode");
 	}
 
 	public override IEnumerator TimerToExplode(){
 		yield return new WaitForSeconds (myTimer);	
-		colliderEnabled = true;
-	}
-
-	public override void GrenadeEffect(){
-		for(int i = 0; i < targetList.Count; i++){
-			float distance = Vector3.Distance (transform.localPosition, targetList [i].GetComponent<Transform> ().localPosition);
-			print ("distance = " + distance);
-			print ("Target = " + targetList[i].GetComponent<Transform>().tag);
-		}
-	}
-
-	public void OnTriggerEnter(Collider col){
-		colliderEnabled = false;
-		for(int i = 0; i < enemyStrings.Length; i++){
-			if(col.transform.tag == enemyStrings[i] || col.transform.tag == "Player"){
-				targetList.Add (col.gameObject);
-				break;
+		Vector3 explosionPos = transform.position;
+		Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
+		foreach (Collider hit in colliders) {
+			Rigidbody rb = hit.GetComponent<Rigidbody>();
+			if (rb != null) {
+				GrenadeEffect (rb.gameObject);
+				rb.AddExplosionForce (power, explosionPos, radius);
 			}
 		}
-		print ("Aantal targets hit = " + targetList.Count);
-		GrenadeEffect ();
-		StopCoroutine ("TimerToExplode");
+		//Instantiate hier de particle shit
+		Destroy (gameObject);
+	}
+
+	public override void GrenadeEffect(GameObject objectHit){
+		float fragDistance = Vector3.Distance (transform.localPosition, objectHit.GetComponent<Transform>().localPosition);
+		float fragDamage = (radius - fragDistance) * grenadeDamage;
+		switch (objectHit.tag) {
+		case "Player":
+			objectHit.GetComponent<Health> ().HealOrDamage ("damage", fragDamage);
+			break;
+		case "Limbs":
+		case "Head":
+		case "Body":
+			print (objectHit.tag);
+			break;
+		};
 	}
 }

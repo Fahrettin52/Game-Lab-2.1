@@ -95,7 +95,6 @@ public class WeaponManager : MonoBehaviour {
 
 	public void ThrowGrenade(){
 		if(Input.GetButtonDown("Grenade")){
-			//moet hier de granaat gooien
 			Instantiate(grenades[curGrenade], hand.position, hand.rotation);
 		}
 	}
