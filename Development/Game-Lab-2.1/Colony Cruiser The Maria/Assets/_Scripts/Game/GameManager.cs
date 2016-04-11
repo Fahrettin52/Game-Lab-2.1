@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 		Slowmo
 	}
 	public GameState gameState;
+	public static float keyCard;
 
 	public float curTimeScale;
 	private float defaultTimeScale;
@@ -48,5 +49,9 @@ public class GameManager : MonoBehaviour {
 		}
 		//Switch HudStates hier!! maar moet dan eerst de MenuMng maken hiervoor
 		return timeType;
+	}
+
+	public void AddKeyCard(){
+		keyCard++;
 	}
 }
