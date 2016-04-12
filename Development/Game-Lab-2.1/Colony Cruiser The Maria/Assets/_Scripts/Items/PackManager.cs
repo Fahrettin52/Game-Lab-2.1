@@ -29,9 +29,7 @@ public class PackManager : MonoBehaviour {
 
 	public void MedPackChecker(){
 		if(medPackCount > 0 && Input.GetButtonDown("ActivatePack")){
-			print ("heal de speler");
-			//activeer hier de healing
-			//GetComponent<Health> ().Healing (healAmount);
+			GetComponent<Health>().HealOrDamage("heal", healAmount);
 			medPackCount--;
 		}
 		else if (medPackCount < 1 && stimPackCount > 0) {

@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class FragGrenades : AbstractGrenades {
-	public Rigidbody rigidBody;
-	public float throwingPower;
-	public float radius;
-	public float power;
+public class StunGrenade : AbstractGrenades {
+	public float stunningTime;
+	private ParticleSystem myParticles;
 
 	public void OnEnable(){
+		myParticles = GetComponent<ParticleSystem> ();
 		rigidBody = GetComponent<Rigidbody> ();
 		rigidBody.AddForce (transform.forward * throwingPower);
 		StartCoroutine ("TimerToExplode");
@@ -22,19 +20,19 @@ public class FragGrenades : AbstractGrenades {
 			Rigidbody rb = hit.GetComponent<Rigidbody>();
 			if (rb != null) {
 				GrenadeEffect (rb.gameObject);
-				rb.AddExplosionForce (power, explosionPos, radius);
 			}
 		}
 		//Instantiate hier de particle shit
+
 		Destroy (gameObject);
 	}
 
 	public override void GrenadeEffect(GameObject objectHit){
-		float fragDistance = Vector3.Distance (transform.localPosition, objectHit.GetComponent<Transform>().localPosition);
-		float fragDamage = (radius - fragDistance) * grenadeDamage;
 		switch (objectHit.tag) {
 		case "Player":
-			objectHit.GetComponent<Health> ().HealOrDamage ("damage", fragDamage);
+			//Stun hier die shit uit de speler en enemies.
+			objectHit.GetComponent<Movement> ().stunTime = stunningTime;
+			objectHit.GetComponent<Movement> ().myMovement = Movement.MovementType.Stunned;
 			break;
 		case "Limbs":
 		case "Head":

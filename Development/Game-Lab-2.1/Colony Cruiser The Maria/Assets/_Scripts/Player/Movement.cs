@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour {
 
-    public enum MovementType { Normal, Ladder, Cover, Dead};
+    public enum MovementType { Normal, Ladder, Cover, Dead, Stunned};
 
     public MovementType myMovement;
 
-    public int moveSpeed;
-    public int ladderSpeed;
-    public int coverSpeed;
-    public int runSpeed;
-    public int startSpeed;
-    public int crouchSpeed;
+    public float moveSpeed;
+    public float ladderSpeed;
+    public float coverSpeed;
+	public float runSpeed;
+	public float startSpeed;
+	public float crouchSpeed;
+	public float stunSpeed;
+	public float stunTime;
+	public GameObject stunScreen;
     public bool iscrouching;
     public bool isCovering;
     public bool mayJump;
@@ -28,15 +32,18 @@ public class Movement : MonoBehaviour {
 
     void FixedUpdate() {
         switch (myMovement) {
-            case MovementType.Normal:
-                MovingChecker();
-                break;
-            case MovementType.Ladder:
-                LadderChecker();
-                break;
-            case MovementType.Cover:
-                CoverChecker();
-                break;
+        case MovementType.Normal:
+            MovingChecker();
+            break;
+        case MovementType.Ladder:
+            LadderChecker();
+            break;
+ 	    case MovementType.Cover:
+            CoverChecker();
+            break;
+		case MovementType.Stunned:
+			StunChecker ();
+			break;
         }
     }
 
@@ -136,4 +143,34 @@ public class Movement : MonoBehaviour {
             }
         }
     }      
+
+	public void StunChecker(){
+		if (stunTime > 0) {
+			stunTime -= Time.deltaTime;
+			stunScreen.GetComponent<CanvasGroup> ().alpha = stunTime;
+		}
+		else {
+			myMovement = MovementType.Normal;
+		}
+		if (Input.GetButtonDown("Interact")) {
+			Cover();
+		}
+
+		if (Input.GetButtonDown("Crouch") && iscrouching == false){
+			moveSpeed = crouchSpeed / stunSpeed;
+			GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
+			iscrouching = true;     
+		} 
+		else if (Input.GetButtonDown("Crouch") && iscrouching == true){
+			GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
+			moveSpeed = startSpeed / stunSpeed;
+			iscrouching = false;
+		}
+
+		if (Input.GetButtonDown("Jump") && mayJump == true) {
+			GetComponent<Rigidbody>().AddForce(transform.up * 250);
+			mayJump = false;
+		}
+		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * (moveSpeed / stunSpeed));
+	}
 }

@@ -4,6 +4,10 @@ using System.Collections;
 public abstract class AbstractGrenades : MonoBehaviour {
 	public float myTimer;
 	public float grenadeDamage;
+	public Rigidbody rigidBody;
+	public float throwingPower;
+	public float radius;
+	public float power;
 
 	public abstract IEnumerator TimerToExplode();
 

@@ -20,6 +20,7 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject[] grenades;
 	public Transform hand;
 	public int curGrenade;
+	public int[] grenadesCount;
 
 	public void Update(){
 		WeaponAction ();
@@ -94,14 +95,15 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void ThrowGrenade(){
-		if(Input.GetButtonDown("Grenade")){
+		if(Input.GetButtonDown("Grenade") && grenadesCount[curGrenade] > 0){
 			Instantiate(grenades[curGrenade], hand.position, hand.rotation);
+			grenadesCount [curGrenade]--;
 		}
 	}
 
 	public void GrenadeSwitch(){
 		if(Input.GetButtonDown("SwitchGrenade")){
-			if (curGrenade < grenades.Length) {
+			if (curGrenade < grenades.Length - 1) {
 				curGrenade++;
 			}
 			else {
