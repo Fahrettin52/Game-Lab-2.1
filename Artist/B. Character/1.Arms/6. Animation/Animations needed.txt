@@ -1,0 +1,44 @@
+Revolver:
+
+	Equip
+	shoot
+	reload
+	aim
+	un-equip
+
+Shotgun:
+	
+	Equip
+	shoot
+	Reload
+	aim
+	Un-equip
+
+CeramicBlade: 
+
+	Equip
+	slash1
+	slash2
+	Un-equip
+
+AssaultRifle:
+	
+	Equip
+	shoot
+	Reload
+	aim
+	Un-equip
+
+PulseRifle:
+	
+	Equip
+	shoot
+	Reload
+	aim
+	Un-equip
+
+Grenades:
+
+	Equip
+	Throw
+	Un-Equip
