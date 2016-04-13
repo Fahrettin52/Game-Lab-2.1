@@ -3,10 +3,10 @@ using System.Collections;
 
 public class StunGrenade : AbstractGrenades {
 	public float stunningTime;
-	private ParticleSystem myParticles;
+	//private ParticleSystem myParticles;
 
 	public void OnEnable(){
-		myParticles = GetComponent<ParticleSystem> ();
+		//myParticles = GetComponent<ParticleSystem> ();
 		rigidBody = GetComponent<Rigidbody> ();
 		rigidBody.AddForce (transform.forward * throwingPower);
 		StartCoroutine ("TimerToExplode");
