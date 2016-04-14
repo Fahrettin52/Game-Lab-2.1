@@ -1,7 +1,7 @@
 Revolver:
 
-	Equip
-	shoot
+	Equip frame:20-60
+	shoot Frame:80-100
 	reload
 	aim
 	un-equip
