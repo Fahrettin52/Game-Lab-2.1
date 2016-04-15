@@ -19,6 +19,8 @@ public class GrenadePack : MonoBehaviour {
 	}
 
 	public void AddGrenade(){
-		player.GetComponent<WeaponManager> ().grenadesCount [randomGrenade]++;
+		if(player.GetComponent<WeaponManager>().grenadesCount[randomGrenade] < player.GetComponent<WeaponManager>().maxGrenadesCount){
+			player.GetComponent<WeaponManager> ().grenadesCount [randomGrenade]++;
+		}
 	}
 }

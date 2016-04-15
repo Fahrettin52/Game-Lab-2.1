@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthPack : AbstractPack {
+public class MedicalPack : AbstractPack {
 
 //	public void OnCollisionEnter(Collision col){
 //		AddPack ();

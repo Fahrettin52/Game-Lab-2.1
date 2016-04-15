@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class FragGrenades : AbstractGrenades {
 
 	public void OnEnable(){
+		myPoolManager = GameObject.Find (poolManagerString);
 		rigidBody = GetComponent<Rigidbody> ();
 		rigidBody.AddForce (transform.forward * throwingPower);
 		StartCoroutine ("TimerToExplode");
@@ -14,6 +15,7 @@ public class FragGrenades : AbstractGrenades {
 		yield return new WaitForSeconds (myTimer);	
 		Vector3 explosionPos = transform.position;
 		Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
+		myPoolManager.GetComponent<ExplosionPool>().PickFromPool(explosionPos);
 		foreach (Collider hit in colliders) {
 			Rigidbody rb = hit.GetComponent<Rigidbody>();
 			if (rb != null) {
@@ -21,7 +23,6 @@ public class FragGrenades : AbstractGrenades {
 				rb.AddExplosionForce (power, explosionPos, radius);
 			}
 		}
-		//Instantiate hier de particle shit
 		Destroy (gameObject);
 	}
 

@@ -2,6 +2,8 @@
 using System.Collections;
 
 public abstract class AbstractGrenades : MonoBehaviour {
+	public GameObject myPoolManager;
+	public string poolManagerString;
 	public float myTimer;
 	public float grenadeDamage;
 	public Rigidbody rigidBody;

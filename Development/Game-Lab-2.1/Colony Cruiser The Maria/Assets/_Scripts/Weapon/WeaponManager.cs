@@ -17,10 +17,17 @@ public class WeaponManager : MonoBehaviour {
 	public Image weaponIcon;
 	public Text ammoCountHolder;
 
+	public GameObject[] grenadeIcon;
+	public Text grenadeText;
 	public GameObject[] grenades;
 	public Transform hand;
 	public int curGrenade;
 	public int[] grenadesCount;
+	public int maxGrenadesCount;
+
+	public void Start(){
+		GrenadeIconCheck ();
+	}
 
 	public void Update(){
 		WeaponAction ();
@@ -99,6 +106,7 @@ public class WeaponManager : MonoBehaviour {
 			Instantiate(grenades[curGrenade], hand.position, hand.rotation);
 			grenadesCount [curGrenade]--;
 		}
+		grenadeText.text = (grenadesCount [curGrenade] + "/" + maxGrenadesCount);
 	}
 
 	public void GrenadeSwitch(){
@@ -108,6 +116,18 @@ public class WeaponManager : MonoBehaviour {
 			}
 			else {
 				curGrenade = 0;
+			}
+			GrenadeIconCheck ();
+		}
+	}
+
+	public void GrenadeIconCheck(){
+		for(int i = 0; i < grenadeIcon.Length; i++){
+			if (i == curGrenade) {
+				grenadeIcon [i].SetActive (true);
+			}
+			else {
+				grenadeIcon [i].SetActive (false);
 			}
 		}
 	}
