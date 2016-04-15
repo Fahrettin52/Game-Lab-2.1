@@ -1,10 +1,10 @@
 Revolver:
 
-	Equip frame:20-60
-	shoot Frame:80-100
-	reload
-	aim
-	un-equip
+	Equip frame:	20-60
+	shoot Frame:	80-100
+	reload:		120-260
+	aim:		280-300
+	un-equip:	60-20
 
 Shotgun:
 	
