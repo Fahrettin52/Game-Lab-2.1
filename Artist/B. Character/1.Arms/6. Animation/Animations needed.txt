@@ -8,9 +8,9 @@ Revolver:
 
 Shotgun:
 	
-	Equip
-	shoot
-	Reload
+	Equip Frame:	350-370
+	shoot Frame:	380-390
+	Reload Frame:	400-...
 	aim
 	Un-equip
 
