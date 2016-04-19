@@ -10,9 +10,9 @@ Shotgun:
 	
 	Equip Frame:	350-370
 	shoot Frame:	380-390
-	Reload Frame:	400-...
-	aim
-	Un-equip
+	Reload Frame:	400-472
+	aim Frame:	
+	Un-equip Frame:	370-350
 
 CeramicBlade: 
 
@@ -23,11 +23,11 @@ CeramicBlade:
 
 AssaultRifle:
 	
-	Equip
-	shoot
-	Reload
-	aim
-	Un-equip
+	Equip Frame:	385-500
+	shoot Frame:		
+	Reload Frame:	
+	aim Frame:	
+	Un-equip Frame:
 
 PulseRifle:
 	
