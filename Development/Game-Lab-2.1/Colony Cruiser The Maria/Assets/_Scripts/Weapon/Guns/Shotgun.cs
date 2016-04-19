@@ -36,6 +36,7 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public void AmmoSwitch(){
+		print ("switched");
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
@@ -46,8 +47,10 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public void AmmoCycle(){
+		print ("Chosen ammo");
 		switch (curAmmoType){
 		case 0:
+			print ("1");
 			loadedAmmo = birdAmmo;
 			shotCount = birdShotCount;
 			shootDirValueX = birdDirValueX;
@@ -55,6 +58,7 @@ public class Shotgun : AbstractWeapon {
 			curAmmoTypeText = birdTotalAmmo;
 			break;
 		case 1:
+			print ("2");
 			loadedAmmo = buckAmmo;
 			shotCount = buckShotCount;
 			shootDirValueX = buckDirValueX;
@@ -62,6 +66,7 @@ public class Shotgun : AbstractWeapon {
 			curAmmoTypeText = buckTotalAmmo;
 			break;
 		case 2:
+			print ("3");
 			loadedAmmo = slugAmmo;
 			shotCount = slugShotCount;
 			shootDirValueX = slugDirValueX;
