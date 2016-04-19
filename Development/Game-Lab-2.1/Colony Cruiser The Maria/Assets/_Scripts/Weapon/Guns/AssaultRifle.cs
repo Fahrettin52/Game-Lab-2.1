@@ -119,6 +119,17 @@ public class AssaultRifle : AbstractWeapon {
 		return aim;
 	}
 
+	public void AmmoSwitch(){
+		print ("1");
+		if (curAmmoType < maxAmmoType) {
+			curAmmoType++;
+		}
+		if(curAmmoType == maxAmmoType){
+			curAmmoType = 0;
+		}
+		AmmoCycle ();
+	}
+
 	public override void AmmoRemove(){
 		int curLoadedAmmo = curAmmoType;
 		switch (curLoadedAmmo){
@@ -152,20 +163,6 @@ public class AssaultRifle : AbstractWeapon {
 		}
 	}
 
-//	public override void HitChecker(GameObject hit){
-//		switch (hit) {
-//		case hit.transform.tag == "EnemyOrganic":
-//			AmmoEffect(hit.transform.tag);
-//			break;
-//		case hit.transform.tag == "EnemyAI":
-//			AmmoEffect(hit.transform.tag);
-//			break;
-//		case hit.transform.tag == "Static":
-//			print("Not a enemy");
-//			break;
-//		}	
-//	}
-
 	public override void FillDelegate (){
 		player.GetComponent<WeaponManager> ().shootDelegate = null;
 		player.GetComponent<WeaponManager> ().aimDelegate = null;
@@ -173,7 +170,7 @@ public class AssaultRifle : AbstractWeapon {
 		player.GetComponent<WeaponManager> ().quickMeleeDelegate = null;
 		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
 		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
-		//player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
+		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
 		player.GetComponent<WeaponManager> ().quickMeleeDelegate = QuickMelee;
 	}
 
@@ -216,6 +213,12 @@ public class AssaultRifle : AbstractWeapon {
 		}
 	}
 
+	public void FlechetteShooting(){
+		if (Input.GetButton("Fire 1")){
+			
+		}
+	}
+
 	public override void QuickMelee (){
 //		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
 //		if (Input.GetButtonDown ("Fire2")) {
@@ -233,8 +236,10 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public void AmmoCycle(){
+		print ("2");
 		switch (curAmmoType){
 		case 0:
+			print ("3");
 			loadedAmmo = normalAmmo;
 			shotCount = normalShotCount;
 			shootDirValueX = NormalDirValueX;
@@ -242,6 +247,7 @@ public class AssaultRifle : AbstractWeapon {
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
+			print ("4");
 			loadedAmmo = flechetteAmmo;
 			shotCount = flechetteShotCount;
 			shootDirValueX = flechetteDirValueX;
