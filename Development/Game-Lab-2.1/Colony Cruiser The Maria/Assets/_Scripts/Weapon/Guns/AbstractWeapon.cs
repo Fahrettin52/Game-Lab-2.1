@@ -9,28 +9,32 @@ public abstract class AbstractWeapon : MonoBehaviour {
 
 	public GameObject player;
 	public GameObject camero;
+
 	public Sprite myWeaponIcon;
+
 	public string myAmmoCount;
+
 	public bool aiming;
-	public float rayDis;
-	public float shootDirValueX;
-	public float shootDirValueY;
+
 	public Vector3 shootDir;
+
 	public RaycastHit rayHit;
 
 	public float zoomSpeed;
 	public float maxFieldOfView;
 	public float minFieldOfView;
-
 	public float projectileDamage;
 	public float projectileSpeed;
 	public float effectiveRange;
+	public float shotCount;
+	public float rayDis;
+	public float shootDirValueX;
+	public float shootDirValueY;
 
 	public int loadedAmmo;
 	public int curAmmoType;
 	public int curAmmoTypeText;
 	public int maxAmmoType;
-	public float shotCount;
 	public int magSize;
 
     public abstract void Shooting();
@@ -45,9 +49,7 @@ public abstract class AbstractWeapon : MonoBehaviour {
 
     public abstract void AmmoAdd();
 
-    public abstract void AmmoEffect();
-
-    public abstract void HitChecker();
+	public abstract void AmmoEffect(GameObject hit);
 
     public abstract void FillDelegate ();	
 

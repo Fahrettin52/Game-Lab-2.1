@@ -243,11 +243,7 @@ public class Shotgun : AbstractWeapon {
 
 	}
 
-	public override void AmmoEffect(){
-
-	}
-
-	public override void HitChecker(){
+	public override void AmmoEffect(GameObject hit){
 
 	}
 

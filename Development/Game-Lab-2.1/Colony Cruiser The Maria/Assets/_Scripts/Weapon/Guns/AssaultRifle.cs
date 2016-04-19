@@ -11,6 +11,8 @@ public class AssaultRifle : AbstractWeapon {
 	public int normalMag;
 	public int flachetteMag;
 	public int fullNormalAmmo;
+	public int damageNormal;
+	public int damageFlechette;
 
 	public float normalShotCount;
 	public float flechetteShotCount;
@@ -45,7 +47,8 @@ public class AssaultRifle : AbstractWeapon {
 				Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
 				waitTilNextFire = 1;
 				if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-					DistanceChecker (playerPos);		
+					DistanceChecker (playerPos);
+					AmmoEffect(rayHit.transform.gameObject);
 				} 
 				else {
 					print ("MISSED");
@@ -135,9 +138,33 @@ public class AssaultRifle : AbstractWeapon {
 		curAmmoTypeText = normalTotalAmmo;
 	}
 
-	public override void AmmoEffect(){}
+	public override void AmmoEffect(GameObject target){
+		switch (target.GetComponent<Transform>().tag) {
+		case "EnemyLiveStock":
+			print ("EnemyLiveStock");
+			break;
+		case "EnemyAI":
+			print ("EnemyAI");
+			break;
+		default:
+			print ("NOT AN ENEMY!");
+			break;
+		}
+	}
 
-	public override void HitChecker(){}
+//	public override void HitChecker(GameObject hit){
+//		switch (hit) {
+//		case hit.transform.tag == "EnemyOrganic":
+//			AmmoEffect(hit.transform.tag);
+//			break;
+//		case hit.transform.tag == "EnemyAI":
+//			AmmoEffect(hit.transform.tag);
+//			break;
+//		case hit.transform.tag == "Static":
+//			print("Not a enemy");
+//			break;
+//		}	
+//	}
 
 	public override void FillDelegate (){
 		player.GetComponent<WeaponManager> ().shootDelegate = null;

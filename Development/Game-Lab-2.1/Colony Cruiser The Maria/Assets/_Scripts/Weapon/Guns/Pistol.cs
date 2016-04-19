@@ -92,11 +92,7 @@ public class Pistol : AbstractWeapon {
 
 	}
 
-	public override void AmmoEffect(){
-
-	}
-
-	public override void HitChecker(){
+	public override void AmmoEffect(GameObject hit){
 
 	}
 
