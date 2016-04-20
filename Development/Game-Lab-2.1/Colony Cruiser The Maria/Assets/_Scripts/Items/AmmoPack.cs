@@ -14,8 +14,10 @@ public class AmmoPack : MonoBehaviour {
 	public GameObject pistol;
 
 	public void DetermenAmmo(){
-		switch (myType){
-		case AmmoType.AssaultNormal:
+		int randomInt = Random.Range (0, player.GetComponent<WeaponManager> ().weaponList.Count);
+		print (randomInt);
+		switch (randomInt){
+		case 0:
 			if (assaultRifle.GetComponent<AssaultRifle>().normalTotalAmmo < assaultRifle.GetComponent<AssaultRifle>().fullNormalAmmo){
 				List<GameObject> weaponList = player.GetComponent<WeaponManager> ().weaponList;
 				for (int i = 0; i < weaponList.Count; i++) {
@@ -26,7 +28,7 @@ public class AmmoPack : MonoBehaviour {
 			}	
 			break; 
 
-		case AmmoType.AssaultFlachette:
+		case 1:
 			AddAmmo(1);	
 			break;
 		}

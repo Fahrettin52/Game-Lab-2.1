@@ -3,18 +3,13 @@ using System.Collections;
 
 public abstract class AIEnemy : AbstractEnemy {
 
-	public override void PlayerDetection(){
-	}
+	public override abstract void PlayerDetection ();
 
-	public override void HealthChecker(){
-	}
+	public override abstract void HealthChecker ();
 
-	public override void AttackPlayer(){
-	}
+	public override abstract void AttackPlayer ();
 
-	public override void StateSwitcher(){		
-	}
+	public override abstract void StateSwitcher ();
 
-	public void LineOfSightDetection(){
-	}
+	public abstract void LineOfSightDetection ();
 }

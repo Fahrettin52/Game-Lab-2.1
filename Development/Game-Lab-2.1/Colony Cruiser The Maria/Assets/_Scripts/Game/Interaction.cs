@@ -48,6 +48,8 @@ public class Interaction : MonoBehaviour {
     }
 
 	public void InteractLoot() {
+		GameObject.Find ("LootManager").GetComponent<LootManager> ().SceneChecker ();
+		GameObject.Find ("LootManager").GetComponent<LootManager> ().LootChecker ();
 		print("Loot Info");
 	}
 
