@@ -20,7 +20,20 @@ public class StunGrenade : AbstractGrenades {
 		foreach (Collider hit in colliders) {
 			Rigidbody rb = hit.GetComponent<Rigidbody>();
 			if (rb != null) {
-				GrenadeEffect (rb.gameObject);
+				float rayDis = Vector3.Distance (transform.position, rb.transform.position);
+				Vector3 rayDir = (rb.transform.position - transform.position);
+				if (Physics.Raycast (transform.position, rayDir, out rayHit, rayDis)) {
+					string rayTag = rayHit.transform.tag;
+					if (rayHit.transform.gameObject == rb.gameObject) {
+						print ("Object hit");
+						GrenadeEffect (rb.gameObject);
+					}
+					else for (int i = 0; i < blockade.Length; i++) {
+						if (rayTag == blockade [i]) {
+							break;
+						}
+					}
+				}
 			}
 		}
 		Destroy (gameObject);
@@ -30,8 +43,6 @@ public class StunGrenade : AbstractGrenades {
 		switch (objectHit.tag) {
 		case "Player":
 			Transform player = objectHit.transform;
-			//De comment hieronder wordt gebruikt om te helpen bij het instellen van de stunAngle
-			//print("stunAngle is " + Vector3.Angle (player.forward, transform.position - player.position));
 			if (Vector3.Angle (player.forward, transform.position - player.position) < stunAngle) {
 				objectHit.GetComponent<Movement> ().stunTime = stunningTime;
 				objectHit.GetComponent<Movement> ().myMovement = Movement.MovementType.Stunned;
