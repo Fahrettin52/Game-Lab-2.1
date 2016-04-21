@@ -24,10 +24,10 @@ CeramicBlade:
 AssaultRifle:
 	
 	Equip Frame:	385-500
-	shoot Frame:		
-	Reload Frame:	
+	shoot Frame:	510-520	
+	Reload Frame:	530-570
 	aim Frame:	
-	Un-equip Frame:
+	Un-equip Frame:	500-385
 
 PulseRifle:
 	
