@@ -4,5 +4,5 @@ using System.Collections.Generic;
 
 public class Test1 : MonoBehaviour {
 
-	public List<Test2> test2List = new List<Test2> ();
+	//public List<Test2> test2List = new List<Test2> ();
 }

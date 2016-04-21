@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 [System.Serializable]
-public class Test2 {
+public class LootPackage {
 
-	public List<bool> mybools = new List<bool>();
+	public List<Sprite> myImages = new List<Sprite>();
 }

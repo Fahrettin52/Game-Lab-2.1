@@ -236,10 +236,8 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public void AmmoCycle(){
-		print ("2");
 		switch (curAmmoType){
 		case 0:
-			print ("3");
 			loadedAmmo = normalAmmo;
 			shotCount = normalShotCount;
 			shootDirValueX = NormalDirValueX;
@@ -247,7 +245,6 @@ public class AssaultRifle : AbstractWeapon {
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
-			print ("4");
 			loadedAmmo = flechetteAmmo;
 			shotCount = flechetteShotCount;
 			shootDirValueX = flechetteDirValueX;
