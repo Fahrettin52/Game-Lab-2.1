@@ -1,18 +1,20 @@
 Revolver:
 
 	Equip frame:	20-60
-	shoot Frame:	80-100
-	reload:		120-260
-	aim:		280-300
+	Idle Frame:	61-80
+	shoot Frame:	90-110
+	reload:		130-270
+	aim:		290-310
 	un-equip:	60-20
 
 Shotgun:
 	
-	Equip Frame:	350-370
-	shoot Frame:	380-390
-	Reload Frame:	400-472
+	Equip Frame:	360-380
+	Idle Frame:	381-396
+	shoot Frame:	400-410
+	Reload Frame:	420-492
 	aim Frame:	
-	Un-equip Frame:	370-350
+	Un-equip Frame:	380-360
 
 CeramicBlade: 
 
@@ -23,11 +25,12 @@ CeramicBlade:
 
 AssaultRifle:
 	
-	Equip Frame:	385-500
-	shoot Frame:	510-520	
-	Reload Frame:	530-570
+	Equip Frame:	505-520
+	Idle Frame:	521-535
+	shoot Frame:	540-550	
+	Reload Frame:	560-600
 	aim Frame:	
-	Un-equip Frame:	500-385
+	Un-equip Frame:	520-505
 
 PulseRifle:
 	
