@@ -1,3 +1,11 @@
+Character Animations:
+
+	Equip Idle:	610-615
+	Idle Idle:	615-655
+	Sword Attack:	655-720
+
+
+
 Revolver:
 
 	Equip frame:	20-60
@@ -15,13 +23,6 @@ Shotgun:
 	Reload Frame:	420-492
 	aim Frame:	
 	Un-equip Frame:	380-360
-
-CeramicBlade: 
-
-	Equip
-	slash1
-	slash2
-	Un-equip
 
 AssaultRifle:
 	
