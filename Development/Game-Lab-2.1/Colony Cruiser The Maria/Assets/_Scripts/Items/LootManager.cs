@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LootManager : MonoBehaviour {
 
-	public List<LootPackage> myLoot = new List<LootPackage> ();
-
 	public int currentScene;
+
+	public List<LootPackage> myLoot = new List<LootPackage> ();
 
 	public Image[] currentLoot;
 

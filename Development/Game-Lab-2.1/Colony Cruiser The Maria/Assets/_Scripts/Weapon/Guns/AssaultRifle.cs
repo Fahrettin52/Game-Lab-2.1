@@ -23,9 +23,11 @@ public class AssaultRifle : AbstractWeapon {
 	public float fireSpeed;
 	public float waitTilNextFire; 
 
+	public bool mayFlechette;
+
 	public GameObject bulletHole;
 	public GameObject bulletStart;
-
+	public GameObject flechette;
 
 
 	public void Update (){
@@ -120,7 +122,6 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public void AmmoSwitch(){
-		print ("1");
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
@@ -209,6 +210,9 @@ public class AssaultRifle : AbstractWeapon {
 		default:
 			print ("NOT AN ENEMY!");
 			Instantiate (bulletHole, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
+			if (mayFlechette == true){
+				Instantiate (flechette, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
+			}
 			break;
 		}
 	}
@@ -238,6 +242,7 @@ public class AssaultRifle : AbstractWeapon {
 	public void AmmoCycle(){
 		switch (curAmmoType){
 		case 0:
+			mayFlechette = false;
 			loadedAmmo = normalAmmo;
 			shotCount = normalShotCount;
 			shootDirValueX = NormalDirValueX;
@@ -245,6 +250,7 @@ public class AssaultRifle : AbstractWeapon {
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
+			mayFlechette = true;
 			loadedAmmo = flechetteAmmo;
 			shotCount = flechetteShotCount;
 			shootDirValueX = flechetteDirValueX;
