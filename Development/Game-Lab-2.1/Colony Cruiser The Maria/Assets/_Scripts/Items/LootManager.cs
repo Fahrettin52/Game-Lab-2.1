@@ -10,8 +10,6 @@ public class LootManager : MonoBehaviour {
 
 	public int currentScene;
 
-	public Sprite[] loot1, loot2, loot3;
-
 	public Image[] currentLoot;
 
 	public GameObject lootHUD;
@@ -21,31 +19,11 @@ public class LootManager : MonoBehaviour {
 	}
 
 	public void LootChecker(){
-		lootHUD.SetActive (true);
-
-		Sprite[] ts;
+		lootHUD.SetActive (true);	
 		int r = Random.Range (0, myLoot.Count);
-
-		//ts = ;
-
-		//Sprite[] ts;
-		//int r = Random.Range (0, 3);
-//		if (r == 0) {
-//			ts = loot1;
-//		} 
-//		else if (r == 1) {
-//			ts = loot2;
-//		} 
-//		else {
-//			ts = loot3;
-//		}
-
-			
-		Sprite[] randomLoot = ts;
+		List<Sprite> ts = myLoot [r].myImages;
 		for (int i = 0; i < currentLoot.Length; i++){
-			foreach( Image image in currentLoot ){
-				currentLoot[i].sprite = randomLoot [i];
-			}
+			currentLoot[i].sprite = ts [i];
 		}
 	}
 }
