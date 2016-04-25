@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour {
 	private float defaultTimeScale;
 	public float slowMoTimeScale;
 
+	public GameObject pauseHUD;
+	public bool pausing;
+
 	void Start(){
 		defaultTimeScale = Time.timeScale;
 	}
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour {
 		}
 		if (Input.GetButtonDown ("Cancel")) {
 			PauseGame (curTimeScale);
+			pausing = !pausing;
+			pauseHUD.SetActive (pausing);
 		}
 	}
 
