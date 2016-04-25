@@ -1,6 +1,6 @@
 Character Animations:
 
-	Equip Idle:	610-615
+	Equip Idle:	610-615 
 	Idle Idle:	615-655
 	Sword Attack:	655-720
 
