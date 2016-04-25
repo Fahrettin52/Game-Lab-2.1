@@ -10,7 +10,7 @@ public class HUDManagar : MonoBehaviour {
 	public GameObject credit;
 
 	public void StartButton(){
-		EditorSceneManager.LoadScene ("Verdieping 3"); 
+		EditorSceneManager.LoadScene ("FahrettinGüngör"); 
 	}
 
 	public void LoadButton(){
