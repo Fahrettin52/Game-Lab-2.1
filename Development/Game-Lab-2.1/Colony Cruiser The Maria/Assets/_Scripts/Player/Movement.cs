@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class Movement : MonoBehaviour {
@@ -7,6 +8,9 @@ public class Movement : MonoBehaviour {
     public enum MovementType { Normal, Ladder, Cover, Dead, Stunned};
 
     public MovementType myMovement;
+
+	public Sprite walk, crouch, ladder, cover;
+	public Image currentState;
 
     public float moveSpeed;
     public float ladderSpeed;
@@ -48,16 +52,18 @@ public class Movement : MonoBehaviour {
     }
 
     public void MovingChecker() {
-        if (Input.GetButtonDown("Interact")) {
-            Cover();
-        }
+		if (Input.GetButtonDown ("Interact")) {
+			Cover ();
+		} 
 
         if (Input.GetButtonDown("Crouch") && iscrouching == false){
+			currentState.sprite = crouch;
             moveSpeed = crouchSpeed;
             GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
             iscrouching = true;     
         } 
         else if (Input.GetButtonDown("Crouch") && iscrouching == true){
+			currentState.sprite = walk;
             GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
             moveSpeed = startSpeed;
             iscrouching = false;
@@ -87,6 +93,7 @@ public class Movement : MonoBehaviour {
             if (GetComponent<CameraControl>().camRotationX >= 15 && GetComponent<CameraControl>().camRotationX <= 120) {
                 transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
                 if (Input.GetAxis("Horizontal") < 0) {
+					currentState.sprite = walk;
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
                     GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
                     myMovement = MovementType.Normal;
@@ -96,6 +103,7 @@ public class Movement : MonoBehaviour {
             if (GetComponent<CameraControl>().camRotationX <= -15 && GetComponent<CameraControl>().camRotationX >= -120) {
                 transform.Translate(new Vector3(-Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
                 if (Input.GetAxis("Horizontal") > 0) {
+					currentState.sprite = walk;
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
                     GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
                     myMovement = MovementType.Normal;
@@ -104,6 +112,7 @@ public class Movement : MonoBehaviour {
 
             if (GetComponent<CameraControl>().camRotationX > -15 && GetComponent<CameraControl>().camRotationX < 15) {
                 if (Input.GetAxis("Vertical") > 0) {
+					currentState.sprite = walk;
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
                     GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
                     myMovement = MovementType.Normal;
@@ -113,6 +122,7 @@ public class Movement : MonoBehaviour {
 
     public void OnTriggerEnter(Collider collider) {
         if (collider.transform.tag == "Ladder") {
+			currentState.sprite = ladder;
             GetComponent<Rigidbody>().useGravity = false;
             myMovement = MovementType.Ladder;
         }
@@ -123,6 +133,7 @@ public class Movement : MonoBehaviour {
             GetComponent<Rigidbody>().useGravity = true;
             mayJump = false;
             myMovement = MovementType.Normal;
+			currentState.sprite = walk;
         }
     }      
 
@@ -132,15 +143,16 @@ public class Movement : MonoBehaviour {
 
     public void Cover() {
         if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
-            if (hitObject.transform.tag == "Cover") {
-                myNormal = hitObject.normal * 10 + hitObject.point;
-                GetComponentInChildren<CameraControl>().myView = CameraControl.ViewType.Cover;
-                transform.position = hitObject.normal + hitObject.point;
-                transform.LookAt(myNormal);
-                GetComponentInChildren<CameraControl>().camRotationX = 0;
-                GetComponentInChildren<CameraControl>().camRotationY = 0;
-                myMovement = MovementType.Cover;
-            }
+			if (hitObject.transform.tag == "Cover") {
+				currentState.sprite = cover;
+				myNormal = hitObject.normal * 10 + hitObject.point;
+				GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Cover;
+				transform.position = hitObject.normal + hitObject.point;
+				transform.LookAt (myNormal);
+				GetComponentInChildren<CameraControl> ().camRotationX = 0;
+				GetComponentInChildren<CameraControl> ().camRotationY = 0;
+				myMovement = MovementType.Cover;
+			} 
         }
     }      
 

@@ -28,6 +28,8 @@ public class AssaultRifle : AbstractWeapon {
 	public GameObject bulletHole;
 	public GameObject bulletStart;
 	public GameObject flechette;
+	public GameObject ammoHUD;
+	public GameObject bulletHUD;
 
 
 	public void Update (){
@@ -97,6 +99,8 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void OnEnable(){
+		ammoHUD.SetActive (true);
+		bulletHUD.SetActive (true);
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
 		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
