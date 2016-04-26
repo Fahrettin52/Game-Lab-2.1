@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 60dde3295f3ecce4d9747f14630408b4
+timeCreated: 1461665516
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: Body1
+    100004: Body2
+    100006: Body3
+    100008: Bone008
+    100010: Bone011
+    100012: Bone012
+    100014: Bone013
+    100016: connectBone001
+    100018: connectBone002
+    100020: connectBone003
+    100022: connectBone004
+    100024: connectBone007
+    100026: connectBone008
+    100028: Dentures
+    100030: HeadBone
+    100032: IK Chain005
+    100034: IK Chain006
+    100036: IK Chain009
+    100038: IK Chain010
+    100040: IK Chain011
+    100042: IK Chain012
+    100044: IK Chain013
+    100046: IK Chain014
+    100048: IK Chain015
+    100050: IK Chain016
+    100052: JawBoneLower
+    100054: JawBoneUp
+    100056: LeftClaw0
+    100058: LeftClaw1
+    100060: LeftClaw2
+    100062: LeftClaw3
+    100064: LeftFront0
+    100066: LeftFront1
+    100068: LeftFront2
+    100070: LeftRear0
+    100072: LeftRear1
+    100074: LeftRear2
+    100076: //RootNode
+    100078: NeckBone
+    100080: RightClaw0
+    100082: RightClaw1
+    100084: RightClaw2
+    100086: RightClaw3
+    100088: RightFront0
+    100090: RightFront1
+    100092: RightFront2
+    100094: RightRear0
+    100096: RightRear1
+    100098: RightRear2
+    400000: Body
+    400002: Body1
+    400004: Body2
+    400006: Body3
+    400008: Bone008
+    400010: Bone011
+    400012: Bone012
+    400014: Bone013
+    400016: connectBone001
+    400018: connectBone002
+    400020: connectBone003
+    400022: connectBone004
+    400024: connectBone007
+    400026: connectBone008
+    400028: Dentures
+    400030: HeadBone
+    400032: IK Chain005
+    400034: IK Chain006
+    400036: IK Chain009
+    400038: IK Chain010
+    400040: IK Chain011
+    400042: IK Chain012
+    400044: IK Chain013
+    400046: IK Chain014
+    400048: IK Chain015
+    400050: IK Chain016
+    400052: JawBoneLower
+    400054: JawBoneUp
+    400056: LeftClaw0
+    400058: LeftClaw1
+    400060: LeftClaw2
+    400062: LeftClaw3
+    400064: LeftFront0
+    400066: LeftFront1
+    400068: LeftFront2
+    400070: LeftRear0
+    400072: LeftRear1
+    400074: LeftRear2
+    400076: //RootNode
+    400078: NeckBone
+    400080: RightClaw0
+    400082: RightClaw1
+    400084: RightClaw2
+    400086: RightClaw3
+    400088: RightFront0
+    400090: RightFront1
+    400092: RightFront2
+    400094: RightRear0
+    400096: RightRear1
+    400098: RightRear2
+    4300000: Body
+    4300002: Dentures
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body
+    13700002: Dentures
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

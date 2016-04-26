@@ -215,7 +215,7 @@ public class AssaultRifle : AbstractWeapon {
 			print ("NOT AN ENEMY!");
 			Instantiate (bulletHole, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
 			if (mayFlechette == true){
-				Instantiate (flechette, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
+				Instantiate (flechette, rayHit.point, Quaternion.FromToRotation (Vector3.forward, rayHit.normal));
 			}
 			break;
 		}
