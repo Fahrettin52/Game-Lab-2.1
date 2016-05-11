@@ -33,8 +33,9 @@ public class AssaultRifle : AbstractWeapon {
 
 
 	public void Update (){
+		cameroTransform = camero.transform;
 		GetComponent<LineRenderer>().SetPosition (0, bulletStart.transform.position);
-		GetComponent<LineRenderer>().SetPosition (1, camero.transform.forward * 10 + camero.transform.position);
+		GetComponent<LineRenderer>().SetPosition (1, cameroTransform.forward * 10 + cameroTransform.position);
 	}
 
 	public override void Shooting(){
@@ -47,10 +48,10 @@ public class AssaultRifle : AbstractWeapon {
 		if (Input.GetButton ("Fire1") && loadedAmmo > 0) {
 			if (waitTilNextFire <= 0) {
 				Vector3 playerPos = player.transform.position;
-				shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-				Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
+				shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
 				waitTilNextFire = 1;
-				if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
+				if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
 					DistanceChecker (playerPos);
 					AmmoEffect(rayHit.transform.gameObject);
 				} 
@@ -65,8 +66,7 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void Reloading(){
-		int curLoadedAmmo = curAmmoType;
-		switch (curLoadedAmmo) {
+		switch (curAmmoType) {
 		case 0:
 			if (normalTotalAmmo > 0) {
 				normalAmmo = magSize;
@@ -103,7 +103,8 @@ public class AssaultRifle : AbstractWeapon {
 		bulletHUD.SetActive (true);
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
-		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
+		weaponManager = player.GetComponent<WeaponManager> ();
+		weaponManager.weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
 		AmmoCycle ();
 		UIChecker ();
@@ -125,7 +126,7 @@ public class AssaultRifle : AbstractWeapon {
 		return aim;
 	}
 
-	public void AmmoSwitch(){
+	public override void AmmoSwitch(){
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
@@ -169,14 +170,14 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void FillDelegate (){
-		player.GetComponent<WeaponManager> ().shootDelegate = null;
-		player.GetComponent<WeaponManager> ().aimDelegate = null;
-		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = null;
-		player.GetComponent<WeaponManager> ().quickMeleeDelegate = null;
-		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
-		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
-		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
-		player.GetComponent<WeaponManager> ().quickMeleeDelegate = QuickMelee;
+		weaponManager.shootDelegate = null;
+		weaponManager.aimDelegate = null;
+		weaponManager.ammoSwitchDelegate = null;
+		weaponManager.quickMeleeDelegate = null;
+		weaponManager.shootDelegate = Shooting;
+		weaponManager.aimDelegate = Aiming;
+		weaponManager.ammoSwitchDelegate = AmmoSwitch;
+		weaponManager.quickMeleeDelegate = QuickMelee;
 	}
 
 	public override void DistanceChecker (Vector3 savedPos){
@@ -221,12 +222,6 @@ public class AssaultRifle : AbstractWeapon {
 		}
 	}
 
-	public void FlechetteShooting(){
-		if (Input.GetButton("Fire 1")){
-			
-		}
-	}
-
 	public override void QuickMelee (){
 //		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
 //		if (Input.GetButtonDown ("Fire2")) {
@@ -240,10 +235,10 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void UIChecker(){
-		player.GetComponent<WeaponManager> ().ammoCountHolder.text = (loadedAmmo + "/" + curAmmoTypeText);
+		weaponManager.ammoCountHolder.text = (loadedAmmo + "/" + curAmmoTypeText);
 	}
 
-	public void AmmoCycle(){
+	public override void AmmoCycle(){
 		switch (curAmmoType){
 		case 0:
 			mayFlechette = false;

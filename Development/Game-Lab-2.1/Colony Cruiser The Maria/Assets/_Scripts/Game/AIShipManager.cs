@@ -18,8 +18,8 @@ public class AIShipManager : MonoBehaviour {
     }
 
 	public IEnumerator TimerCoversation(){
-		timer = timer;
-		yield return new WaitForSeconds (timer);
+		float timer2 = timer;
+		yield return new WaitForSeconds (timer2);
 		AI.text = " ";
 	}
 }

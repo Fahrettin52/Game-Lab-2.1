@@ -29,13 +29,14 @@ public class Shotgun : AbstractWeapon {
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
-		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
+		weaponManager = player.GetComponent<WeaponManager> ();
+		weaponManager.weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
 		AmmoCycle ();
 		UIChecker ();
 	}
 
-	public void AmmoSwitch(){
+	public override void AmmoSwitch(){
 		print ("switched");
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
@@ -46,7 +47,7 @@ public class Shotgun : AbstractWeapon {
 		AmmoCycle ();
 	}
 
-	public void AmmoCycle(){
+	public override void AmmoCycle(){
 		print ("Chosen ammo");
 		switch (curAmmoType){
 		case 0:
@@ -77,25 +78,25 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void FillDelegate(){
-		player.GetComponent<WeaponManager> ().shootDelegate = null;
-		player.GetComponent<WeaponManager> ().aimDelegate = null;
-		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = null;
-		player.GetComponent<WeaponManager> ().quickMeleeDelegate = null;
-		player.GetComponent<WeaponManager> ().shootDelegate = Shooting;
-		player.GetComponent<WeaponManager> ().aimDelegate = Aiming;
-		player.GetComponent<WeaponManager> ().ammoSwitchDelegate = AmmoSwitch;
-		player.GetComponent<WeaponManager> ().quickMeleeDelegate = QuickMelee;
+		weaponManager.shootDelegate = null;
+		weaponManager.aimDelegate = null;
+		weaponManager.ammoSwitchDelegate = null;
+		weaponManager.quickMeleeDelegate = null;
+		weaponManager.shootDelegate = Shooting;
+		weaponManager.aimDelegate = Aiming;
+		weaponManager.ammoSwitchDelegate = AmmoSwitch;
+		weaponManager.quickMeleeDelegate = QuickMelee;
 	}
 
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
 			if (loadedAmmo > 0) {
+				cameroTransform = camero.transform;
 				for (int i = 0; i < shotCount; i++) {
-					Vector3 playerPos = player.transform.position;
-					shootDir = camero.transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-					//Debug.DrawRay (camero.transform.position, shootDir * 5000, Color.blue, 3);
-					if (Physics.Raycast (camero.transform.position, shootDir, out rayHit, rayDis)) {
-						DistanceChecker (playerPos);		
+					shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+					//Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
+					if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
+						DistanceChecker (player.transform.position);		
 					}
 					else {
 						print ("MISSED");
@@ -257,6 +258,6 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void UIChecker(){
-		player.GetComponent<WeaponManager> ().ammoCountHolder.text = (loadedAmmo + "/" + curAmmoTypeText);
+		weaponManager.ammoCountHolder.text = (loadedAmmo + "/" + curAmmoTypeText);
 	}
 }

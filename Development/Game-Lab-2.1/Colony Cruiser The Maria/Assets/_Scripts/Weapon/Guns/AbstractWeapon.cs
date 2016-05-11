@@ -10,6 +10,10 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public GameObject player;
 	public GameObject camero;
 
+	public WeaponManager weaponManager;
+
+	public Transform cameroTransform;
+
 	public Sprite myWeaponIcon;
 
 	public string myAmmoCount;
@@ -60,4 +64,8 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public abstract void QuickMelee ();
 
 	public abstract void UIChecker();
+
+	public abstract void AmmoSwitch();
+
+	public abstract void AmmoCycle();
 }
