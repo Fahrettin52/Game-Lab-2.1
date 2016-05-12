@@ -12,11 +12,16 @@ public abstract class AbstractWeapon : MonoBehaviour {
 
 	public WeaponManager weaponManager;
 
+	public Animator myAnimator;
+
+	public AnimatorStateInfo myStateInfo;
+
 	public Transform cameroTransform;
 
 	public Sprite myWeaponIcon;
 
 	public string myAmmoCount;
+	public string idleHash;
 
 	public bool aiming;
 
@@ -34,6 +39,8 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public float rayDis;
 	public float shootDirValueX;
 	public float shootDirValueY;
+	public float hitTime;
+	public float hitRate;
 
 	public int loadedAmmo;
 	public int curAmmoType;
@@ -51,7 +58,7 @@ public abstract class AbstractWeapon : MonoBehaviour {
 
     public abstract void AmmoRemove();
 
-    public abstract void AmmoAdd();
+	public abstract int AmmoAdd(int ammoToAdd);
 
 	public abstract void AmmoEffect(GameObject hit);
 

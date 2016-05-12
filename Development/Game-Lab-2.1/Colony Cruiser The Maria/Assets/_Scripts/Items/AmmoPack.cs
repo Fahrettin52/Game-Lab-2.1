@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class AmmoPack : MonoBehaviour {
 	
-	public enum AmmoType { AssaultNormal, AssaultFlachette };
+	public enum AmmoType { AssaultNormal, AssaultFlachette, PistolNormal, PistolIncindiary };
 
 	public AmmoType myType;
 
@@ -13,36 +13,32 @@ public class AmmoPack : MonoBehaviour {
 	public GameObject shotgun;
 	public GameObject pistol;
 
-	public void DetermenAmmo(){
-		int randomInt = Random.Range (0, player.GetComponent<WeaponManager> ().weaponList.Count);
-		print (randomInt);
-		switch (randomInt){
-		case 0:
-			if (assaultRifle.GetComponent<AssaultRifle>().normalTotalAmmo < assaultRifle.GetComponent<AssaultRifle>().fullNormalAmmo){
-				List<GameObject> weaponList = player.GetComponent<WeaponManager> ().weaponList;
-				for (int i = 0; i < weaponList.Count; i++) {
-					if (weaponList[i].name == "M4a1") {
-						AddAmmo(0);
-					}
-				}
-			}	
-			break; 
+	public int randomAmmoInt;
 
-		case 1:
-			AddAmmo(1);	
-			break;
+	public void DetermenAmmo(){
+		List<GameObject> weaponList = player.GetComponent<WeaponManager> ().weaponList;
+		int randomInt = Random.Range (1, weaponList.Count);
+		string randomWeaponListString = weaponList [randomInt].name;
+		switch (randomWeaponListString){
+		case "M4a1":
+			AddAmmo(0);
+			break; 
+		case "PistolPH":
+			AddAmmo(1);
+			break; 
 		}
 	}
 
 	public void AddAmmo(int number){
 		switch (number){
 		case 0:
-			assaultRifle.GetComponent<AssaultRifle>().AmmoAdd();
+			randomAmmoInt = Random.Range (0, assaultRifle.GetComponent<AssaultRifle> ().maxAmmoType);
+			assaultRifle.GetComponent<AssaultRifle>().AmmoAdd(randomAmmoInt);
 			break; 
-
 		case 1:
-			
-			break;
+			randomAmmoInt = Random.Range (0, pistol.GetComponent<Pistol>().maxAmmoType);
+			pistol.GetComponent<Pistol>().AmmoAdd(randomAmmoInt);
+			break; 
 		}
 	}
 }

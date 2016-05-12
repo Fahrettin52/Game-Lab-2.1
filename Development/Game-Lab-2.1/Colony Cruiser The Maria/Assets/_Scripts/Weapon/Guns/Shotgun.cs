@@ -107,7 +107,6 @@ public class Shotgun : AbstractWeapon {
 		}
 		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
 			if (loadedAmmo < magSize) {
-				print ("Reloading");
 				Reloading ();
 			}
 		}
@@ -245,8 +244,9 @@ public class Shotgun : AbstractWeapon {
 		}
 	}
 
-	public override void AmmoAdd(){
+	public override int AmmoAdd(int ammoToAdd){
 
+		return ammoToAdd;
 	}
 
 	public override void AmmoEffect(GameObject hit){

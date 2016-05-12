@@ -8,9 +8,10 @@ public class AssaultRifle : AbstractWeapon {
 	public int flechetteAmmo;
 	public int normalTotalAmmo;
 	public int flechetteTotalAmmo;
-	public int normalMag;
-	public int flachetteMag;
-	public int fullNormalAmmo;
+	public int normalMagSize;
+	public int flechetteMagSize;
+	public int maxNormalAmmo;
+	public int maxFlechetteAmmo;
 	public int damageNormal;
 	public int damageFlechette;
 
@@ -34,14 +35,13 @@ public class AssaultRifle : AbstractWeapon {
 
 	public void Update (){
 		cameroTransform = camero.transform;
-		GetComponent<LineRenderer>().SetPosition (0, bulletStart.transform.position);
-		GetComponent<LineRenderer>().SetPosition (1, cameroTransform.forward * 10 + cameroTransform.position);
+//		GetComponent<LineRenderer>().SetPosition (0, bulletStart.transform.position);
+//		GetComponent<LineRenderer>().SetPosition (1, cameroTransform.forward * 10 + cameroTransform.position);
 	}
 
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
 			if (loadedAmmo < magSize) {
-				print ("Reloading");
 				Reloading ();
 			}
 		}
@@ -69,9 +69,10 @@ public class AssaultRifle : AbstractWeapon {
 		switch (curAmmoType) {
 		case 0:
 			if (normalTotalAmmo > 0) {
-				normalAmmo = magSize;
-				normalTotalAmmo -= magSize;
+				normalAmmo = normalMagSize;
+				normalTotalAmmo -= normalMagSize;
 				loadedAmmo = normalAmmo;
+				magSize = normalMagSize;
 				curAmmoTypeText = normalTotalAmmo;
 			} 
 			else {
@@ -80,7 +81,7 @@ public class AssaultRifle : AbstractWeapon {
 			break;
 		case 1:
 			if (flechetteTotalAmmo > 0) {
-				int leftoverAmmo = flachetteMag - flechetteAmmo;
+				int leftoverAmmo = flechetteMagSize - flechetteAmmo;
 				for (int i = 0; leftoverAmmo > 0; i++) {
 					flechetteTotalAmmo--;
 					flechetteAmmo++;
@@ -90,6 +91,7 @@ public class AssaultRifle : AbstractWeapon {
 					}
 				}
 				loadedAmmo = flechetteAmmo;
+				magSize = flechetteMagSize;
 				curAmmoTypeText = flechetteTotalAmmo;
 			} else {
 				print ("Out of Flechette Magazines!");
@@ -105,6 +107,14 @@ public class AssaultRifle : AbstractWeapon {
 		camero = GameObject.Find ("Main Camera");
 		weaponManager = player.GetComponent<WeaponManager> ();
 		weaponManager.weaponIcon.sprite = myWeaponIcon;
+		switch (curAmmoType) {
+		case 0:
+			magSize = normalMagSize;
+			break;
+		case 1:
+			magSize = flechetteMagSize;
+			break;
+		}
 		FillDelegate ();
 		AmmoCycle ();
 		UIChecker ();
@@ -137,8 +147,7 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void AmmoRemove(){
-		int curLoadedAmmo = curAmmoType;
-		switch (curLoadedAmmo){
+		switch (curAmmoType){
 		case 0:
 			normalAmmo--;
 			loadedAmmo = normalAmmo;
@@ -150,9 +159,34 @@ public class AssaultRifle : AbstractWeapon {
 		}
 	}
 
-	public override void AmmoAdd(){
-		normalTotalAmmo += magSize;
-		curAmmoTypeText = normalTotalAmmo;
+	public override int AmmoAdd(int ammoToAdd){
+		switch (ammoToAdd) {
+		case 0:
+			if (normalTotalAmmo < maxNormalAmmo) {
+				normalTotalAmmo += normalMagSize;
+				if(normalTotalAmmo > maxNormalAmmo){
+					normalTotalAmmo = maxNormalAmmo;
+				}
+			}
+			break;
+		case 1:
+			if (flechetteTotalAmmo < maxFlechetteAmmo) {
+				flechetteTotalAmmo += flechetteMagSize;
+				if(flechetteTotalAmmo > maxFlechetteAmmo){
+					flechetteTotalAmmo = maxFlechetteAmmo;
+				}
+			}
+			break;
+		}
+		switch(curAmmoType){
+		case 0:
+			curAmmoTypeText = normalTotalAmmo;
+			break;
+		case 1: 
+			curAmmoTypeText = flechetteTotalAmmo;
+			break;
+		}
+		return ammoToAdd;
 	}
 
 	public override void AmmoEffect(GameObject target){

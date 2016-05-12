@@ -2,16 +2,35 @@
 using System.Collections;
 
 public class Pistol : AbstractWeapon {
-	public float maxAmmo;
-	public float curAmmoInMag;
-	public float curAmmoHeld;
+	public int normalAmmo;
+	public int incindiaryAmmo;
+	public int normalTotalAmmo;
+	public int incindiaryTotalAmmo;
+	public int normalDirValueX;
+	public int normalDirValueY;
+	public int maxNormalAmmo;
+	public int maxIncindiaryAmmo;
+	public int normalMagSize;
+	public int incindiaryMagSize;
+	public int incindiaryDirValueX;
+	public int incindiaryDirValueY;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
 		weaponManager = player.GetComponent<WeaponManager> ();
 		weaponManager.weaponIcon.sprite = myWeaponIcon;
+		switch (curAmmoType) {
+		case 0:
+			magSize = normalMagSize;
+			break;
+		case 1:
+			magSize = incindiaryMagSize;
+			break;
+		}
 		FillDelegate ();
+		AmmoCycle ();
+		UIChecker ();
 	}
 
 	public override void FillDelegate(){
@@ -27,18 +46,21 @@ public class Pistol : AbstractWeapon {
 
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
-			cameroTransform = camero.transform;
-			shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-			Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
-			if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
-				DistanceChecker (player.transform.position);		
-			} else {
-				print ("MISSED");
+			if(loadedAmmo > 0){
+				cameroTransform = camero.transform;
+				shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
+				if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
+					DistanceChecker (player.transform.position);		
+				} 
+				else {
+					print ("MISSED");
+				}
+				AmmoRemove ();
 			}
 		}
 		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
 			if (loadedAmmo < magSize) {
-				print ("Reloading");
 				Reloading ();
 			}
 		}
@@ -100,16 +122,46 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoRemove(){
-		if (curAmmoInMag > 0) {
-			curAmmoInMag--;
-		}
-		else {
-			Reloading ();
+		switch (curAmmoType){
+		case 0:
+			normalAmmo--;
+			loadedAmmo = normalAmmo;
+			break;
+		case 1:
+			incindiaryAmmo--;
+			loadedAmmo = incindiaryAmmo;
+			break;
 		}
 	}
 
-	public override void AmmoAdd(){
-		curAmmoHeld += magSize;
+	public override int AmmoAdd(int ammoToAdd){
+		switch (ammoToAdd) {
+		case 0:
+			if (normalTotalAmmo < maxNormalAmmo) {
+				normalTotalAmmo += normalMagSize;
+				if(normalTotalAmmo > maxNormalAmmo){
+					normalTotalAmmo = maxNormalAmmo;
+				}
+			}
+			break;
+		case 1:
+			if (incindiaryTotalAmmo < maxIncindiaryAmmo) {
+				incindiaryTotalAmmo += incindiaryMagSize;
+				if(incindiaryTotalAmmo > maxIncindiaryAmmo){
+					incindiaryTotalAmmo = maxIncindiaryAmmo;
+				}
+			}
+			break;
+		}
+		switch(curAmmoType){
+		case 0:
+			curAmmoTypeText = normalTotalAmmo;
+			break;
+		case 1: 
+			curAmmoTypeText = incindiaryTotalAmmo;
+			break;
+		}
+		return ammoToAdd;
 	}
 
 	public override void AmmoEffect(GameObject hit){
@@ -117,26 +169,82 @@ public class Pistol : AbstractWeapon {
 	}
 
     public override void Reloading() {
-		float reloadAmmount = magSize - curAmmoInMag;
-		for(int i = 0; reloadAmmount > 0; i++){
-			if (curAmmoHeld > 0) {
-				curAmmoInMag++;
-				curAmmoHeld--;
-				reloadAmmount--;
+		switch (curAmmoType) {
+		case 0:
+			if (normalTotalAmmo > 0) {
+				int leftOverAmmo = normalMagSize - normalAmmo;
+				print (curAmmoTypeText);
+				for (int i = 0; leftOverAmmo > 0; i++) {
+					normalTotalAmmo--;
+					normalAmmo++;
+					leftOverAmmo--;
+					if (normalTotalAmmo < 1) {
+						break;
+					}
+				}
+				loadedAmmo = normalAmmo;
+				curAmmoTypeText = normalTotalAmmo;
 			}
+			else {
+				print ("Out of normal Magazines!");
+			}
+			break;
+		case 1:
+			if (incindiaryTotalAmmo > 0) {
+				int leftOverAmmo = incindiaryMagSize - incindiaryAmmo;
+				print (curAmmoTypeText);
+				for (int i = 0; leftOverAmmo > 0; i++) {
+					incindiaryTotalAmmo--;
+					incindiaryAmmo++;
+					leftOverAmmo--;
+					if (incindiaryTotalAmmo < 1) {
+						break;
+					}
+				}
+				loadedAmmo = incindiaryAmmo;
+				curAmmoTypeText = incindiaryTotalAmmo;
+			}
+			else {
+				print ("Out of incindiary Magazines!");
+			}
+			break;
+//		case 0:
+//			if (normalTotalAmmo > 0) {
+//				normalAmmo = normalMagSize;
+//				normalTotalAmmo -= normalMagSize;
+//				magSize = normalMagSize;
+//				loadedAmmo = normalAmmo;
+//				curAmmoTypeText = normalTotalAmmo;
+//			} 
+//			else {
+//				print ("Out of Normal Magazines!");
+//			}
+//			break;
+//		case 1:
+//			if (incindiaryTotalAmmo > 0) {
+//				incindiaryAmmo = incindiaryMagSize;
+//				incindiaryTotalAmmo -= incindiaryMagSize;
+//				magSize = incindiaryMagSize;
+//				loadedAmmo = incindiaryAmmo;
+//				curAmmoTypeText = incindiaryTotalAmmo;
+//			} 
+//			else {
+//				print ("Out of incindiary Magazines!");
+//			}
+//			break;
 		}
     }
 
 	public override void QuickMelee(){
-//		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
-//		if (Input.GetButtonDown ("Fire2")) {
-//			if (Time.time > hitTime) {
-//				if (myStateInfo.shortNameHash == idleHash) {
-//					myAnimator.SetTrigger ("QuickMelee");
-//				}
-//				hitTime = Time.time + hitRate;
-//			}
-//		}
+		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
+		if (Input.GetButtonDown ("Fire2")) {
+			if (Time.time > hitTime) {
+				if (myStateInfo.shortNameHash == Animator.StringToHash(idleHash)) {
+					myAnimator.SetTrigger ("QuickMelee");
+				}
+				hitTime = Time.time + hitRate;
+			}
+		}
 	}
 
 	public override void UIChecker(){
@@ -144,7 +252,6 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoSwitch(){
-		print ("switched");
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
@@ -155,23 +262,18 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoCycle(){
-		print ("Chosen ammo");
 		switch (curAmmoType){
 		case 0:
-			print ("1");
-//			loadedAmmo = birdAmmo;
-//			shotCount = birdShotCount;
-//			shootDirValueX = birdDirValueX;
-//			shootDirValueY = birdDirValueY;
-//			curAmmoTypeText = birdTotalAmmo;
+			loadedAmmo = normalAmmo;
+			shootDirValueX = normalDirValueX;
+			shootDirValueY = normalDirValueY;
+			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
-			print ("2");
-//			loadedAmmo = buckAmmo;
-//			shotCount = buckShotCount;
-//			shootDirValueX = buckDirValueX;
-//			shootDirValueY = buckDirValueY;
-//			curAmmoTypeText = buckTotalAmmo;
+			loadedAmmo = incindiaryAmmo;
+			shootDirValueX = incindiaryDirValueX;
+			shootDirValueY = incindiaryDirValueY;
+			curAmmoTypeText = incindiaryTotalAmmo;
 			break;
 		}
 	}
