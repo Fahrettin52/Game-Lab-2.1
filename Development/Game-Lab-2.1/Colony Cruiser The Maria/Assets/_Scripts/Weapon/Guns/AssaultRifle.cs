@@ -25,9 +25,9 @@ public class AssaultRifle : AbstractWeapon {
 	public float waitTilNextFire; 
 
 	public bool mayFlechette;
+	public bool mayNormal;
 
 	public GameObject bulletHole;
-	public GameObject bulletStart;
 	public GameObject flechette;
 	public GameObject ammoHUD;
 	public GameObject bulletHUD;
@@ -35,8 +35,6 @@ public class AssaultRifle : AbstractWeapon {
 
 	public void Update (){
 		cameroTransform = camero.transform;
-//		GetComponent<LineRenderer>().SetPosition (0, bulletStart.transform.position);
-//		GetComponent<LineRenderer>().SetPosition (1, cameroTransform.forward * 10 + cameroTransform.position);
 	}
 
 	public override void Shooting(){
@@ -242,7 +240,9 @@ public class AssaultRifle : AbstractWeapon {
 			break;
 		default:
 			print ("NOT AN ENEMY!");
-			Instantiate (bulletHole, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
+			if (mayNormal == true) {
+				Instantiate (bulletHole, rayHit.point, Quaternion.FromToRotation (Vector3.up, rayHit.normal));
+			}
 			if (mayFlechette == true){
 				Instantiate (flechette, rayHit.point, Quaternion.FromToRotation (Vector3.forward, rayHit.normal));
 			}
@@ -269,6 +269,7 @@ public class AssaultRifle : AbstractWeapon {
 	public override void AmmoCycle(){
 		switch (curAmmoType){
 		case 0:
+			mayNormal = true;
 			mayFlechette = false;
 			loadedAmmo = normalAmmo;
 			shotCount = normalShotCount;
@@ -278,6 +279,7 @@ public class AssaultRifle : AbstractWeapon {
 			break;
 		case 1:
 			mayFlechette = true;
+			mayNormal = false;
 			loadedAmmo = flechetteAmmo;
 			shotCount = flechetteShotCount;
 			shootDirValueX = flechetteDirValueX;
