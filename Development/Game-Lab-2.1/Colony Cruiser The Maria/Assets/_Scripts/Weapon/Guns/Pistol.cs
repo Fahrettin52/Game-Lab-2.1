@@ -6,14 +6,14 @@ public class Pistol : AbstractWeapon {
 	public int incindiaryAmmo;
 	public int normalTotalAmmo;
 	public int incindiaryTotalAmmo;
-	public int normalDirValueX;
-	public int normalDirValueY;
+	public float normalDirValueX;
+	public float normalDirValueY;
 	public int maxNormalAmmo;
 	public int maxIncindiaryAmmo;
 	public int normalMagSize;
 	public int incindiaryMagSize;
-	public int incindiaryDirValueX;
-	public int incindiaryDirValueY;
+	public float incindiaryDirValueX;
+	public float incindiaryDirValueY;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");

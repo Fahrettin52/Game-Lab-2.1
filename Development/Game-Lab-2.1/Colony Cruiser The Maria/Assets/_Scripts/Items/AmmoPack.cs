@@ -23,7 +23,7 @@ public class AmmoPack : MonoBehaviour {
 		case "M4a1":
 			AddAmmo(0);
 			break; 
-		case "PistolPH":
+		case "Weapon_Revolver":
 			AddAmmo(1);
 			break; 
 		}

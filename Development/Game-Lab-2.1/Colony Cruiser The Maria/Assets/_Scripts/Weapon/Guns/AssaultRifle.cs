@@ -81,20 +81,14 @@ public class AssaultRifle : AbstractWeapon {
 			break;
 		case 1:
 			if (flechetteTotalAmmo > 0) {
-				int leftoverAmmo = flechetteMagSize - flechetteAmmo;
-				for (int i = 0; leftoverAmmo > 0; i++) {
-					flechetteTotalAmmo--;
-					flechetteAmmo++;
-					leftoverAmmo--;
-					if (flechetteTotalAmmo < 1) {
-						break;
-					}
-				}
+				flechetteAmmo = flechetteMagSize;
+				flechetteTotalAmmo -= flechetteMagSize;
 				loadedAmmo = flechetteAmmo;
 				magSize = flechetteMagSize;
 				curAmmoTypeText = flechetteTotalAmmo;
-			} else {
-				print ("Out of Flechette Magazines!");
+			} 
+			else {
+				print ("Out of Normal Magazines!");
 			}
 			break;
 		}
