@@ -208,30 +208,6 @@ public class Pistol : AbstractWeapon {
 				print ("Out of incindiary Magazines!");
 			}
 			break;
-//		case 0:
-//			if (normalTotalAmmo > 0) {
-//				normalAmmo = normalMagSize;
-//				normalTotalAmmo -= normalMagSize;
-//				magSize = normalMagSize;
-//				loadedAmmo = normalAmmo;
-//				curAmmoTypeText = normalTotalAmmo;
-//			} 
-//			else {
-//				print ("Out of Normal Magazines!");
-//			}
-//			break;
-//		case 1:
-//			if (incindiaryTotalAmmo > 0) {
-//				incindiaryAmmo = incindiaryMagSize;
-//				incindiaryTotalAmmo -= incindiaryMagSize;
-//				magSize = incindiaryMagSize;
-//				loadedAmmo = incindiaryAmmo;
-//				curAmmoTypeText = incindiaryTotalAmmo;
-//			} 
-//			else {
-//				print ("Out of incindiary Magazines!");
-//			}
-//			break;
 		}
     }
 
