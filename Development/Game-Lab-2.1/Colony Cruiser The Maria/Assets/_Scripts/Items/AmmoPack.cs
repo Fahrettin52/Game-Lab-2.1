@@ -3,11 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AmmoPack : MonoBehaviour {
-	
-	public enum AmmoType { AssaultNormal, AssaultFlachette, PistolNormal, PistolIncindiary };
-
-	public AmmoType myType;
-
 	public GameObject player;
 	public GameObject assaultRifle;
 	public GameObject shotgun;
@@ -26,6 +21,9 @@ public class AmmoPack : MonoBehaviour {
 		case "Weapon_Revolver":
 			AddAmmo(1);
 			break; 
+		case "Weapon_ShotGun":
+			AddAmmo(2);
+			break; 
 		}
 	}
 
@@ -38,6 +36,10 @@ public class AmmoPack : MonoBehaviour {
 		case 1:
 			randomAmmoInt = Random.Range (0, pistol.GetComponent<Pistol>().maxAmmoType);
 			pistol.GetComponent<Pistol>().AmmoAdd(randomAmmoInt);
+			break; 
+		case 2:
+			randomAmmoInt = Random.Range (0, shotgun.GetComponent<Pistol>().maxAmmoType);
+			shotgun.GetComponent<Pistol>().AmmoAdd(randomAmmoInt);
 			break; 
 		}
 	}

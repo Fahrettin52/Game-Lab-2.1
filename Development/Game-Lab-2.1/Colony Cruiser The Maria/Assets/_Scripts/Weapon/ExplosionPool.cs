@@ -37,7 +37,6 @@ public class ExplosionPool : MonoBehaviour {
 				ParticleSystem selectedParticles = poolElement [i].GetComponent<ParticleSystem> ();
 				selectedParticles.Stop ();
 				poolStateList [i] = PoolState.Pooled;
-				poolElement [i].transform.position = Vector3.zero;
 				break;
 			}
 		}

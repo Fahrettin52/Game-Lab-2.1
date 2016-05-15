@@ -22,22 +22,32 @@ public class Shotgun : AbstractWeapon {
 	public int birdAmmo;
 	public int buckAmmo;
 	public int slugAmmo;
-	public int birdMag;
-	public int buckMag;
-	public int slugMag;
+	public int birdMagSize;
+	public int buckMagSize;
+	public int slugMagSize;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
 		weaponManager = player.GetComponent<WeaponManager> ();
 		weaponManager.weaponIcon.sprite = myWeaponIcon;
+		switch (curAmmoType) {
+		case 0:
+			magSize = birdMagSize;
+			break;
+		case 1:
+			magSize = buckMagSize;
+			break;
+		case 2:
+			magSize = slugMagSize;
+			break;
+		}
 		FillDelegate ();
 		AmmoCycle ();
 		UIChecker ();
 	}
 
 	public override void AmmoSwitch(){
-		print ("switched");
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;
 		}
@@ -48,10 +58,8 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void AmmoCycle(){
-		print ("Chosen ammo");
 		switch (curAmmoType){
 		case 0:
-			print ("1");
 			loadedAmmo = birdAmmo;
 			shotCount = birdShotCount;
 			shootDirValueX = birdDirValueX;
@@ -59,7 +67,6 @@ public class Shotgun : AbstractWeapon {
 			curAmmoTypeText = birdTotalAmmo;
 			break;
 		case 1:
-			print ("2");
 			loadedAmmo = buckAmmo;
 			shotCount = buckShotCount;
 			shootDirValueX = buckDirValueX;
@@ -67,7 +74,6 @@ public class Shotgun : AbstractWeapon {
 			curAmmoTypeText = buckTotalAmmo;
 			break;
 		case 2:
-			print ("3");
 			loadedAmmo = slugAmmo;
 			shotCount = slugShotCount;
 			shootDirValueX = slugDirValueX;
@@ -92,6 +98,7 @@ public class Shotgun : AbstractWeapon {
 		if (Input.GetButtonDown ("Fire1")) {
 			if (loadedAmmo > 0) {
 				cameroTransform = camero.transform;
+				//Moet aan frans of Xander vragen hoe ik ook weer een for loop for 1 frame liet stoppen
 				for (int i = 0; i < shotCount; i++) {
 					shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 					//Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
@@ -150,11 +157,10 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void Reloading(){
-		int curLoadedAmmo = curAmmoType;
-		switch (curLoadedAmmo){
+		switch (curAmmoType){
 		case 0:
 			if (birdTotalAmmo > 0) {
-				int leftoverAmmo = birdMag - birdAmmo;
+				int leftoverAmmo = birdMagSize - birdAmmo;
 				print (curAmmoTypeText);
 				for (int i = 0; leftoverAmmo > 0; i++) {
 					birdTotalAmmo--;
@@ -173,7 +179,7 @@ public class Shotgun : AbstractWeapon {
 			break;
 		case 1:
 			if (buckTotalAmmo > 0) {
-				int leftoverAmmo = buckMag - buckAmmo;
+				int leftoverAmmo = buckMagSize - buckAmmo;
 				for (int i = 0; leftoverAmmo > 0; i++) {
 					buckTotalAmmo--;
 					buckAmmo++;
@@ -191,7 +197,7 @@ public class Shotgun : AbstractWeapon {
 			break;
 		case 2:
 			if (slugTotalAmmo > 0) {
-				int leftoverAmmo = slugMag - slugAmmo;
+				int leftoverAmmo = slugMagSize - slugAmmo;
 				for (int i = 0; leftoverAmmo > 0; i++) {
 					slugTotalAmmo--;
 					slugAmmo++;
@@ -227,8 +233,7 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void AmmoRemove(){
-		int curLoadedAmmo = curAmmoType;
-		switch (curLoadedAmmo){
+		switch (curAmmoType){
 		case 0:
 			birdAmmo--;
 			loadedAmmo = birdAmmo;
@@ -245,7 +250,43 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override int AmmoAdd(int ammoToAdd){
-
+		switch (ammoToAdd) {
+		case 0:
+			if (birdTotalAmmo < maxBirdAmmo) {
+				birdTotalAmmo += birdMagSize;
+				if(birdTotalAmmo > maxBirdAmmo){
+					birdTotalAmmo = maxBirdAmmo;
+				}
+			}
+			break;
+		case 1:
+			if (buckTotalAmmo < maxBuckAmmo) {
+				buckTotalAmmo += buckMagSize;
+				if(buckTotalAmmo > maxBuckAmmo){
+					buckTotalAmmo = maxBuckAmmo;
+				}
+			}
+			break;
+		case 2:
+			if (slugTotalAmmo < maxSlugAmmo) {
+				slugTotalAmmo += slugMagSize;
+				if(slugTotalAmmo > maxSlugAmmo){
+					slugTotalAmmo = maxSlugAmmo;
+				}
+			}
+			break;
+		}
+		switch(curAmmoType){
+		case 0:
+			curAmmoTypeText = birdTotalAmmo;
+			break;
+		case 1: 
+			curAmmoTypeText = buckTotalAmmo;
+			break;
+		case 2: 
+			curAmmoTypeText = slugTotalAmmo;
+			break;
+		}
 		return ammoToAdd;
 	}
 
@@ -254,7 +295,15 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override void QuickMelee(){
-
+		myStateInfo = myAnimator.GetCurrentAnimatorStateInfo (0);
+		if (Input.GetButtonDown ("Fire2")) {
+			if (Time.time > hitTime) {
+				if (myStateInfo.shortNameHash == Animator.StringToHash(idleHash)) {
+					myAnimator.SetTrigger ("QuickMelee");
+				}
+				hitTime = Time.time + hitRate;
+			}
+		}
 	}
 
 	public override void UIChecker(){

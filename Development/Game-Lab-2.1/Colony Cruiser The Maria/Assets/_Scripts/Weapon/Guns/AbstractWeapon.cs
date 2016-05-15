@@ -20,7 +20,6 @@ public abstract class AbstractWeapon : MonoBehaviour {
 
 	public Sprite myWeaponIcon;
 
-	public string myAmmoCount;
 	public string idleHash;
 
 	public bool aiming;
