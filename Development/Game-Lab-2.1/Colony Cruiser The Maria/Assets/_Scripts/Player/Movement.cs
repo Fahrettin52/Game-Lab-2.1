@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class Movement : MonoBehaviour {
 
     public enum MovementType { Normal, Ladder, Cover, Dead, Stunned};
-
     public MovementType myMovement;
-
 	public Sprite walk, crouch, ladder, cover;
 	public Image currentState;
-
+	public Rigidbody myRB;
+	public float slowmoCorrection;
+	public float terminalFallVelocity;
+	public float myGravity;
     public float moveSpeed;
     public float ladderSpeed;
     public float coverSpeed;
@@ -29,9 +30,11 @@ public class Movement : MonoBehaviour {
     private Vector3 myNormal;
 
     public void Start() {
+		myRB = GetComponent<Rigidbody>();
         startSpeed = moveSpeed;
         iscrouching = false;
         mayJump = true;
+//		myGravity = -Physics.gravity.y;
     }
 
     void FixedUpdate() {
@@ -78,20 +81,34 @@ public class Movement : MonoBehaviour {
         }
 
         if (Input.GetButtonDown("Jump") && mayJump == true) {
-            GetComponent<Rigidbody>().AddForce(transform.up * 250);
+			if (slowmoCorrection > 1) {
+				myRB.AddForce (transform.up * (250 * slowmoCorrection));
+			} 
+			else {
+				myRB.AddForce (transform.up * (250 * slowmoCorrection));
+			}
+			print (250 * slowmoCorrection);
             mayJump = false;
         }
+		if (myRB.velocity.y < 0 && !mayJump) {
+			if(slowmoCorrection > 1){
+				myRB.AddForce (-transform.up * (-Physics.gravity.y * slowmoCorrection));
+			}
+			if (myRB.velocity.y < terminalFallVelocity) {
+				myRB.velocity = new Vector3 (0, terminalFallVelocity, 0);
+			}
+		}
 
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
+		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * (moveSpeed * slowmoCorrection));
     }
 
     public void LadderChecker() {
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * ladderSpeed);
+		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * (ladderSpeed * slowmoCorrection));
     }
 
     public void CoverChecker() {
             if (GetComponent<CameraControl>().camRotationX >= 15 && GetComponent<CameraControl>().camRotationX <= 120) {
-                transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
+			transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * (coverSpeed * slowmoCorrection));
                 if (Input.GetAxis("Horizontal") < 0) {
 					currentState.sprite = walk;
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
@@ -101,7 +118,7 @@ public class Movement : MonoBehaviour {
             }
 
             if (GetComponent<CameraControl>().camRotationX <= -15 && GetComponent<CameraControl>().camRotationX >= -120) {
-                transform.Translate(new Vector3(-Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * coverSpeed);
+			transform.Translate(new Vector3(-Input.GetAxis("Vertical"), 0, 0) * Time.deltaTime * (coverSpeed * slowmoCorrection));
                 if (Input.GetAxis("Horizontal") > 0) {
 					currentState.sprite = walk;
                     GetComponent<CameraControl>().myView = CameraControl.ViewType.Normal;
@@ -123,14 +140,14 @@ public class Movement : MonoBehaviour {
     public void OnTriggerEnter(Collider collider) {
         if (collider.transform.tag == "Ladder") {
 			currentState.sprite = ladder;
-            GetComponent<Rigidbody>().useGravity = false;
+			myRB.useGravity = false;
             myMovement = MovementType.Ladder;
         }
     }
 
     public void OnTriggerExit(Collider collider) {
         if (collider.transform.tag == "Ladder") {
-            GetComponent<Rigidbody>().useGravity = true;
+			myRB.useGravity = true;
             mayJump = false;
             myMovement = MovementType.Normal;
 			currentState.sprite = walk;
@@ -158,7 +175,7 @@ public class Movement : MonoBehaviour {
 
 	public void StunChecker(){
 		if (stunTime > 0) {
-			stunTime -= Time.deltaTime;
+			stunTime -= Time.deltaTime * slowmoCorrection;
 			stunScreen.GetComponent<CanvasGroup> ().alpha = stunTime;
 		}
 		else {
@@ -169,20 +186,20 @@ public class Movement : MonoBehaviour {
 		}
 
 		if (Input.GetButtonDown("Crouch") && iscrouching == false){
-			moveSpeed = crouchSpeed / stunSpeed;
+			moveSpeed = (crouchSpeed / stunSpeed) * slowmoCorrection;
 			GetComponent<BoxCollider>().size = new Vector3(1, 0.5f, 1);
 			iscrouching = true;     
 		} 
 		else if (Input.GetButtonDown("Crouch") && iscrouching == true){
 			GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
-			moveSpeed = startSpeed / stunSpeed;
+			moveSpeed = (startSpeed / stunSpeed) * slowmoCorrection;
 			iscrouching = false;
 		}
 
 		if (Input.GetButtonDown("Jump") && mayJump == true) {
-			GetComponent<Rigidbody>().AddForce(transform.up * 250);
+			myRB.AddForce(transform.up * 250);
 			mayJump = false;
 		}
-		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * (moveSpeed / stunSpeed));
+		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * ((moveSpeed / stunSpeed) * slowmoCorrection));
 	}
 }

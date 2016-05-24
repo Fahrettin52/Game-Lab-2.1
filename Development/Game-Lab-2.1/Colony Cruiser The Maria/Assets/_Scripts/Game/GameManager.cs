@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour {
 		Normal,
 		Slowmo
 	}
-	public GameState gameState;
 	public static float keyCard;
 
 	public float curTimeScale;
 	private float defaultTimeScale;
 	public float slowMoTimeScale;
+	public float slowMoCorrecter;
+	public float slowmoTimer;
 
+	public GameObject player;
 	public GameObject pauseHUD;
 	public bool pausing;
 
@@ -24,19 +26,34 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update(){
-		switch (gameState) {
-		case GameState.Normal:
-			curTimeScale = defaultTimeScale;
-			break;
-		case GameState.Slowmo:
-			curTimeScale = slowMoTimeScale;
-			break;
-		}
 		if (Input.GetButtonDown ("Cancel")) {
 			PauseGame (curTimeScale);
 			pausing = !pausing;
 			pauseHUD.SetActive (pausing);
 		}
+	}
+
+	public void GameStateChecker(GameState sendState){
+		switch (sendState) {
+		case GameState.Normal:
+			curTimeScale = defaultTimeScale;
+			Time.timeScale = defaultTimeScale;
+			player.GetComponent<Movement> ().slowmoCorrection = slowMoCorrecter / slowMoCorrecter;
+			break;
+		case GameState.Slowmo:
+			curTimeScale = slowMoTimeScale;
+			player.GetComponent<Movement> ().slowmoCorrection = slowMoCorrecter;
+			Time.timeScale = slowMoTimeScale;
+			Time.fixedDeltaTime = 0.02f * Time.timeScale;
+			StartCoroutine(SlowmoReset ());
+			break;
+		}
+	}
+
+	public IEnumerator SlowmoReset(){
+		yield return new WaitForSeconds(slowmoTimer);
+		print ("Slowmo eindigd");
+		GameStateChecker(GameState.Normal);
 	}
 
 	public void SceneChcker(){

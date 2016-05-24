@@ -8,6 +8,7 @@
 •	1 ammo switch
 •	2 granade cycle
 •	3 om te switchen tussen med- en stimpacks
+•	q om med/stim packs gebruiken
 •	A, D Voor streven
 •	Muis voor camera look
 •	F: quick stab

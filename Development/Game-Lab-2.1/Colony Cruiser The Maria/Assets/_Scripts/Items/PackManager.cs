@@ -41,7 +41,7 @@ public class PackManager : MonoBehaviour {
 		if (stimPackCount > 0 && Input.GetButtonDown ("ActivatePack")) {
 			print ("Activer slow-mo");
 			//Activeer hier de slowmo
-			//gameManager.GetComponent<GameManager> ().gameState = GameManager.GameState.Slowmo;
+			gameManager.GetComponent<GameManager> ().GameStateChecker(GameManager.GameState.Slowmo);
 			stimPackCount--;
 		} 
 		else if (stimPackCount < 1 && medPackCount > 0) {
