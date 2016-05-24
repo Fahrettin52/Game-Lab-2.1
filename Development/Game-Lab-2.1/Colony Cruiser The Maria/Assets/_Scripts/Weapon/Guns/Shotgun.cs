@@ -13,6 +13,7 @@ public class Shotgun : AbstractWeapon {
 	public float slugDirValueX;
 	public float slugDirValueY;
 
+	public int shotsDividerCount;
 	public int maxBirdAmmo;
 	public int maxBuckAmmo;
 	public int maxSlugAmmo;
@@ -97,28 +98,37 @@ public class Shotgun : AbstractWeapon {
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
 			if (loadedAmmo > 0) {
-				cameroTransform = camero.transform;
-				//Moet aan frans of Xander vragen hoe ik ook weer een for loop for 1 frame liet stoppen
-				for (int i = 0; i < shotCount; i++) {
-					shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-					//Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
-					if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
-						DistanceChecker (player.transform.position);		
-					}
-					else {
-						print ("MISSED");
-					}
-				}
+				StartCoroutine (ShotDivider ());
 				AmmoRemove ();
 			}
+			if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
+				if (loadedAmmo < magSize) {
+					Reloading ();
+				}
+			}
+			UIChecker ();
 		}
-		if (Input.GetButtonDown ("Reload") || loadedAmmo == 0) {
-			if (loadedAmmo < magSize) {
-				Reloading ();
+	}
+
+		public IEnumerator ShotDivider(){
+			int shotsFired = 0;
+			cameroTransform = camero.transform;
+			for (int i = 0; i < shotCount; i++) {
+				shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				//Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
+				if (Physics.Raycast (cameroTransform.position, shootDir, out rayHit, rayDis)) {
+					DistanceChecker (player.transform.position);		
+				} 
+				else {
+					print ("MISSED");
+				}
+				shotsFired++;
+				if (shotCount >= shotsFired && shotsFired == shotsDividerCount) {
+					yield return 0;
+					shotsFired = 0;
+				}
 			}
 		}
-		UIChecker ();
-	}
 
 	public override void DistanceChecker(Vector3 savedPos){
 		float impactDistance = Vector3.Distance(savedPos, rayHit.transform.position);
@@ -220,14 +230,14 @@ public class Shotgun : AbstractWeapon {
 		if (!aim) {
 			if (camero.GetComponent<Camera> ().fieldOfView < maxFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView += zoomSpeed * Time.deltaTime;
-                GetComponent<Animator>().SetBool("aimAnimation", false);
-            }
+				GetComponent<Animator>().SetBool("aimAnimation", false);
+			}
 		}
 		else {
 			if (camero.GetComponent<Camera> ().fieldOfView > minFieldOfView) {
 				camero.GetComponent<Camera> ().fieldOfView -= zoomSpeed * Time.deltaTime;
-                GetComponent<Animator>().SetBool("aimAnimation", true);
-            }
+				GetComponent<Animator>().SetBool("aimAnimation", true);
+			}
 		}
 		return aim;
 	}
