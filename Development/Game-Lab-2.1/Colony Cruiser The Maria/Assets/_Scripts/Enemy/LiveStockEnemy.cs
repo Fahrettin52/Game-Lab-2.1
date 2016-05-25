@@ -9,7 +9,7 @@ public abstract class LiveStockEnemy : AbstractEnemy {
 
 	public override abstract void AttackPlayer ();
 
-	public override abstract void StateSwitcher ();
+	public override abstract void StateChecker ();
 
 	public abstract void Patrolling ();
 

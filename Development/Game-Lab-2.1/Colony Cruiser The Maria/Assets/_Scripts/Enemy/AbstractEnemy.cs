@@ -9,5 +9,5 @@ public abstract class AbstractEnemy : MonoBehaviour {
 
 	public abstract void AttackPlayer ();
 
-	public abstract void StateSwitcher ();
+	public abstract void StateChecker ();
 }
