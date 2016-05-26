@@ -7,27 +7,58 @@ public class Turret : AIEnemy {
 		Patrol,
 		Attack
 	}
+	public enum RotationPhase
+	{
+		Phase1,
+		Phase2,
+		Phase3,
+		Phase4
+	}
 	public AIState myState;
+	public RotationPhase myRotPhase;
 	public GameObject player;
 	private Transform playerTransform;
-	public float playerDis;
+	private float playerDis;
 	public float distanceOfSight;
+	private float startRotationPoint;
+	public float rotationSpeed;
+	public float rotationLimit;
+	private float maxRotationLimit;
+	private float minRotationLimit;
+	private float trueMinRotLimit;
+	private float trueMaxRotLimit;
 	public float bulletDamage;
 	public float shootDirValueX;
 	public float shootDirValueY;
 	public float overheatCountDown;
 	private float overheatCountDownReset;
-	public float cooldownTimer;
 	public float playerOutOfSightTimer;
-	public float playerOutOfSightTimerReset;
+	private float playerOutOfSightTimerReset;
+	public float cooldownTimer;
 	public RaycastHit rayHit;
 	public RaycastHit bulletHit;
 	public bool isCoolingOff;
+	public bool rotateNegative;
 
 	public void Start(){
-		player = GameObject.FindGameObjectWithTag ("Playerr");
+		player = GameObject.FindGameObjectWithTag ("Player");
 		overheatCountDownReset = overheatCountDown;
 		playerOutOfSightTimerReset = playerOutOfSightTimer;
+		startRotationPoint = transform.eulerAngles.y;
+		maxRotationLimit = startRotationPoint + rotationLimit;
+		minRotationLimit = startRotationPoint - rotationLimit;
+		if (maxRotationLimit > 360) {
+			trueMaxRotLimit = maxRotationLimit - 360;
+		}
+		else {
+			trueMaxRotLimit = maxRotationLimit;
+		}
+		if (minRotationLimit < 0) {
+			trueMinRotLimit = 360 + minRotationLimit;
+		}
+		else {
+			trueMinRotLimit = minRotationLimit;
+		}
 	}
 
 	public void Update(){
@@ -86,12 +117,53 @@ public class Turret : AIEnemy {
 	public override void StateChecker (){
 		switch (myState) {
 		case AIState.Patrol:
-			//moet dit nog verder uitbreiden, maar ga eerst verder met het aanvallen van speler
-			transform.Rotate (Vector3.right, Time.deltaTime);
+			Patrolling ();
 			break;
 		case AIState.Attack:
 			AttackPlayer ();
 			break;
+		}
+	}
+
+	public void Patrolling(){
+		float myAngleY = transform.rotation.eulerAngles.y;
+		switch(myRotPhase){
+		case RotationPhase.Phase1:
+			rotateNegative = false;
+			if (myAngleY > trueMaxRotLimit) {
+				myRotPhase = RotationPhase.Phase2;
+			}
+			break;
+		case RotationPhase.Phase2:
+			if (myAngleY < trueMinRotLimit) {
+				rotateNegative = true;
+			}
+			else{
+				myRotPhase = RotationPhase.Phase3;
+			}
+			break;
+		case RotationPhase.Phase3:
+			if (myAngleY > trueMinRotLimit) {
+				rotateNegative = true;
+			}
+			else {
+				myRotPhase = RotationPhase.Phase4;
+			}
+			break;
+		case RotationPhase.Phase4:
+			if (myAngleY > trueMaxRotLimit) {
+				rotateNegative = false;
+			}
+			else {
+				myRotPhase = RotationPhase.Phase1;
+			}
+			break;
+		}
+		if (!rotateNegative) {
+			transform.Rotate (Vector3.up, Time.deltaTime * rotationSpeed);
+		}
+		else {
+			transform.Rotate (-Vector3.up, Time.deltaTime * rotationSpeed);
 		}
 	}
 
