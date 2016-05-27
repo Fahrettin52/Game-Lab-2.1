@@ -7,6 +7,10 @@ public abstract class LiveStockEnemy : AbstractEnemy {
 
 	public override abstract void HealthChecker ();
 
+	public override abstract float RecieveDamage (float recievedDamage);
+
+	public override abstract float RecieveCriticalDamage (float recievedDamage);
+
 	public override abstract void AttackPlayer ();
 
 	public override abstract void StateChecker ();

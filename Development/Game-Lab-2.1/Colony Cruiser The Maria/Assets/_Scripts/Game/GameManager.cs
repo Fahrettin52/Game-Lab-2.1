@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour {
 
 	public IEnumerator SlowmoReset(){
 		yield return new WaitForSeconds(slowmoTimer);
-		print ("Slowmo eindigd");
 		GameStateChecker(GameState.Normal);
 	}
 

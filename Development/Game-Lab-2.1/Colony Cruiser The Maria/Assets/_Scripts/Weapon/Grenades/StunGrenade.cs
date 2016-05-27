@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StunGrenade : AbstractGrenades {
+public class StunGrenade : VirtualGrenades {
 	public float stunningTime;
 	public float stunAngle;
 

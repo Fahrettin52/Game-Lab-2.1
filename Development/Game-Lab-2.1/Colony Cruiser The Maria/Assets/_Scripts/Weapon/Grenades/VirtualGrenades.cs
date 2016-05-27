@@ -1,12 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VirtualGrenades : AbstractGrenades {
-	public override IEnumerator TimerToExplode(){
+public abstract class VirtualGrenades : MonoBehaviour {
+	public GameObject myPoolManager;
+	public string poolManagerString;
+	public RaycastHit rayHit;
+	public string[] blockade;
+	public float myTimer;
+	public float grenadeDamage;
+	public Rigidbody rigidBody;
+	public float throwingPower;
+	public float radius;
+	public float power;
+
+	public virtual IEnumerator TimerToExplode(){
 		yield return new WaitForSeconds (myTimer);
 	}
 
-	public override void GrenadeEffect(GameObject objectHit){
-		
+	public virtual void GrenadeEffect(GameObject objectHit){
+
 	}
 }

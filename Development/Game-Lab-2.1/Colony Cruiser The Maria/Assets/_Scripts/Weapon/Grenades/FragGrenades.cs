@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FragGrenades : AbstractGrenades {
+public class FragGrenades : VirtualGrenades {
 	private Vector3 explosionPos;
 	private float timesHit;
 	public float damageReductionRate;

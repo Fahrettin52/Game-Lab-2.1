@@ -18,6 +18,8 @@ public class Turret : AIEnemy {
 	public RotationPhase myRotPhase;
 	public GameObject player;
 	private Transform playerTransform;
+	public float health;
+	public float critMultiplier;
 	private float playerDis;
 	public float distanceOfSight;
 	private float startRotationPoint;
@@ -79,8 +81,22 @@ public class Turret : AIEnemy {
 		}
 	}
 
-	public override void HealthChecker (){
-	
+	public override void HealthChecker(){
+		if(health < 1){
+			Destroy (gameObject);
+		}
+	}
+
+	public override float RecieveDamage (float recievedDamage){
+		health -= recievedDamage;
+		HealthChecker ();
+		return health;
+	}
+
+	public override float RecieveCriticalDamage(float recievedDamage){
+		health -= recievedDamage * critMultiplier;
+		HealthChecker ();
+		return health;
 	}
 
 	public override void AttackPlayer (){
