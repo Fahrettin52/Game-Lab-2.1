@@ -81,27 +81,30 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override IEnumerator ImpactDelay(float impactTime, float damage){
-		Transform rayHitTransform = rayHit.transform;
-		switch (rayHitTransform.tag) {
+		yield return new WaitForSeconds(impactTime);
+		Transform targetTransform = rayHit.transform;
+		switch (targetTransform.tag) {
 		case "Head":
-			print ("Hit the Head, damage x5");
-			GameObject parento = rayHitTransform.parent.gameObject;
-            Destroy(parento);
+			print ("Hit the Head, damage x3");
+			Destroy (targetTransform.gameObject);
 			break;
 		case "Limbs":
-			print ("Hit Limb, damage x2");
-			Destroy (rayHitTransform.gameObject);
+			print ("Hit Limb, damage x1");
+			Destroy (targetTransform.gameObject);
 			break;
 		case "Body":
-			print ("Hit the Body, damage x3");
-            //Destroyen van de parent voorbeeld:
-			Destroy(rayHitTransform.gameObject);
-            break;
+			print ("Hit the Body, damage x2");
+			//Destroyen van de parent voorbeeld:
+			GameObject parento = targetTransform.parent.gameObject;
+			Destroy (parento);
+			break;
+		case "Barrel":
+			targetTransform.GetComponent<SmokeBarrel> ().Explode ();
+			break;
 		default:
 			print ("NOT AN ENEMY!");
 			break;
 		}
-		yield return new WaitForSeconds(impactTime);
 	}
 
 	public override bool Aiming(bool aim){

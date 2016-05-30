@@ -144,20 +144,24 @@ public class Shotgun : AbstractWeapon {
 	}
 
 	public override IEnumerator ImpactDelay(float impactTime, float damage){
-		switch (rayHit.transform.tag) {
+		Transform rayHitTransform = rayHit.transform;
+		switch (rayHitTransform.tag) {
 		case "Head":
 			print ("Hit the Head, damage x3");
-			Destroy (rayHit.transform.gameObject);
+			Destroy (rayHitTransform.gameObject);
 			break;
 		case "Limbs":
 			print ("Hit Limb, damage x1");
-			Destroy (rayHit.transform.gameObject);
+			Destroy (rayHitTransform.gameObject);
 			break;
 		case "Body":
 			print ("Hit the Body, damage x2");
 			//Destroyen van de parent voorbeeld:
-			GameObject parento = rayHit.transform.parent.gameObject;
+			GameObject parento = rayHitTransform.parent.gameObject;
 			Destroy (parento);
+			break;
+		case "Barrel":
+			rayHitTransform.GetComponent<SmokeBarrel> ().Explode ();
 			break;
 		default:
 			print ("NOT AN ENEMY!");

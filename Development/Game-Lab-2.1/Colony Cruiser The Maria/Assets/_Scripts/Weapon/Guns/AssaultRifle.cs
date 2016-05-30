@@ -182,12 +182,24 @@ public class AssaultRifle : AbstractWeapon {
 	}
 
 	public override void AmmoEffect(GameObject target){
-		switch (target.GetComponent<Transform>().tag) {
-		case "EnemyLiveStock":
-			print ("EnemyLiveStock");
+		Transform targetTransform = target.transform;
+		switch (targetTransform.tag) {
+		case "Head":
+			print ("Hit the Head, damage x3");
+			Destroy (targetTransform.gameObject);
 			break;
-		case "EnemyAI":
-			print ("EnemyAI");
+		case "Limbs":
+			print ("Hit Limb, damage x1");
+			Destroy (targetTransform.gameObject);
+			break;
+		case "Body":
+			print ("Hit the Body, damage x2");
+			//Destroyen van de parent voorbeeld:
+			GameObject parento = targetTransform.parent.gameObject;
+			Destroy (parento);
+			break;
+		case "Barrel":
+			targetTransform.GetComponent<SmokeBarrel> ().Explode ();
 			break;
 		default:
 			print ("NOT AN ENEMY!");
