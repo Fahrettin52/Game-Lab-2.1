@@ -31,7 +31,8 @@ public class Interaction : MonoBehaviour {
     }
 
     public void InteractDoor() {
-        print("This is a door");
+		GetComponentInParent<Animator>().SetTrigger("mayOpen");
+ 		print("This is a door");
     }
 
     public void InteractWeapon(GameObject player) {
