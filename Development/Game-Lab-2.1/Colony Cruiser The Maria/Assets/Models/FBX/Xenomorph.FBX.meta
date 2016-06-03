@@ -1,28 +1,120 @@
 fileFormatVersion: 2
 guid: a86a5998c73dcdd44bc6efbf07cea6ed
-timeCreated: 1461665519
+timeCreated: 1464936701
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: A.Arborenesis
-    100002: Eye
-    100004: Teeth
-    100006: //RootNode
+    100002: BackLegIKLeft
+    100004: BackLegIKRight
+    100006: ClavicleLeftLarge
+    100008: ClavicleRightLarge
+    100010: ClavicleSmallLeft
+    100012: ClavicleSmallRight
+    100014: Eye
+    100016: Head
+    100018: HipLeft
+    100020: HipRight
+    100022: IK Chain001
+    100024: IK Chain002
+    100026: IK Chain003
+    100028: IK Chain004
+    100030: IK Chain005
+    100032: IK Chain006
+    100034: IK Chain007
+    100036: IK Chain008
+    100038: LargeArmFingerLeft
+    100040: LargeArmFingerRight
+    100042: LeftArmLeftFinger1Small
+    100044: LeftArmLeftFinger2Small
+    100046: LeftArmRightFinger1Small
+    100048: LeftArmRightFinger2Small
+    100050: LowerArmLeftLarge
+    100052: LowerArmLeftSmall
+    100054: LowerArmRightLarge
+    100056: LowerArmRightSmall
+    100058: LowerBackLegLeft
+    100060: LowerBackLegRight
+    100062: LowerBody
+    100064: LowerJaw
+    100066: MiddleBackLegLeft
+    100068: MiddleBackLegRight
+    100070: Neck
+    100072: RightArmLeftFinger2Small
+    100074: RightArmRightFinger1Small
+    100076: RightArmRightFinger1Small 1
+    100078: RightArmRightFinger2Small
+    100080: Tail
+    100082: Teeth
+    100084: UpperArmLeftLarge
+    100086: UpperArmLeftSmall
+    100088: UpperArmRightLarge
+    100090: UpperArmRightSmall
+    100092: UpperBackLegLeft
+    100094: UpperBackLegRight
+    100096: UpperBody
+    100098: UpperJaw
+    100100: //RootNode
     400000: A.Arborenesis
-    400002: Eye
-    400004: Teeth
-    400006: //RootNode
-    2300000: A.Arborenesis
-    2300002: Eye
-    2300004: Teeth
-    3300000: A.Arborenesis
-    3300002: Eye
-    3300004: Teeth
+    400002: BackLegIKLeft
+    400004: BackLegIKRight
+    400006: ClavicleLeftLarge
+    400008: ClavicleRightLarge
+    400010: ClavicleSmallLeft
+    400012: ClavicleSmallRight
+    400014: Eye
+    400016: Head
+    400018: HipLeft
+    400020: HipRight
+    400022: IK Chain001
+    400024: IK Chain002
+    400026: IK Chain003
+    400028: IK Chain004
+    400030: IK Chain005
+    400032: IK Chain006
+    400034: IK Chain007
+    400036: IK Chain008
+    400038: LargeArmFingerLeft
+    400040: LargeArmFingerRight
+    400042: LeftArmLeftFinger1Small
+    400044: LeftArmLeftFinger2Small
+    400046: LeftArmRightFinger1Small
+    400048: LeftArmRightFinger2Small
+    400050: LowerArmLeftLarge
+    400052: LowerArmLeftSmall
+    400054: LowerArmRightLarge
+    400056: LowerArmRightSmall
+    400058: LowerBackLegLeft
+    400060: LowerBackLegRight
+    400062: LowerBody
+    400064: LowerJaw
+    400066: MiddleBackLegLeft
+    400068: MiddleBackLegRight
+    400070: Neck
+    400072: RightArmLeftFinger2Small
+    400074: RightArmRightFinger1Small
+    400076: RightArmRightFinger1Small 1
+    400078: RightArmRightFinger2Small
+    400080: Tail
+    400082: Teeth
+    400084: UpperArmLeftLarge
+    400086: UpperArmLeftSmall
+    400088: UpperArmRightLarge
+    400090: UpperArmRightSmall
+    400092: UpperBackLegLeft
+    400094: UpperBackLegRight
+    400096: UpperBody
+    400098: UpperJaw
+    400100: //RootNode
     4300000: A.Arborenesis
     4300002: Teeth
     4300004: Eye
+    7400000: Take 001
     9500000: //RootNode
+    13700000: A.Arborenesis
+    13700002: Eye
+    13700004: Teeth
   materials:
     importMaterials: 1
     materialName: 0

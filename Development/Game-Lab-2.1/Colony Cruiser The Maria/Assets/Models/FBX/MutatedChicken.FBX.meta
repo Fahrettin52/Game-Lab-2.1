@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: bf9b2c7c34c19cd40ae1a0492f6d585f
+timeCreated: 1464939126
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Birdie
+    100002: BottomLeftMouth1
+    100004: BottomLeftMouth2
+    100006: BottomLeftTooth
+    100008: BottomRightTooth
+    100010: BottomRightTooth1
+    100012: BottomRightTooth2
+    100014: Head
+    100016: IK Chain001
+    100018: IK Chain002
+    100020: IK Chain003
+    100022: IK Chain004
+    100024: IK Chain005
+    100026: IK Chain006
+    100028: LeftInnerArm
+    100030: LeftLowerLeg
+    100032: LeftMiddleArm
+    100034: LeftMiddleFinger1
+    100036: LeftMiddleFinger2
+    100038: LeftMiddleFinger3
+    100040: LeftOuterArm
+    100042: LeftOuterFinger
+    100044: LeftShoulder
+    100046: LeftToe
+    100048: LeftUpperLeg
+    100050: LowerBody
+    100052: LowerTail
+    100054: //RootNode
+    100056: RightLowerLeg
+    100058: RightMiddleArm
+    100060: RightMiddleFinger1
+    100062: RightMiddleFinger2
+    100064: RightMiddleFinger3
+    100066: RightOuterArm
+    100068: RightOuterFinger
+    100070: RightShoulder
+    100072: RightToe
+    100074: RightUpperArm
+    100076: RightUpperLeg
+    100078: TopLeftMouth1
+    100080: TopLeftMouth2
+    100082: TopLeftTooth
+    100084: TopRightMouth1
+    100086: TopRightMouth2
+    100088: TopRightTooth
+    100090: UpperBody
+    100092: UpperTail
+    100094: Wings
+    400000: Birdie
+    400002: BottomLeftMouth1
+    400004: BottomLeftMouth2
+    400006: BottomLeftTooth
+    400008: BottomRightTooth
+    400010: BottomRightTooth1
+    400012: BottomRightTooth2
+    400014: Head
+    400016: IK Chain001
+    400018: IK Chain002
+    400020: IK Chain003
+    400022: IK Chain004
+    400024: IK Chain005
+    400026: IK Chain006
+    400028: LeftInnerArm
+    400030: LeftLowerLeg
+    400032: LeftMiddleArm
+    400034: LeftMiddleFinger1
+    400036: LeftMiddleFinger2
+    400038: LeftMiddleFinger3
+    400040: LeftOuterArm
+    400042: LeftOuterFinger
+    400044: LeftShoulder
+    400046: LeftToe
+    400048: LeftUpperLeg
+    400050: LowerBody
+    400052: LowerTail
+    400054: //RootNode
+    400056: RightLowerLeg
+    400058: RightMiddleArm
+    400060: RightMiddleFinger1
+    400062: RightMiddleFinger2
+    400064: RightMiddleFinger3
+    400066: RightOuterArm
+    400068: RightOuterFinger
+    400070: RightShoulder
+    400072: RightToe
+    400074: RightUpperArm
+    400076: RightUpperLeg
+    400078: TopLeftMouth1
+    400080: TopLeftMouth2
+    400082: TopLeftTooth
+    400084: TopRightMouth1
+    400086: TopRightMouth2
+    400088: TopRightTooth
+    400090: UpperBody
+    400092: UpperTail
+    400094: Wings
+    4300000: Birdie
+    4300002: Wings
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Birdie
+    13700002: Wings
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

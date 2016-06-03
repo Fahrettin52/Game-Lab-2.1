@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Interaction : MonoBehaviour {
 
@@ -7,10 +8,12 @@ public class Interaction : MonoBehaviour {
 
     public InteractionType myType;
 
+	public GameObject particleSpark;
+
     public void Interact(GameObject player) {
         switch (myType) {
-        case InteractionType.Door:
-            InteractDoor();
+		case InteractionType.Door:
+			InteractDoor (transform.gameObject);
             break;
         case InteractionType.Weapon:
             InteractWeapon(player);
@@ -30,9 +33,15 @@ public class Interaction : MonoBehaviour {
         }
     }
 
-    public void InteractDoor() {
-		GetComponentInParent<Animator>().SetTrigger("mayOpen");
- 		print("This is a door");
+	public void InteractDoor(GameObject currentObject) {		
+		if (currentObject.name == "Door") {
+			currentObject.GetComponentInParent<Animator>().SetTrigger ("mayOpen");
+			particleSpark.SetActive (true);
+		}
+		if (currentObject.name == "DoorBroken") {
+			currentObject.GetComponentInParent<Animator>().SetTrigger("broken");
+			particleSpark.SetActive (true);
+		}
     }
 
     public void InteractWeapon(GameObject player) {
