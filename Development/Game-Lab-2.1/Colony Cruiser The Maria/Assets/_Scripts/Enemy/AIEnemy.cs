@@ -2,6 +2,12 @@
 using System.Collections;
 
 public abstract class AIEnemy : AbstractEnemy {
+	public enum AIState
+	{
+		Patrol,
+		Attack
+	}
+	public AIState myState;
 
 	public override abstract void PlayerDetection ();
 

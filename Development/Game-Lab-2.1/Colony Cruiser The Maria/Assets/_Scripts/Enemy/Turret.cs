@@ -2,11 +2,6 @@
 using System.Collections;
 
 public class Turret : AIEnemy {
-	public enum AIState
-	{
-		Patrol,
-		Attack
-	}
 	public enum RotationPhase
 	{
 		Phase1,
@@ -14,14 +9,7 @@ public class Turret : AIEnemy {
 		Phase3,
 		Phase4
 	}
-	public AIState myState;
 	public RotationPhase myRotPhase;
-	public GameObject player;
-	private Transform playerTransform;
-	public float health;
-	public float critMultiplier;
-	private float playerDis;
-	public float distanceOfSight;
 	private float startRotationPoint;
 	public float rotationSpeed;
 	public float rotationLimit;
@@ -37,7 +25,6 @@ public class Turret : AIEnemy {
 	public float playerOutOfSightTimer;
 	private float playerOutOfSightTimerReset;
 	public float cooldownTimer;
-	public RaycastHit rayHit;
 	public RaycastHit bulletHit;
 	public bool isCoolingOff;
 	public bool rotateNegative;
@@ -66,17 +53,20 @@ public class Turret : AIEnemy {
 	public void Update(){
 		if(player != null){
 			playerTransform = player.transform;
-			PlayerDetection ();
 			StateChecker ();
 		}
 	}
 
 	public override void PlayerDetection (){
 		playerDis = Vector3.Distance(playerTransform.position, transform.position);
-		if(playerDis < distanceOfSight){
-			Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight);
-			if(rayHit.transform.tag == player.tag){
-				myState = AIState.Attack;
+		if(playerDis < distanceOfSight && myState == AIState.Patrol){
+			if (Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight)) {
+				if (rayHit.transform.tag == player.tag) {
+					myState = AIState.Attack;
+				} 
+			}
+			else {
+				return;
 			}
 		}
 	}
@@ -100,39 +90,46 @@ public class Turret : AIEnemy {
 	}
 
 	public override void AttackPlayer (){
-		transform.LookAt (playerTransform);
-		if (rayHit.transform.tag != player.tag) {
-			playerOutOfSightTimer -= Time.deltaTime;
-			if (playerOutOfSightTimer < 1) {
-				CountdownResets ();
-				myState = AIState.Patrol;
-				StateChecker ();
+		if (player.GetComponent<Movement> ().myMovement != Movement.MovementType.Dead) {
+			transform.LookAt (playerTransform);
+			if (Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight)) {
+				if (rayHit.transform.tag != player.tag) {
+					playerOutOfSightTimer -= Time.deltaTime;
+					if (playerOutOfSightTimer < 1) {
+						CountdownResets ();
+						myState = AIState.Patrol;
+						StateChecker ();
+					}
+				} else {
+					playerOutOfSightTimer = playerOutOfSightTimerReset;
+				}
 			}
-		} 
-		else {
-			playerOutOfSightTimer = playerOutOfSightTimerReset;
+			if (!isCoolingOff) {
+				Vector3 shootDir = transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
+				if (Physics.Raycast (transform.position, shootDir, out bulletHit, distanceOfSight)) {
+					overheatCountDown -= Time.deltaTime;
+					if (bulletHit.transform.tag == player.tag) {
+						player.GetComponent<Health> ().HealOrDamage ("damage", bulletDamage);
+					} else {
+						//dit moet een else if worden I guess, hierin moet een plaatje van de bullet komen in een muur
+						//Als het een livestock enemy is moet ie de livestock enemy damagen
+						//Als het een AI enemy is moet het stoppen met vuren
+					}
+				}
+				if (overheatCountDown < 1) {
+					isCoolingOff = true;
+					StartCoroutine (CoolingOff ());
+				}
+			}
 		}
-		if (!isCoolingOff) {
-			Vector3 shootDir = transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
-			Physics.Raycast (transform.position, shootDir, out bulletHit, distanceOfSight);
-			overheatCountDown -= Time.deltaTime;
-			if (bulletHit.transform.tag == player.tag) {
-				player.GetComponent<Health> ().HealOrDamage ("damage", bulletDamage);
-			} else {
-				//dit moet een else if worden I guess, hierin moet een plaatje van de bullet komen in een muur
-				//Als het een livestock enemy is moet ie de livestock enemy damagen
-				//Als het een AI enemy is moet het stoppen met vuren
-			}
-			if (overheatCountDown < 1) {
-				isCoolingOff = true;
-				StartCoroutine (CoolingOff ());
-			}
+		else {
+			myState = AIState.Patrol;
 		}
 	}
-
 	public override void StateChecker (){
 		switch (myState) {
 		case AIState.Patrol:
+			PlayerDetection ();
 			Patrolling ();
 			break;
 		case AIState.Attack:

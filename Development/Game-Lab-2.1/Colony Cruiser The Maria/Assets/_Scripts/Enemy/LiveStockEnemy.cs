@@ -2,6 +2,14 @@
 using System.Collections;
 
 public abstract class LiveStockEnemy : AbstractEnemy {
+	public enum LiveStockState
+	{
+		Patrol,
+		Attack,
+		Flee,
+		Regenerate
+	}
+	public LiveStockState myState;
 
 	public override abstract void PlayerDetection();
 
