@@ -6,7 +6,7 @@ public class MeleeWeapon : MonoBehaviour {
 	private GameObject player;
 	private Animator myAnimator;
 	public AnimatorStateInfo myStateInfo;
-	private int idleHash = Animator.StringToHash("FistIdlePH");
+	private int idleHash = Animator.StringToHash("Sword_Idle");
 	private float hitTime;
 	public float hitRate;
 	public Sprite myWeaponIcon;
@@ -32,7 +32,7 @@ public class MeleeWeapon : MonoBehaviour {
 			if(Time.time > hitTime){
 				hitTime = Time.time + hitRate;
 				if (myStateInfo.shortNameHash == idleHash) {
-					myAnimator.SetTrigger ("Melee");
+					myAnimator.SetTrigger ("swordAttack");
 				}
 			}
 		}
@@ -43,7 +43,7 @@ public class MeleeWeapon : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire2")) {
 			if (Time.time > hitTime) {
 				if (myStateInfo.shortNameHash == idleHash) {
-					myAnimator.SetTrigger ("QuickMelee");
+					myAnimator.SetTrigger ("quickMelee");
 				}
 				hitTime = Time.time + hitRate;
 			}
