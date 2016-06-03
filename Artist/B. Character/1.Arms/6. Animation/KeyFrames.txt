@@ -1,0 +1,29 @@
+0-10 Revolver Equip
+15-20 Revolver Idle
+25-35 Revolver Shot
+40-73 Revolver Reload
+
+80-90 Shotgun Equip
+95-100 Shotgun Shot
+105-135 Shotgun Reload
+135-145 Shotgun Idle
+
+160-165 Rifle Equip
+165-170 Rifle Idle
+170-175 Rifle Shot
+175-200 Rifle Reload
+
+210-220 Sword Equip
+220-235 Sword Idle
+235-249 Sword Attack
+249-258 Fist Attack
+
+265-275 Grenade Equip
+275-295 Grenade Idle
+295-323 Grenade Throw
+
+
+
+
+
+
