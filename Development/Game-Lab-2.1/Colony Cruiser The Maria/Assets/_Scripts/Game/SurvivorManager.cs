@@ -5,9 +5,20 @@ using System.Collections;
 public class SurvivorManager : MonoBehaviour {
 
 	public string[] survivorConversation;
+
 	public Text survivorText;
+
 	public GameObject panel;
+	public GameObject player;
+	public GameObject sword;
+
+	private Quaternion lastRotation;
+
 	public int currentConvo;
+
+	public void Start (){
+		lastRotation = player.GetComponent<Transform> ().transform.rotation;
+	}
 
 	public void DialogeChecker(int counter){
 		survivorText.text = survivorConversation[counter];
@@ -31,6 +42,10 @@ public class SurvivorManager : MonoBehaviour {
 			DialogeChecker (currentConvo);
 		}
 		if(currentConvo >= survivorConversation.Length){
+			player.GetComponent<Movement> ().enabled = true;
+			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
+			player.GetComponent<WeaponManager> ().enabled = true;
+			sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 			DestroySurvivor ();
 		}
 	}

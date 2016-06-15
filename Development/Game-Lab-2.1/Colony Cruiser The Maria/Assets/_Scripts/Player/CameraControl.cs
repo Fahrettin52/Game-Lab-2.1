@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour {
 
-    public enum ViewType { Normal, Cover, Dead};
+    public enum ViewType { Normal, Cover, Dead, Cryo};
 
     public ViewType myView;
 
@@ -14,18 +14,24 @@ public class CameraControl : MonoBehaviour {
     public float rotationCover;
 	public GameObject camero;
 
+	public float cryoRoatationLimitY;
+	public float cryoRoatationLimitX;
+
 	void Start(){
 		camero = GameObject.Find ("Main Camera");
 	}
 
 	void Update() {
         switch (myView) {
-            case ViewType.Normal:
-                RotationChecker();
-                break;
-            case ViewType.Cover:
-                CoverRotation();
-                break;
+        case ViewType.Normal:
+            RotationChecker();
+            break;
+        case ViewType.Cover:
+            CoverRotation();
+            break;
+		case ViewType.Cryo:
+			CryoStartScene();
+			break;
         }
 	}
 
@@ -44,4 +50,12 @@ public class CameraControl : MonoBehaviour {
         camRotationY = Mathf.Clamp(camRotationY, -rotationLimit, rotationLimit);
         camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
     }
+
+	public void CryoStartScene() {
+		camRotationX += Input.GetAxis("Mouse X") * mouseSensetivity * Time.deltaTime;
+		camRotationY -= Input.GetAxis("Mouse Y") * mouseSensetivity * Time.deltaTime;
+		camRotationX = Mathf.Clamp(camRotationX, -cryoRoatationLimitX, cryoRoatationLimitX);
+		camRotationY = Mathf.Clamp(camRotationY, -cryoRoatationLimitY, cryoRoatationLimitY);
+		camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
+	}
 }
