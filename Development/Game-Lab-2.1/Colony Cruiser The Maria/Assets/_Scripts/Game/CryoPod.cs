@@ -33,6 +33,7 @@ public class CryoPod : MonoBehaviour {
 	public AudioClip awakeFallout;
 
 	public GameObject hUD;
+	public GameObject eye;
 
 	void Start () {
 		cryoHatchC = cryoHatch.GetComponents<BoxCollider>();
@@ -46,10 +47,12 @@ public class CryoPod : MonoBehaviour {
 	}
 
 	IEnumerator PlayAnimation(){
+		eye.GetComponent<EyesTest> ().mayOpen = true;
 		audioSource[0].clip = awakeFallout;
 		audioSource[0].Play();
 		yield return new WaitForSeconds (startAwake);
 		mayWhite = true;
+		eye.GetComponent<EyesTest> ().mayOpen = true;
 		yield return new WaitForSeconds (openCryoPod);
 		GetComponentInParent<Animator>().SetTrigger ("Open");
 		audioSource[1].clip = hydraulic;
