@@ -5,6 +5,7 @@ using System.Collections;
 public class SurvivorManager : MonoBehaviour {
 
 	public string[] survivorConversation;
+	public AudioClip[] survivorAudio;
 
 	public Text survivorText;
 
@@ -15,6 +16,7 @@ public class SurvivorManager : MonoBehaviour {
 	private Quaternion lastRotation;
 
 	public int currentConvo;
+	public int curAudio;
 
 	public void Start (){
 		lastRotation = player.GetComponent<Transform> ().transform.rotation;
@@ -22,6 +24,9 @@ public class SurvivorManager : MonoBehaviour {
 
 	public void DialogeChecker(int counter){
 		survivorText.text = survivorConversation[counter];
+		GetComponent<AudioSource> ().clip = survivorAudio [curAudio	];
+		GetComponent<AudioSource> ().Play();
+		curAudio++;
 	}
 
 	public void DestroySurvivor(){
@@ -29,11 +34,9 @@ public class SurvivorManager : MonoBehaviour {
 		Destroy (transform.gameObject);
 	}
 
-	public void OnTriggerEnter (Collider col){
-		if(col.transform.tag == "Player"){
-			panel.SetActive (true);
-			DialogeChecker (currentConvo);
-		}
+	public void Startconvo (){
+		panel.SetActive (true);
+		DialogeChecker (currentConvo);
 	}
 
 	public void Continue(){	
