@@ -48,13 +48,17 @@ public class CryoPod : MonoBehaviour {
 
 	IEnumerator PlayAnimation(){
 		eye.GetComponent<EyesTest> ().mayOpen = true;
+		mayWhite = true;
 		audioSource[0].clip = awakeFallout;
 		audioSource[0].Play();
+		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Normal;
 		yield return new WaitForSeconds (startAwake);
-		mayWhite = true;
-		eye.GetComponent<EyesTest> ().mayOpen = true;
+
 		yield return new WaitForSeconds (openCryoPod);
 		GetComponentInParent<Animator>().SetTrigger ("Open");
+		player.GetComponentInChildren<CameraControl> ().camRotationX = 0;
+		player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
+		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Auto;
 		audioSource[1].clip = hydraulic;
 		audioSource[1].Play();
 		smoke.SetActive (true);
@@ -71,10 +75,10 @@ public class CryoPod : MonoBehaviour {
 		yield return new WaitForSeconds (activateHUD);
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
-
-//		player.transform.rotation = Quaternion.Euler (0, 90, 0);
-//		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Dead;
-//		camero.transform.LookAt (survivor);
+//		yield return new WaitForSeconds (5);
+//		player.GetComponentInChildren<Animator> ().enabled = false;
+//		player.GetComponentInChildren<CameraControl> ().camRotationX = 90;
+//		player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
 	}
 
 	public void White(){

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour {
 
-    public enum ViewType { Normal, Cover, Dead, Cryo};
+    public enum ViewType { Normal, Cover, Dead, Cryo, Auto};
 
     public ViewType myView;
 
@@ -32,6 +32,9 @@ public class CameraControl : MonoBehaviour {
 		case ViewType.Cryo:
 			CryoStartScene();
 			break;
+		case ViewType.Auto:
+			CryoAutoScene();
+			break;
         }
 	}
 
@@ -56,6 +59,11 @@ public class CameraControl : MonoBehaviour {
 		camRotationY -= Input.GetAxis("Mouse Y") * mouseSensetivity * Time.deltaTime;
 		camRotationX = Mathf.Clamp(camRotationX, -cryoRoatationLimitX, cryoRoatationLimitX);
 		camRotationY = Mathf.Clamp(camRotationY, -cryoRoatationLimitY, cryoRoatationLimitY);
-		//camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
+		camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
+	}
+
+	public void CryoAutoScene() {
+		transform.localRotation = Quaternion.Euler(0, camRotationX, 0);
+		camero.GetComponent<Transform>().localRotation = Quaternion.Euler(camRotationY, camRotationX, 0);
 	}
 }

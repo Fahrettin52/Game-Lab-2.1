@@ -10,26 +10,33 @@ public class EyesTest : MonoBehaviour {
 	private float nextPicture;
 	public float pictureRate;
 
-	public void Start (){
-		current = 0;
-	}
+	public bool mayOpen;
+
+	public GameObject top;
+	public GameObject bot;
+
+//	public void Start (){
+//		current = 0;
+//	}
 
 	void Update () {
-		if (current < eyes.Length-1) {
-			if (Time.time > nextPicture) {
-				EyesAnimation (current);
-				current++;
-				nextPicture = Time.time + pictureRate;
-			}
+		if(mayOpen == true){
+			top.GetComponent<Animator> ().SetBool ("Open", true);
+			bot.GetComponent<Animator> ().SetBool ("Open1", true);
 		}
-		if (current >= eyes.Length) {
-			current = 0;
-		}
-	}
-
-	public void EyesAnimation(int number){
-		eyes [number].GetComponent<Image> ().enabled = false;
-		number++;
-		eyes [number].GetComponent<Image> ().enabled = true;
+//
+//		if (current < eyes.Length-1) {
+//			if (Time.time > nextPicture && mayOpen == true) {
+//				EyesAnimation (current);
+//				current++;
+//				nextPicture = Time.time + pictureRate;
+//			}
+//		}
+//	}
+//
+//	public void EyesAnimation(int number){
+//		eyes [number].GetComponent<Image> ().enabled = false;
+//		number++;
+//		eyes [number].GetComponent<Image> ().enabled = true;
 	}
 }

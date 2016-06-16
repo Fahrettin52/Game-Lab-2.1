@@ -15,10 +15,16 @@ public class BlurFade : MonoBehaviour {
 	void FixedUpdate () {	
 		if (mayBlur) {
 			if (GetComponent<DepthOfField>().focalLength > 0) {
-				GetComponent<DepthOfField>().focalLength -= Time.deltaTime * 2f;
+				GetComponent<DepthOfField>().focalLength -= Time.deltaTime * 2.5f;
 			}
 			if(GetComponent<DepthOfField>().focalLength <= 1) {
 				GetComponent<DepthOfField> ().enabled = false;
+			}
+			if (GetComponent<VignetteAndChromaticAberration>().blur > 0) {
+				GetComponent<VignetteAndChromaticAberration>().blur -= Time.deltaTime * 0.03f;
+			}
+			if(GetComponent<VignetteAndChromaticAberration>().blurSpread <= 1) {
+				GetComponent<VignetteAndChromaticAberration>().enabled = false;
 			}
 		}
 	}
