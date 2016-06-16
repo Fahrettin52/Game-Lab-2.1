@@ -12,6 +12,7 @@ public class SurvivorManager : MonoBehaviour {
 	public GameObject panel;
 	public GameObject player;
 	public GameObject sword;
+	public GameObject hands;
 
 	private Quaternion lastRotation;
 
@@ -24,7 +25,7 @@ public class SurvivorManager : MonoBehaviour {
 
 	public void DialogeChecker(int counter){
 		survivorText.text = survivorConversation[counter];
-		GetComponent<AudioSource> ().clip = survivorAudio [curAudio	];
+		GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
 		GetComponent<AudioSource> ().Play();
 		curAudio++;
 	}
@@ -49,6 +50,10 @@ public class SurvivorManager : MonoBehaviour {
 			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 			player.GetComponent<WeaponManager> ().enabled = true;
 			sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
+			hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
+			player.GetComponentInChildren<Animator> ().speed = 1;
+			player.GetComponent<BoxCollider> ().enabled = true;
+			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
 			DestroySurvivor ();
 		}
 	}
