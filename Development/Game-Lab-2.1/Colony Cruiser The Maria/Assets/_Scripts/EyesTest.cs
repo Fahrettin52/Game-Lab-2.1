@@ -15,10 +15,12 @@ public class EyesTest : MonoBehaviour {
 	}
 
 	void Update () {
-		if(Time.time > nextPicture){
-			EyesAnimation(current);
-			current++;
-			nextPicture = Time.time + pictureRate;
+		if (current < eyes.Length-1) {
+			if (Time.time > nextPicture) {
+				EyesAnimation (current);
+				current++;
+				nextPicture = Time.time + pictureRate;
+			}
 		}
 		if (current >= eyes.Length) {
 			current = 0;
