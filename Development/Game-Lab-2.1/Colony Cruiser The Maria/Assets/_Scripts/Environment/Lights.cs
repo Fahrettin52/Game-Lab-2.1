@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Lights : MonoBehaviour {
 
-	public GameObject light;
+	public GameObject myLight;
 	public float shiningRate;
 	private float nextShine;
 	private bool mayShine;
@@ -12,7 +12,7 @@ public class Lights : MonoBehaviour {
 	void FixedUpdate(){
 		if (Time.time > nextShine) {
 			mayShine = !mayShine;
-			light.SetActive (mayShine);
+			myLight.SetActive (mayShine);
 			float randomRate = Random.Range (0, maxRandomRange);
 			nextShine = Time.time + shiningRate + randomRate;
 		}

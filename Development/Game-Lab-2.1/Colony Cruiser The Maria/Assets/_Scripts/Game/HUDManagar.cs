@@ -1,6 +1,6 @@
-﻿	using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class HUDManagar : MonoBehaviour {
 
@@ -10,7 +10,7 @@ public class HUDManagar : MonoBehaviour {
 	public GameObject credit;
 
 	public void StartButton(){
-		EditorSceneManager.LoadScene ("Verdieping 3"); 
+		SceneManager.LoadScene ("Verdieping 3"); 
 	}
 
 	public void LoadButton(){

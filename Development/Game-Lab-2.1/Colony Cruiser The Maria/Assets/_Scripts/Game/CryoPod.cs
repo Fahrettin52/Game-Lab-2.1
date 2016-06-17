@@ -78,13 +78,9 @@ public class CryoPod : MonoBehaviour {
 		yield return new WaitForSeconds (activateHUD);
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
-//		yield return new WaitForSeconds (5);
-//		player.GetComponentInChildren<Animator> ().enabled = false;
-//		player.GetComponentInChildren<CameraControl> ().camRotationX = 90;
-//		player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
 	}
 
 	public void White(){
-		white.alpha -= Time.deltaTime *0.1f;
+		white.alpha -= Time.deltaTime *0.05f;
 	}
 }

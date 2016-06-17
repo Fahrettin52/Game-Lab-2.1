@@ -14,14 +14,8 @@ public class SurvivorManager : MonoBehaviour {
 	public GameObject sword;
 	public GameObject hands;
 
-	private Quaternion lastRotation;
-
 	public int currentConvo;
 	public int curAudio;
-
-	public void Start (){
-		lastRotation = player.GetComponent<Transform> ().transform.rotation;
-	}
 
 	public void DialogeChecker(int counter){
 		survivorText.text = survivorConversation[counter];
@@ -32,7 +26,7 @@ public class SurvivorManager : MonoBehaviour {
 
 	public void DestroySurvivor(){
 		panel.SetActive (false);
-		Destroy (transform.gameObject);
+		Destroy (transform.gameObject,15f);
 	}
 
 	public void Startconvo (){
@@ -47,13 +41,19 @@ public class SurvivorManager : MonoBehaviour {
 		}
 		if(currentConvo >= survivorConversation.Length){
 			player.GetComponent<Movement> ().enabled = true;
-			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 			player.GetComponent<WeaponManager> ().enabled = true;
 			sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 			player.GetComponentInChildren<Animator> ().speed = 1;
-			player.GetComponent<BoxCollider> ().enabled = true;
-			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
+			StartCoroutine (PositionReset(10));
 			DestroySurvivor ();
 		}
+	}
+
+	IEnumerator PositionReset(int wait){	
+		yield return new WaitForSeconds (wait);
+		player.GetComponent<Animator> ().enabled = false;
+		player.transform.rotation = Quaternion.Euler (45, 90, 90);
+		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
+		//player.GetComponent<BoxCollider> ().enabled = true;
 	}
 }
