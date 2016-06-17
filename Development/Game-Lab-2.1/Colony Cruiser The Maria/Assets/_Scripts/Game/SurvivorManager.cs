@@ -18,6 +18,8 @@ public class SurvivorManager : MonoBehaviour {
 	public int currentConvo;
 	public int curAudio;
 
+	public Animator playerAnimator;
+
 	public void DialogeChecker(int counter){
 		survivorText.text = survivorConversation[counter];
 		GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
@@ -43,18 +45,19 @@ public class SurvivorManager : MonoBehaviour {
 		if(currentConvo >= survivorConversation.Length){
 			player.GetComponent<Movement> ().enabled = true;
 			player.GetComponent<WeaponManager> ().enabled = true;
-			sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 			player.GetComponentInChildren<Animator> ().speed = 1;
-			StartCoroutine (PositionReset(10));
+			StartCoroutine (PositionReset(6));
 			DestroySurvivor ();
 		}
 	}
 
 	IEnumerator PositionReset(int wait){	
 		yield return new WaitForSeconds (wait);
+		playerAnimator.SetBool ("SwordEquip", true);
+		hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
+		sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
+		player.GetComponent<WeaponManager> ().WeaponSwitch ();
 		player.GetComponent<Animator> ().enabled = false;
-//		playerP.transform.rotation = Quaternion.Euler (0, 90, 0);
-//		player.transform.rotation = Quaternion.Euler (0, 90, 0);
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
 	}
 }

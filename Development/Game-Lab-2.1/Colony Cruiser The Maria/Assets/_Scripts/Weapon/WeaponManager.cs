@@ -25,6 +25,8 @@ public class WeaponManager : MonoBehaviour {
 	public int[] grenadesCount;
 	public int maxGrenadesCount;
 
+	public Animator playerAnimator;
+
 	public void Start(){
 		GrenadeIconCheck ();
 	}

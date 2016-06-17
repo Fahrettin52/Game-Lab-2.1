@@ -36,6 +36,8 @@ public class CryoPod : MonoBehaviour {
 	public GameObject eye;
 	public GameObject hands;
 
+	public Animator playerAnimator;
+
 	void Start () {
 		cryoHatchC = cryoHatch.GetComponents<BoxCollider>();
 		StartCoroutine (PlayAnimation());
@@ -77,7 +79,6 @@ public class CryoPod : MonoBehaviour {
 		yield return new WaitForSeconds (activateHUD);
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
-		hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 	}
 
 	public void White(){
