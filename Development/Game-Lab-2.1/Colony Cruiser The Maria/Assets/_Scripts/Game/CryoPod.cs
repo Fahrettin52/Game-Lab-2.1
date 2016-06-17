@@ -34,6 +34,7 @@ public class CryoPod : MonoBehaviour {
 
 	public GameObject hUD;
 	public GameObject eye;
+	public GameObject hands;
 
 	void Start () {
 		cryoHatchC = cryoHatch.GetComponents<BoxCollider>();
@@ -62,6 +63,8 @@ public class CryoPod : MonoBehaviour {
 		audioSource[1].clip = hydraulic;
 		audioSource[1].Play();
 		smoke.SetActive (true);
+		yield return new WaitForSeconds (1f);
+		hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 		yield return new WaitForSeconds (setCollidersOn);
 		foreach (Collider c in cryoHatchC) {
 			c.enabled = true;

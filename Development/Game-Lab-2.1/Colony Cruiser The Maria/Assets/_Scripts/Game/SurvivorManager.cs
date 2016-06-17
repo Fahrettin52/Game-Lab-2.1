@@ -50,7 +50,6 @@ public class SurvivorManager : MonoBehaviour {
 			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 			player.GetComponent<WeaponManager> ().enabled = true;
 			sword.GetComponent<SkinnedMeshRenderer> ().enabled = true;
-			hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 			player.GetComponentInChildren<Animator> ().speed = 1;
 			player.GetComponent<BoxCollider> ().enabled = true;
 			player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
