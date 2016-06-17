@@ -53,8 +53,8 @@ public class SurvivorManager : MonoBehaviour {
 	IEnumerator PositionReset(int wait){	
 		yield return new WaitForSeconds (wait);
 		player.GetComponent<Animator> ().enabled = false;
-		playerP.transform.rotation = Quaternion.Euler (0, 90, 0);
-		player.transform.rotation = Quaternion.Euler (87.1335f, 270, 270);
+//		playerP.transform.rotation = Quaternion.Euler (0, 90, 0);
+//		player.transform.rotation = Quaternion.Euler (0, 90, 0);
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
 	}
 }

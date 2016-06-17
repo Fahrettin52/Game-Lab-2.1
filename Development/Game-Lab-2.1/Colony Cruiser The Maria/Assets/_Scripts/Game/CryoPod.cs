@@ -64,7 +64,6 @@ public class CryoPod : MonoBehaviour {
 		audioSource[1].Play();
 		smoke.SetActive (true);
 		yield return new WaitForSeconds (1f);
-		hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 		yield return new WaitForSeconds (setCollidersOn);
 		foreach (Collider c in cryoHatchC) {
 			c.enabled = true;
@@ -78,6 +77,7 @@ public class CryoPod : MonoBehaviour {
 		yield return new WaitForSeconds (activateHUD);
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
+		hands.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 	}
 
 	public void White(){
