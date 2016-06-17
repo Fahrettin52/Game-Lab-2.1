@@ -11,6 +11,7 @@ public class SurvivorManager : MonoBehaviour {
 
 	public GameObject panel;
 	public GameObject player;
+	public GameObject playerP;
 	public GameObject sword;
 	public GameObject hands;
 
@@ -52,8 +53,8 @@ public class SurvivorManager : MonoBehaviour {
 	IEnumerator PositionReset(int wait){	
 		yield return new WaitForSeconds (wait);
 		player.GetComponent<Animator> ().enabled = false;
-		player.transform.rotation = Quaternion.Euler (45, 90, 90);
+		playerP.transform.rotation = Quaternion.Euler (0, 90, 0);
+		player.transform.rotation = Quaternion.Euler (87.1335f, 270, 270);
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
-		//player.GetComponent<BoxCollider> ().enabled = true;
 	}
 }
