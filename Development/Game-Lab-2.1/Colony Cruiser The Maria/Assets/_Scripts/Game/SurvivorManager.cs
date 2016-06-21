@@ -20,11 +20,12 @@ public class SurvivorManager : MonoBehaviour {
 
 	public Animator playerAnimator;
 
-	public void DialogeChecker(int counter){
-		survivorText.text = survivorConversation[counter];
+	public IEnumerator DialogeChecker(int counter){
+		survivorText.text = survivorConversation [counter];
 		GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
-		GetComponent<AudioSource> ().Play();
+		GetComponent<AudioSource> ().Play ();
 		curAudio++;
+		yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
 	}
 
 	public void DestroySurvivor(){
@@ -34,13 +35,13 @@ public class SurvivorManager : MonoBehaviour {
 
 	public void Startconvo (){
 		panel.SetActive (true);
-		DialogeChecker (currentConvo);
+		StartCoroutine (DialogeChecker(currentConvo));
 	}
 
 	public void Continue(){	
-		currentConvo++;
-		if(currentConvo < survivorConversation.Length){
-			DialogeChecker (currentConvo);
+		if(currentConvo < survivorConversation.Length && GetComponent<AudioSource>().isPlaying == false){
+			currentConvo++;
+			StartCoroutine (DialogeChecker(currentConvo));
 		}
 		if(currentConvo >= survivorConversation.Length){
 			player.GetComponent<Movement> ().enabled = true;

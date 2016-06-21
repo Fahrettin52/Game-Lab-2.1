@@ -72,11 +72,11 @@ public class CryoPod : MonoBehaviour {
 		}
 		yield return new WaitForSeconds (2f);
 		player.GetComponentInChildren<Animator> ().SetTrigger ("Awake");
-		survivor.GetComponent<SurvivorManager> ().Startconvo ();
 		camero.GetComponent<BlurFade>().mayBlur = true;
 		yield return new WaitForSeconds (activateHUD);
 		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Dead;
 		yield return new WaitForSeconds (activateHUD);
+		survivor.GetComponent<SurvivorManager> ().Startconvo();
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
 	}
