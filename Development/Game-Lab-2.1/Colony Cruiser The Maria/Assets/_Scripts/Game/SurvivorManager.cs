@@ -21,6 +21,7 @@ public class SurvivorManager : MonoBehaviour {
 	public Animator playerAnimator;
 
 	public IEnumerator DialogeChecker(int counter){
+		currentConvo++;
 		survivorText.text = survivorConversation [counter];
 		GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
 		GetComponent<AudioSource> ().Play ();
@@ -39,8 +40,7 @@ public class SurvivorManager : MonoBehaviour {
 	}
 
 	public void Continue(){	
-		if(currentConvo < survivorConversation.Length && GetComponent<AudioSource>().isPlaying == false){
-			currentConvo++;
+		if(currentConvo <= survivorConversation.Length && GetComponent<AudioSource>().isPlaying == false){
 			StartCoroutine (DialogeChecker(currentConvo));
 		}
 		if(currentConvo >= survivorConversation.Length){

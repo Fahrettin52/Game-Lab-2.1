@@ -43,15 +43,11 @@ public class CryoPod : MonoBehaviour {
 		StartCoroutine (PlayAnimation());
 	}
 
-	public void Update(){
-		if (mayWhite) {
-			White ();
-		}
-	}
-
 	IEnumerator PlayAnimation(){
 		eye.GetComponent<EyesTest> ().mayOpen = true;
-		mayWhite = true;
+		camero.GetComponent<BlurFade>().white = true;
+		camero.GetComponent<BlurFade>().saturation = true;
+		camero.GetComponent<BlurFade>().blur = true;
 		audioSource[0].clip = awakeFallout;
 		audioSource[0].Play();
 		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Normal;
@@ -79,9 +75,5 @@ public class CryoPod : MonoBehaviour {
 		survivor.GetComponent<SurvivorManager> ().Startconvo();
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
-	}
-
-	public void White(){
-		white.alpha -= Time.deltaTime *0.05f;
 	}
 }
