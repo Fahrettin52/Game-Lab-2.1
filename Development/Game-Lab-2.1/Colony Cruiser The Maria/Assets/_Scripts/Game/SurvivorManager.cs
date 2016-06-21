@@ -9,6 +9,8 @@ public class SurvivorManager : MonoBehaviour {
 
 	public Text survivorText;
 
+	public bool mayTalk;
+
 	public GameObject panel;
 	public GameObject player;
 	public GameObject playerP;
@@ -17,16 +19,25 @@ public class SurvivorManager : MonoBehaviour {
 
 	public int currentConvo;
 	public int curAudio;
+	public int endConvo;
 
 	public Animator playerAnimator;
 
+	public void Start () {
+		mayTalk = true;
+	}
+
 	public IEnumerator DialogeChecker(int counter){
-		currentConvo++;
-		survivorText.text = survivorConversation [counter];
-		GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
-		GetComponent<AudioSource> ().Play ();
-		curAudio++;
-		yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
+		if (mayTalk == true) {
+			endConvo++;
+			survivorText.text = survivorConversation [counter];
+			GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
+			GetComponent<AudioSource> ().Play ();
+			if (endConvo == 4) {
+				mayTalk = false;
+			}
+			yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
+		}
 	}
 
 	public void DestroySurvivor(){
@@ -40,7 +51,9 @@ public class SurvivorManager : MonoBehaviour {
 	}
 
 	public void Continue(){	
-		if(currentConvo <= survivorConversation.Length && GetComponent<AudioSource>().isPlaying == false){
+		if(currentConvo <= survivorConversation.Length){
+			curAudio++;
+			currentConvo++;
 			StartCoroutine (DialogeChecker(currentConvo));
 		}
 		if(currentConvo >= survivorConversation.Length){
