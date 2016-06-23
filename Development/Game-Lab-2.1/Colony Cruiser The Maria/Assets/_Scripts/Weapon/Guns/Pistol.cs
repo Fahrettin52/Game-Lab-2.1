@@ -18,6 +18,8 @@ public class Pistol : AbstractWeapon {
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
+		myAnimator = GetComponentInParent<Animator> ();
+		WeaponChecker ();
 		weaponManager = player.GetComponent<WeaponManager> ();
 		weaponManager.weaponIcon.sprite = myWeaponIcon;
 		switch (curAmmoType) {
@@ -31,6 +33,11 @@ public class Pistol : AbstractWeapon {
 		FillDelegate ();
 		AmmoCycle ();
 		UIChecker ();
+	}
+
+	public void WeaponChecker(){
+		myAnimator.SetBool ("SwordEquip", false);
+		myAnimator.SetBool ("RevolverEquip", true);
 	}
 
 	public override void FillDelegate(){
@@ -112,13 +119,13 @@ public class Pistol : AbstractWeapon {
 		if (!aim) {
 			if (cameroCamera.fieldOfView < maxFieldOfView) {
 				cameroCamera.fieldOfView += zoomSpeed * Time.deltaTime;
-                GetComponent<Animator>().SetBool("aimAnimation", false);
+				//GetComponentInParent<Animator>().SetBool("aimAnimation", false);
 			}
 		}
 		else {
 			if (cameroCamera.fieldOfView > minFieldOfView) {
 				cameroCamera.fieldOfView -= zoomSpeed * Time.deltaTime;
-                GetComponent<Animator>().SetBool("aimAnimation", true);
+				//GetComponentInParent<Animator>().SetBool("aimAnimation", true);
             }
 		}
 		return aim;

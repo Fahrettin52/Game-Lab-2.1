@@ -12,10 +12,16 @@ public class MeleeWeapon : MonoBehaviour {
 	public Sprite myWeaponIcon;
 
 	void OnEnable(){
-		myAnimator = GetComponent<Animator> ();
+		myAnimator = GetComponentInParent<Animator> ();
+		WeaponChecker ();
 		player = GameObject.FindWithTag ("Player");
 		player.GetComponent<WeaponManager> ().weaponIcon.sprite = myWeaponIcon;
 		FillDelegate ();
+	}
+
+	public void WeaponChecker(){
+		myAnimator.SetBool ("RevolverEquip", false);
+		myAnimator.SetBool ("SwordEquip", true);
 	}
 
 	public void FillDelegate(){
