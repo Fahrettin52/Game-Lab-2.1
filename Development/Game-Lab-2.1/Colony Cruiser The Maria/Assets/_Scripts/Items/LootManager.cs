@@ -26,4 +26,8 @@ public class LootManager : MonoBehaviour {
 			currentLoot[i].sprite = ts [i];
 		}
 	}
+
+	public void CloseLoot(){
+		lootHUD.SetActive (false);
+	}
 }
