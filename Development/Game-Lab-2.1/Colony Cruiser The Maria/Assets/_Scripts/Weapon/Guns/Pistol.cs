@@ -14,6 +14,8 @@ public class Pistol : AbstractWeapon {
 	public int incindiaryMagSize;
 	public float incindiaryDirValueX;
 	public float incindiaryDirValueY;
+	public GameObject soundManager;
+	public GameObject shotLight;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
@@ -54,6 +56,10 @@ public class Pistol : AbstractWeapon {
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
 			if(loadedAmmo > 0){
+				GetComponentInParent<Animator> ().SetTrigger ("RevolverShooting");
+				soundManager.GetComponent<SoundManager> ().RevolverShot ();
+				shotLight.SetActive(true);
+				shotLight.SetActive(false);
 				cameroTransform = camero.transform;
 				shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 				Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);

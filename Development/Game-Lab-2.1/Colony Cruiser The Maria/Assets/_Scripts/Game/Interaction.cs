@@ -9,6 +9,7 @@ public class Interaction : MonoBehaviour {
     public InteractionType myType;
 
 	public GameObject particleSpark;
+	public GameObject soundManager;
 
     public void Interact(GameObject player) {
         switch (myType) {
@@ -36,6 +37,7 @@ public class Interaction : MonoBehaviour {
 	public void InteractDoor(GameObject currentObject) {		
 		if (currentObject.name == "Door") {
 			currentObject.GetComponentInParent<Animator>().SetTrigger ("mayOpen");
+			soundManager.GetComponent<SoundManager> ().OpenDoor ();
 			particleSpark.SetActive (true);
 		}
 		if (currentObject.name == "DoorBroken") {
