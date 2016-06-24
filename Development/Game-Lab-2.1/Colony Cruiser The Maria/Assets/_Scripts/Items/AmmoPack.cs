@@ -8,20 +8,20 @@ public class AmmoPack : MonoBehaviour {
 	public GameObject shotgun;
 	public GameObject pistol;
 
-	public int randomAmmoInt;
+	private int randomAmmoInt;
 
 	public void DetermenAmmo(){
 		List<GameObject> weaponList = player.GetComponent<WeaponManager> ().weaponList;
 		int randomInt = Random.Range (1, weaponList.Count);
 		string randomWeaponListString = weaponList [randomInt].name;
 		switch (randomWeaponListString){
-		case "M4a1":
+		case "AssaultRifle":
 			AddAmmo(0);
 			break; 
-		case "Weapon_Revolver":
+		case "Revolver":
 			AddAmmo(1);
 			break; 
-		case "Weapon_ShotGun":
+		case "Shotgun":
 			AddAmmo(2);
 			break; 
 		}

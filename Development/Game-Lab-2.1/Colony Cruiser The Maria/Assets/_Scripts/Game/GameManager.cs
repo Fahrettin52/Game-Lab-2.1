@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public static float keyCard;
 
 	public float curTimeScale;
-	private float defaultTimeScale;
+	public float defaultTimeScale;
 	public float slowMoTimeScale;
 	public float slowMoCorrecter;
 	public float slowmoTimer;
@@ -23,13 +23,12 @@ public class GameManager : MonoBehaviour {
 
 	void Start(){
 		defaultTimeScale = Time.timeScale;
+		curTimeScale = defaultTimeScale;
 	}
 
 	void Update(){
 		if (Input.GetButtonDown ("Cancel")) {
-			PauseGame (curTimeScale);
-			pausing = !pausing;
-			pauseHUD.SetActive (pausing);
+			PauseGame ();
 		}
 	}
 
@@ -61,15 +60,16 @@ public class GameManager : MonoBehaviour {
 		//Als het bovenstaande niet mocht lukken zullen we de scene checker gebruiken om gewoon alle scenes in te vullen enzo
 	}
 
-	public float PauseGame(float timeType){
+	public void PauseGame(){
+		pausing = !pausing;
+		pauseHUD.SetActive (pausing);
+		float timeType = curTimeScale;
 		if (Time.timeScale > 0) {
 			Time.timeScale = 0;
 		}
 		else {
 			Time.timeScale = timeType;
 		}
-		//Switch HudStates hier!! maar moet dan eerst de MenuMng maken hiervoor
-		return timeType;
 	}
 
 	public void AddKeyCard(){

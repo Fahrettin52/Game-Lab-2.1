@@ -147,16 +147,18 @@ public class Pistol : AbstractWeapon {
 	public override int AmmoAdd(int ammoToAdd){
 		switch (ammoToAdd) {
 		case 0:
+			print ("Normal Added");
 			if (normalTotalAmmo < maxNormalAmmo) {
-				normalTotalAmmo += normalMagSize;
+				normalTotalAmmo += 14;
 				if(normalTotalAmmo > maxNormalAmmo){
 					normalTotalAmmo = maxNormalAmmo;
 				}
 			}
 			break;
 		case 1:
+			print ("Incindiary Added");
 			if (incindiaryTotalAmmo < maxIncindiaryAmmo) {
-				incindiaryTotalAmmo += incindiaryMagSize;
+				incindiaryTotalAmmo += 14;
 				if(incindiaryTotalAmmo > maxIncindiaryAmmo){
 					incindiaryTotalAmmo = maxIncindiaryAmmo;
 				}
@@ -165,9 +167,11 @@ public class Pistol : AbstractWeapon {
 		}
 		switch(curAmmoType){
 		case 0:
+			print ("Normal Text Change");
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1: 
+			print ("Incindiary Text Change");
 			curAmmoTypeText = incindiaryTotalAmmo;
 			break;
 		}

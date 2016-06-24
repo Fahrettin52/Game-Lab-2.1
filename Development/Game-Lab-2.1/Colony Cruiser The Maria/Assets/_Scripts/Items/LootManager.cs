@@ -14,6 +14,8 @@ public class LootManager : MonoBehaviour {
 
 	public GameObject lootHUD;
 
+	public GameObject player;
+
 	public void SceneChecker(){
 		currentScene =  SceneManager.GetActiveScene().buildIndex;
 	}
@@ -25,9 +27,12 @@ public class LootManager : MonoBehaviour {
 		for (int i = 0; i < currentLoot.Length; i++){
 			currentLoot[i].sprite = ts [i];
 		}
+		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Dead;
 	}
 
 	public void CloseLoot(){
+		print ("Close");
 		lootHUD.SetActive (false);
+		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 	}
 }

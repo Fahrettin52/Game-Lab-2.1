@@ -38,12 +38,15 @@ public class CryoPod : MonoBehaviour {
 
 	public Animator playerAnimator;
 
+	public Slider ambientSlider;
+
 	void Start () {
 		cryoHatchC = cryoHatch.GetComponents<BoxCollider>();
 		StartCoroutine (PlayAnimation());
 	}
 
 	IEnumerator PlayAnimation(){
+		ambientSlider.value = -40;
 		eye.GetComponent<EyesTest> ().mayOpen = true;
 		camero.GetComponent<BlurFade>().white = true;
 		camero.GetComponent<BlurFade>().saturation = true;
@@ -55,6 +58,7 @@ public class CryoPod : MonoBehaviour {
 
 		yield return new WaitForSeconds (openCryoPod);
 		GetComponentInParent<Animator>().SetTrigger ("Open");
+		ambientSlider.value = 0;
 		player.GetComponentInChildren<CameraControl> ().camRotationX = 0;
 		player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
 		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Auto;
