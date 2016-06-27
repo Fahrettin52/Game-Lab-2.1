@@ -16,7 +16,6 @@ public class Interact : MonoBehaviour {
             if (Physics.Raycast(transform.position, GetComponentInChildren<Camera>().transform.forward, out hitObject, rayDistance)) {
                 if (hitObject.transform.tag == "Interactable") {
 					hitObject.transform.GetComponent<Interaction>().Interact(GameObject.Find("PlayerPlaceholder").gameObject);	
-					print (gameObject);
                 } 
             } 
             else {

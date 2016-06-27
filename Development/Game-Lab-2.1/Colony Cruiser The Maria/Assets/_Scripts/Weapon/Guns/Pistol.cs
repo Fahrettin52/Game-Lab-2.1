@@ -55,7 +55,7 @@ public class Pistol : AbstractWeapon {
 
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
-			if(loadedAmmo > 0){
+			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[1].isPlaying == false){
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverShooting");
 				soundManager.GetComponent<SoundManager> ().RevolverShot ();
 				shotLight.SetActive(true);
@@ -192,6 +192,8 @@ public class Pistol : AbstractWeapon {
 		switch (curAmmoType) {
 		case 0:
 			if (normalTotalAmmo > 0) {
+				print ("ReloadingNormal");
+				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
 				int leftOverAmmo = normalMagSize - normalAmmo;
 				print (curAmmoTypeText);
 				for (int i = 0; leftOverAmmo > 0; i++) {
@@ -211,8 +213,9 @@ public class Pistol : AbstractWeapon {
 			break;
 		case 1:
 			if (incindiaryTotalAmmo > 0) {
+				print ("ReloadingIncindiary");
+				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
 				int leftOverAmmo = incindiaryMagSize - incindiaryAmmo;
-				print (curAmmoTypeText);
 				for (int i = 0; leftOverAmmo > 0; i++) {
 					incindiaryTotalAmmo--;
 					incindiaryAmmo++;
