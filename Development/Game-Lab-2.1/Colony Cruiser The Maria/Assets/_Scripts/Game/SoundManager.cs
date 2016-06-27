@@ -41,4 +41,9 @@ public class SoundManager : MonoBehaviour {
 		myAudioSource [1].clip = myAudioClips [1];
 		myAudioSource [1].Play ();
 	}
+
+	public void RevolverReload(){
+		myAudioSource [1].clip = myAudioClips [2];
+		myAudioSource [1].Play ();
+	}
 }

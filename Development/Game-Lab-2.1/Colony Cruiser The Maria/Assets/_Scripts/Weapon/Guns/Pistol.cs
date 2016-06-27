@@ -16,6 +16,7 @@ public class Pistol : AbstractWeapon {
 	public float incindiaryDirValueY;
 	public GameObject soundManager;
 	public GameObject shotLight;
+	public ParticleSystem pistolParticle;
 
 	public override void OnEnable(){
 		player = GameObject.FindWithTag ("Player");
@@ -56,10 +57,9 @@ public class Pistol : AbstractWeapon {
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
 			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[1].isPlaying == false){
+				StartCoroutine (PlayTheParticle());
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverShooting");
 				soundManager.GetComponent<SoundManager> ().RevolverShot ();
-				shotLight.SetActive(true);
-				shotLight.SetActive(false);
 				cameroTransform = camero.transform;
 				shootDir = cameroTransform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 				Debug.DrawRay (cameroTransform.position, shootDir * 5000, Color.blue, 3);
@@ -194,6 +194,7 @@ public class Pistol : AbstractWeapon {
 			if (normalTotalAmmo > 0) {
 				print ("ReloadingNormal");
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
+				soundManager.GetComponent<SoundManager> ().RevolverReload ();
 				int leftOverAmmo = normalMagSize - normalAmmo;
 				print (curAmmoTypeText);
 				for (int i = 0; leftOverAmmo > 0; i++) {
@@ -215,6 +216,7 @@ public class Pistol : AbstractWeapon {
 			if (incindiaryTotalAmmo > 0) {
 				print ("ReloadingIncindiary");
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
+				soundManager.GetComponent<SoundManager> ().RevolverReload ();
 				int leftOverAmmo = incindiaryMagSize - incindiaryAmmo;
 				for (int i = 0; leftOverAmmo > 0; i++) {
 					incindiaryTotalAmmo--;
@@ -275,5 +277,13 @@ public class Pistol : AbstractWeapon {
 			curAmmoTypeText = incindiaryTotalAmmo;
 			break;
 		}
+	}
+
+	public IEnumerator PlayTheParticle(){
+		pistolParticle.Play ();
+		shotLight.SetActive (true);
+		yield return new WaitForSeconds (0.1f);
+		shotLight.SetActive (false);
+		pistolParticle.Stop ();
 	}
 }
