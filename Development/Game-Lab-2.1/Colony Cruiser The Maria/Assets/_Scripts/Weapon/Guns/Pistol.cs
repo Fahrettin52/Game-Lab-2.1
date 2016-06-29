@@ -16,9 +16,13 @@ public class Pistol : AbstractWeapon {
 	public float incindiaryDirValueY;
 	public GameObject soundManager;
 	public GameObject shotLight;
+	public GameObject bulletIcon;
 	public ParticleSystem pistolParticle;
+	public RectTransform normalBullet;
+	public RectTransform incidiaryBullet;
 
 	public override void OnEnable(){
+		bulletIcon.SetActive (true);
 		player = GameObject.FindWithTag ("Player");
 		camero = GameObject.Find ("Main Camera");
 		myAnimator = GetComponentInParent<Animator> ();
@@ -55,7 +59,6 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void Shooting(){
-		print ("Shooting");
 		if (Input.GetButtonDown ("Fire1")) {
 			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[1].isPlaying == false){
 				StartCoroutine (PlayTheParticle());
@@ -99,15 +102,12 @@ public class Pistol : AbstractWeapon {
 		Transform targetTransform = rayHit.transform;
 		switch (targetTransform.tag) {
 		case "Head":
-			print ("Hit the Head, damage x3");
 			Destroy (targetTransform.gameObject);
 			break;
 		case "Limbs":
-			print ("Hit Limb, damage x1");
 			Destroy (targetTransform.gameObject);
 			break;
 		case "Body":
-			print ("Hit the Body, damage x2");
 			//Destroyen van de parent voorbeeld:
 			GameObject parento = targetTransform.parent.gameObject;
 			Destroy (parento);
@@ -116,7 +116,6 @@ public class Pistol : AbstractWeapon {
 			targetTransform.GetComponent<SmokeBarrel> ().Explode ();
 			break;
 		default:
-			print ("NOT AN ENEMY!");
 			break;
 		}
 	}
@@ -163,7 +162,6 @@ public class Pistol : AbstractWeapon {
 			}
 			break;
 		case 1:
-			print ("Incindiary Added");
 			if (incindiaryTotalAmmo < maxIncindiaryAmmo) {
 				incindiaryTotalAmmo += 14;
 				if(incindiaryTotalAmmo > maxIncindiaryAmmo){
@@ -178,7 +176,6 @@ public class Pistol : AbstractWeapon {
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1: 
-			print ("Incindiary Text Change");
 			curAmmoTypeText = incindiaryTotalAmmo;
 			break;
 		}
@@ -215,7 +212,6 @@ public class Pistol : AbstractWeapon {
 			break;
 		case 1:
 			if (incindiaryTotalAmmo > 0) {
-				print ("ReloadingIncindiary");
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
 				soundManager.GetComponent<SoundManager> ().RevolverReload ();
 				int leftOverAmmo = incindiaryMagSize - incindiaryAmmo;
@@ -264,15 +260,23 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoCycle(){
-		print ("Ammo Switched");
+		print ("Cycling");
 		switch (curAmmoType){
 		case 0:
+			print ("Cycling Normal");
+			Vector2 tmpPos = new Vector2 (normalBullet.anchoredPosition.x, normalBullet.anchoredPosition.y);
+			normalBullet.anchoredPosition = incidiaryBullet.anchoredPosition;
+			incidiaryBullet.anchoredPosition = tmpPos;
 			loadedAmmo = normalAmmo;
 			shootDirValueX = normalDirValueX;
 			shootDirValueY = normalDirValueY;
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
+			print ("Cycling Incindiary");
+			Vector2 tmpPos2 = new Vector2 (incidiaryBullet.anchoredPosition.x, incidiaryBullet.anchoredPosition.y);
+			incidiaryBullet.anchoredPosition = normalBullet.anchoredPosition;
+			normalBullet.anchoredPosition = tmpPos2;
 			loadedAmmo = incindiaryAmmo;
 			shootDirValueX = incindiaryDirValueX;
 			shootDirValueY = incindiaryDirValueY;
