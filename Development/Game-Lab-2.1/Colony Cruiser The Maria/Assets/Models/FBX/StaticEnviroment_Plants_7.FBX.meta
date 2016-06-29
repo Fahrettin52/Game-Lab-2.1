@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: ee1a6cf36a7885c448c6e9b4bc31e228
+timeCreated: 1467225392
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Leave
+    100002: Leave001
+    100004: Leave002
+    100006: Leave003
+    100008: Leave004
+    100010: Leave005
+    100012: Leave006
+    100014: Leave007
+    100016: Leave008
+    100018: Leave009
+    100020: Leave010
+    100022: Leave011
+    100024: Leave012
+    100026: Leave013
+    100028: Leave014
+    100030: Leave015
+    100032: Leave016
+    100034: Leave017
+    100036: Leave018
+    100038: Leave019
+    100040: //RootNode
+    400000: Leave
+    400002: Leave001
+    400004: Leave002
+    400006: Leave003
+    400008: Leave004
+    400010: Leave005
+    400012: Leave006
+    400014: Leave007
+    400016: Leave008
+    400018: Leave009
+    400020: Leave010
+    400022: Leave011
+    400024: Leave012
+    400026: Leave013
+    400028: Leave014
+    400030: Leave015
+    400032: Leave016
+    400034: Leave017
+    400036: Leave018
+    400038: Leave019
+    400040: //RootNode
+    2300000: Leave
+    2300002: Leave001
+    2300004: Leave002
+    2300006: Leave003
+    2300008: Leave004
+    2300010: Leave005
+    2300012: Leave006
+    2300014: Leave007
+    2300016: Leave008
+    2300018: Leave009
+    2300020: Leave010
+    2300022: Leave011
+    2300024: Leave012
+    2300026: Leave013
+    2300028: Leave014
+    2300030: Leave015
+    2300032: Leave016
+    2300034: Leave017
+    2300036: Leave018
+    2300038: Leave019
+    3300000: Leave
+    3300002: Leave001
+    3300004: Leave002
+    3300006: Leave003
+    3300008: Leave004
+    3300010: Leave005
+    3300012: Leave006
+    3300014: Leave007
+    3300016: Leave008
+    3300018: Leave009
+    3300020: Leave010
+    3300022: Leave011
+    3300024: Leave012
+    3300026: Leave013
+    3300028: Leave014
+    3300030: Leave015
+    3300032: Leave016
+    3300034: Leave017
+    3300036: Leave018
+    3300038: Leave019
+    4300000: Leave
+    4300002: Leave001
+    4300004: Leave002
+    4300006: Leave003
+    4300008: Leave004
+    4300010: Leave005
+    4300012: Leave006
+    4300014: Leave007
+    4300016: Leave008
+    4300018: Leave009
+    4300020: Leave010
+    4300022: Leave011
+    4300024: Leave012
+    4300026: Leave013
+    4300028: Leave014
+    4300030: Leave015
+    4300032: Leave016
+    4300034: Leave017
+    4300036: Leave018
+    4300038: Leave019
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
