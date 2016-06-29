@@ -30,10 +30,12 @@ public class LootManager : MonoBehaviour {
 			currentLoot[i].sprite = ts [i];
 		}
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Dead;
+		player.GetComponent<Movement> ().myMovement = Movement.MovementType.Dead;
 	}
 
 	public void CloseLoot(){
 		lootHUD.SetActive (false);
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
+		player.GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;
 	}
 }

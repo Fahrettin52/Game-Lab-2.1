@@ -51,6 +51,9 @@ public class Movement : MonoBehaviour {
 		case MovementType.Stunned:
 			StunChecker ();
 			break;
+		case MovementType.Dead:
+			GameOverChecker ();
+			break;
         }
     }
 
@@ -201,5 +204,8 @@ public class Movement : MonoBehaviour {
 			mayJump = false;
 		}
 		transform.Translate(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * Time.deltaTime * ((moveSpeed / stunSpeed) * slowmoCorrection));
+	}
+
+	public void GameOverChecker (){		
 	}
 }
