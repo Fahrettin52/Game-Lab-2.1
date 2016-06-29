@@ -11,6 +11,7 @@ public class WeaponManager : MonoBehaviour {
 	public WeaponDelegate quickMeleeDelegate;
 	public AimDelegate aimDelegate;
     private bool aiming;
+	public bool mouseOverUI;
 
 	public List<GameObject> weaponList = new List<GameObject>();
 	public float curWeapon;
@@ -20,6 +21,7 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject[] grenadeIcon;
 	public Text grenadeText;
 	public GameObject[] grenades;
+	public GameObject equipNewWeapon;
 	public Transform hand;
 	public int curGrenade;
 	public int[] grenadesCount;
@@ -38,20 +40,21 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void WeaponAction(){
-		if (shootDelegate != null) {
-			shootDelegate ();
-		}
-		if (aimDelegate != null) {
-			if(Input.GetButton ("Fire2")){
-				aiming = true;
+		if (!mouseOverUI) {
+			if (shootDelegate != null) {
+				shootDelegate ();
+			}
+			if (aimDelegate != null) {
+				if (Input.GetButton ("Fire2")) {
+					aiming = true;
+				} else {
+					aiming = false;
+				}
+				aimDelegate (aiming);
 			} 
 			else {
-				aiming = false;
+				quickMeleeDelegate ();
 			}
-			aimDelegate (aiming);
-		}
-		else {
-			quickMeleeDelegate ();
 		}
 	}
 
@@ -83,6 +86,7 @@ public class WeaponManager : MonoBehaviour {
 	public void WeapinSwitchThroughButton (){
 		curWeapon++;
 		WeaponSwitch ();
+		equipNewWeapon.GetComponent<AbstractWeapon>().WeaponChecker ();
 	}
 
 	public void WeaponSwitch(){
@@ -98,6 +102,7 @@ public class WeaponManager : MonoBehaviour {
 
     public void WeaponObtained(GameObject newWeapon) {
         weaponList.Add(newWeapon);
+		equipNewWeapon = newWeapon;
     }
 
     public void AmmoSwitch(){
@@ -135,5 +140,9 @@ public class WeaponManager : MonoBehaviour {
 				grenadeIcon [i].SetActive (false);
 			}
 		}
+	}
+
+	public void MouseOverUI(){
+		mouseOverUI = !mouseOverUI;
 	}
 }

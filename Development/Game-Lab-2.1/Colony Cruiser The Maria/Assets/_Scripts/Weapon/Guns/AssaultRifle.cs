@@ -63,6 +63,11 @@ public class AssaultRifle : AbstractWeapon {
 		waitTilNextFire -= Time.deltaTime * fireSpeed;
 	}
 
+	public override void WeaponChecker(){
+		//myAnimator.SetBool ("SwordEquip", false);
+		//myAnimator.SetBool ("RevolverEquip", true);
+	}
+
 	public override void Reloading(){
 		switch (curAmmoType) {
 		case 0:

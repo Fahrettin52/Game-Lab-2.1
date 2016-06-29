@@ -47,6 +47,8 @@ public abstract class AbstractWeapon : MonoBehaviour {
 	public int maxAmmoType;
 	public int magSize;
 
+	public abstract void WeaponChecker ();
+
     public abstract void Shooting();
 
     public abstract void Reloading();

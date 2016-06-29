@@ -38,7 +38,7 @@ public class Pistol : AbstractWeapon {
 		UIChecker ();
 	}
 
-	public void WeaponChecker(){
+	public override void WeaponChecker(){
 		myAnimator.SetBool ("SwordEquip", false);
 		myAnimator.SetBool ("RevolverEquip", true);
 	}
@@ -55,6 +55,7 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void Shooting(){
+		print ("Shooting");
 		if (Input.GetButtonDown ("Fire1")) {
 			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[1].isPlaying == false){
 				StartCoroutine (PlayTheParticle());
@@ -171,7 +172,7 @@ public class Pistol : AbstractWeapon {
 			}
 			break;
 		}
-		switch(curAmmoType){
+		switch(ammoToAdd){
 		case 0:
 			print ("Normal Text Change");
 			curAmmoTypeText = normalTotalAmmo;
@@ -263,6 +264,7 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoCycle(){
+		print ("Ammo Switched");
 		switch (curAmmoType){
 		case 0:
 			loadedAmmo = normalAmmo;
@@ -280,9 +282,10 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public IEnumerator PlayTheParticle(){
+		print ("Particle");
 		pistolParticle.Play ();
 		shotLight.SetActive (true);
-		yield return new WaitForSeconds (0.1f);
+		yield return new WaitForSeconds (0.05f);
 		shotLight.SetActive (false);
 		pistolParticle.Stop ();
 	}

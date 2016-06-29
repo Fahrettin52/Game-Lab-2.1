@@ -48,6 +48,11 @@ public class Shotgun : AbstractWeapon {
 		UIChecker ();
 	}
 
+	public override void WeaponChecker(){
+		//myAnimator.SetBool ("SwordEquip", false);
+		//myAnimator.SetBool ("RevolverEquip", true);
+	}
+
 	public override void AmmoSwitch(){
 		if (curAmmoType < maxAmmoType) {
 			curAmmoType++;

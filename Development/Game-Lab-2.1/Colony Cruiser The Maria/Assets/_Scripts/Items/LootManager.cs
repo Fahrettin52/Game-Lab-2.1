@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LootManager : MonoBehaviour {
 
+	public float curTimeScale;
+
 	public int currentScene;
 
 	public List<LootPackage> myLoot = new List<LootPackage> ();

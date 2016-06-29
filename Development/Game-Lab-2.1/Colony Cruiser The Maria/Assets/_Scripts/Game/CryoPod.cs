@@ -64,8 +64,8 @@ public class CryoPod : MonoBehaviour {
 		yield return new WaitForSeconds (openCryoPod);
 		GetComponentInParent<Animator>().SetTrigger ("Open");
 		ambientSlider.value = 0;
-		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Auto;
 		mayReset = true;
+		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Auto;
 		audioSource[1].clip = hydraulic;
 		audioSource[1].Play();
 		smoke.SetActive (true);
