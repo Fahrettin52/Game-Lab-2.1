@@ -21,7 +21,7 @@ public class AmmoPack : MonoBehaviour {
 		case "Revolver":
 			AddAmmo(1);
 			break; 
-		case "Shotgun":
+		case "Shotgun":	
 			AddAmmo(2);
 			break; 
 		}

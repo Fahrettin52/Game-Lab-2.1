@@ -24,6 +24,7 @@ public class CryoPod : MonoBehaviour {
 	public CanvasGroup white;
 
 	public bool mayWhite;
+	public bool mayReset;
 
 	public AudioSource[] audioSource;
 
@@ -45,6 +46,12 @@ public class CryoPod : MonoBehaviour {
 		StartCoroutine (PlayAnimation());
 	}
 
+	public void Update(){
+		if (mayReset == true) {
+			CameraReset();
+		}
+	}
+
 	IEnumerator PlayAnimation(){
 		ambientSlider.value = -40;
 		eye.GetComponent<EyesTest> ().mayOpen = true;
@@ -53,15 +60,12 @@ public class CryoPod : MonoBehaviour {
 		camero.GetComponent<BlurFade>().blur = true;
 		audioSource[0].clip = awakeFallout;
 		audioSource[0].Play();
-		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Normal;
 		yield return new WaitForSeconds (startAwake);
-
 		yield return new WaitForSeconds (openCryoPod);
 		GetComponentInParent<Animator>().SetTrigger ("Open");
 		ambientSlider.value = 0;
-		player.GetComponentInChildren<CameraControl> ().camRotationX = 0;
-		player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
 		player.GetComponentInChildren<CameraControl> ().myView = CameraControl.ViewType.Auto;
+		mayReset = true;
 		audioSource[1].clip = hydraulic;
 		audioSource[1].Play();
 		smoke.SetActive (true);
@@ -79,5 +83,17 @@ public class CryoPod : MonoBehaviour {
 		survivor.GetComponent<SurvivorManager> ().Startconvo();
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
+	}
+
+	public void CameraReset(){
+		if (player.GetComponentInChildren<CameraControl> ().camRotationY > 0.1) {
+			player.GetComponentInChildren<CameraControl> ().camRotationY = Mathf.Lerp (player.GetComponentInChildren<CameraControl> ().camRotationY, 0, Time.deltaTime * 1f);
+			player.GetComponentInChildren<CameraControl> ().camRotationX = Mathf.Lerp (player.GetComponentInChildren<CameraControl> ().camRotationX, 0, Time.deltaTime * 1f);
+		} 
+		else {
+			player.GetComponentInChildren<CameraControl> ().camRotationY = 0;
+			player.GetComponentInChildren<CameraControl> ().camRotationX = 0;
+			mayReset = false;
+		}
 	}
 }

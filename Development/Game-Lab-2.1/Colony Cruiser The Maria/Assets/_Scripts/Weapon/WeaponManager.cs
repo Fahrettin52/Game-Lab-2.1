@@ -80,6 +80,11 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
+	public void WeapinSwitchThroughButton (){
+		curWeapon++;
+		WeaponSwitch ();
+	}
+
 	public void WeaponSwitch(){
         for (int i = 0; i < weaponList.Count; i++) {
             if (i == curWeapon) {
@@ -92,9 +97,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
     public void WeaponObtained(GameObject newWeapon) {
-        curWeapon++;
         weaponList.Add(newWeapon);
-        WeaponSwitch();
     }
 
     public void AmmoSwitch(){
