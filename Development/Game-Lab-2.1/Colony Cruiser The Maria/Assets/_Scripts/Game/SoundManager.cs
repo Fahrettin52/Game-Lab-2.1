@@ -46,4 +46,30 @@ public class SoundManager : MonoBehaviour {
 		myAudioSource [1].clip = myAudioClips [2];
 		myAudioSource [1].Play ();
 	}
+
+	public void TakingDamage(int randomInt){
+		if (randomInt == 0) {
+			myAudioSource [2].clip = myAudioClips [3];
+			myAudioSource [2].Play ();
+		} 
+		else {
+			myAudioSource [2].clip = myAudioClips [4];
+			myAudioSource [2].Play ();
+		}
+	}
+
+	public void Turretshot(){
+		myAudioSource [1].clip = myAudioClips [5];
+		myAudioSource [1].Play ();
+	}
+
+	public void HoverButton(){
+		myAudioSource [3].clip = myAudioClips [6];
+		myAudioSource [3].Play ();
+	}
+
+	public void ButtonClick(){
+		myAudioSource [3].clip = myAudioClips [7];
+		myAudioSource [3].Play ();
+	}
 }

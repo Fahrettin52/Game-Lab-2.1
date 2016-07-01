@@ -10,6 +10,8 @@ public class Turret : AIEnemy {
 		Phase4
 	}
 	public RotationPhase myRotPhase;
+	private float nextFire;
+	public float fireRate;
 	private float startRotationPoint;
 	public float rotationSpeed;
 	public float rotationLimit;
@@ -29,6 +31,7 @@ public class Turret : AIEnemy {
 	public bool isCoolingOff;
 	public bool rotateNegative;
 	public Transform rayCastHolder;
+	public GameObject soundManager;
 
 	public void Start(){
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -109,7 +112,8 @@ public class Turret : AIEnemy {
 						myState = AIState.Patrol;
 						StateChecker ();
 					}
-				} else {
+				} 
+				else {
 					playerOutOfSightTimer = playerOutOfSightTimerReset;
 				}
 			}
@@ -117,16 +121,20 @@ public class Turret : AIEnemy {
 				Vector3 shootDir = transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 				if (Physics.Raycast (transform.position, shootDir, out bulletHit, distanceOfSight)) {
 					overheatCountDown -= Time.deltaTime;
-					print (bulletHit.transform.name);
-					Debug.DrawRay (rayCastHolder.position, rayCastHolder.forward * distanceOfSight, Color.red, 2.5f);
-					if (bulletHit.transform.tag == player.tag) {
-						print ("Damaging player");
-						player.GetComponent<Health> ().HealOrDamage ("damage", bulletDamage);
-					} 
-					else {
-						//dit moet een else if worden I guess, hierin moet een plaatje van de bullet komen in een muur
-						//Als het een livestock enemy is moet ie de livestock enemy damagen
-						//Als het een AI enemy is moet het stoppen met vuren
+					if (Time.time > nextFire) {
+						soundManager.GetComponent<SoundManager> ().Turretshot ();
+						print (bulletHit.transform.name);
+						Debug.DrawRay (rayCastHolder.position, rayCastHolder.forward * distanceOfSight, Color.red, 2.5f);
+						if (bulletHit.transform.tag == player.tag) {
+							print ("Damaging player");
+							player.GetComponent<Health> ().HealOrDamage ("damage", bulletDamage);
+						} 
+						else {
+							//dit moet een else if worden I guess, hierin moet een plaatje van de bullet komen in een muur
+							//Als het een livestock enemy is moet ie de livestock enemy damagen
+							//Als het een AI enemy is moet het stoppen met vuren
+						}
+						nextFire = Time.time + fireRate;
 					}
 				}
 				if (overheatCountDown < 1) {

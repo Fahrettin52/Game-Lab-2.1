@@ -19,6 +19,9 @@ public class Health : MonoBehaviour {
 	public float medDangerLevel;
 	public float lowDangerLevel;
 	public float deathDuration;
+	public float healRate;
+	public float regenerationAmount;
+	private float nextHeal;
 	private float maxDangerLevel;
 	private float selectedDangerLevel;
 	private float curLevelDangerPortion;
@@ -27,6 +30,7 @@ public class Health : MonoBehaviour {
 	public Transform respawnPoint;
 	public CanvasGroup gameOverHud;
 	public CanvasGroup[] HudElements;
+	public GameObject soundManager;
 
 	void Start () {
 		maxHealth = health;
@@ -34,6 +38,8 @@ public class Health : MonoBehaviour {
 
 	public void Update(){
 		HealerAndDamager ();
+		Regeneration ();
+		LevelStateFiller ();
 	}
 
 	private void HealerAndDamager(){
@@ -43,15 +49,17 @@ public class Health : MonoBehaviour {
 				if (health < maxHealth) {
 					health++;
 				}
-			}  else if (recievedString == stringForDamage) {
+			}  
+			else if (recievedString == stringForDamage) {
 				if (health > 1) {
+					int randomInt = Random.Range(0, 2);
+					soundManager.GetComponent<SoundManager>().TakingDamage(randomInt);
 					health--;
 				}  
 				else {
 					Death ();
 				}
 			}
-			LevelStateFiller ();
 			float dangerLevelHealth = maxDangerLevel - health;
 			float dangerLevelPortion = maxDangerLevel - selectedDangerLevel;
 			float dangerLevelLostHealth = curLevelDangerPortion - dangerLevelHealth;
@@ -81,6 +89,15 @@ public class Health : MonoBehaviour {
 					}
 					break;
 				}
+			}
+		}
+	}
+
+	public void Regeneration(){
+		if (health < maxHealth) {
+			if (Time.time > nextHeal) {
+				HealOrDamage ("heal", regenerationAmount);
+				nextHeal = Time.time + healRate;
 			}
 		}
 	}
@@ -134,4 +151,5 @@ public class Health : MonoBehaviour {
 		GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;
 		GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 	}
+		
 }
