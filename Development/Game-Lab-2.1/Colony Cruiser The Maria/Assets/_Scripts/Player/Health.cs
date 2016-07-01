@@ -86,6 +86,7 @@ public class Health : MonoBehaviour {
 	}
 
 	public void HealOrDamage(string enterHealOrDamage, float amount){
+		print ("Damage Calculation");
 		recievedString = enterHealOrDamage;
 		recievedAmount += amount;
 	}

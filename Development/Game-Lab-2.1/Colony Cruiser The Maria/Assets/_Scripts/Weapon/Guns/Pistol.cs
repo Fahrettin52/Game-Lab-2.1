@@ -104,13 +104,13 @@ public class Pistol : AbstractWeapon {
 		case "Head":
 			Destroy (targetTransform.gameObject);
 			break;
-		case "Limbs":
-			Destroy (targetTransform.gameObject);
+		case "Critical":
+			print ("Critcal " + damage);
+			targetTransform.GetComponentInParent<AbstractEnemy> ().RecieveCriticalDamage (damage);
 			break;
 		case "Body":
-			//Destroyen van de parent voorbeeld:
-			GameObject parento = targetTransform.parent.gameObject;
-			Destroy (parento);
+			print ("Body " + damage);
+			targetTransform.GetComponent<AbstractEnemy> ().RecieveDamage (damage);
 			break;
 		case "Barrel":
 			targetTransform.GetComponent<SmokeBarrel> ().Explode ();
@@ -153,7 +153,6 @@ public class Pistol : AbstractWeapon {
 	public override int AmmoAdd(int ammoToAdd){
 		switch (ammoToAdd) {
 		case 0:
-			print ("Normal Added");
 			if (normalTotalAmmo < maxNormalAmmo) {
 				normalTotalAmmo += 14;
 				if(normalTotalAmmo > maxNormalAmmo){
@@ -172,7 +171,6 @@ public class Pistol : AbstractWeapon {
 		}
 		switch(ammoToAdd){
 		case 0:
-			print ("Normal Text Change");
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1: 
@@ -190,11 +188,9 @@ public class Pistol : AbstractWeapon {
 		switch (curAmmoType) {
 		case 0:
 			if (normalTotalAmmo > 0) {
-				print ("ReloadingNormal");
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverReload");
 				soundManager.GetComponent<SoundManager> ().RevolverReload ();
 				int leftOverAmmo = normalMagSize - normalAmmo;
-				print (curAmmoTypeText);
 				for (int i = 0; leftOverAmmo > 0; i++) {
 					normalTotalAmmo--;
 					normalAmmo++;
@@ -260,10 +256,8 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public override void AmmoCycle(){
-		print ("Cycling");
 		switch (curAmmoType){
 		case 0:
-			print ("Cycling Normal");
 			Vector2 tmpPos = new Vector2 (normalBullet.anchoredPosition.x, normalBullet.anchoredPosition.y);
 			normalBullet.anchoredPosition = incidiaryBullet.anchoredPosition;
 			incidiaryBullet.anchoredPosition = tmpPos;
@@ -273,7 +267,6 @@ public class Pistol : AbstractWeapon {
 			curAmmoTypeText = normalTotalAmmo;
 			break;
 		case 1:
-			print ("Cycling Incindiary");
 			Vector2 tmpPos2 = new Vector2 (incidiaryBullet.anchoredPosition.x, incidiaryBullet.anchoredPosition.y);
 			incidiaryBullet.anchoredPosition = normalBullet.anchoredPosition;
 			normalBullet.anchoredPosition = tmpPos2;
@@ -286,7 +279,6 @@ public class Pistol : AbstractWeapon {
 	}
 
 	public IEnumerator PlayTheParticle(){
-		print ("Particle");
 		pistolParticle.Play ();
 		shotLight.SetActive (true);
 		yield return new WaitForSeconds (0.05f);

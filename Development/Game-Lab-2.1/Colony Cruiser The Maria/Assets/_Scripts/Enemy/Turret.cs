@@ -28,6 +28,7 @@ public class Turret : AIEnemy {
 	public RaycastHit bulletHit;
 	public bool isCoolingOff;
 	public bool rotateNegative;
+	public Transform rayCastHolder;
 
 	public void Start(){
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -60,8 +61,11 @@ public class Turret : AIEnemy {
 	public override void PlayerDetection (){
 		playerDis = Vector3.Distance(playerTransform.position, transform.position);
 		if(playerDis < distanceOfSight && myState == AIState.Patrol){
-			if (Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight)) {
+			print ("in range");
+			if (Physics.Raycast (rayCastHolder.position, rayCastHolder.forward, out rayHit, distanceOfSight)) {
+				Debug.DrawRay (rayCastHolder.position, rayCastHolder.forward * distanceOfSight, Color.white, 2.5f);
 				if (rayHit.transform.tag == player.tag) {
+					print ("detected");
 					myState = AIState.Attack;
 				} 
 			}
@@ -78,21 +82,26 @@ public class Turret : AIEnemy {
 	}
 
 	public override float RecieveDamage (float recievedDamage){
-		health -= recievedDamage;
-		HealthChecker ();
+		if (recievedDamage > 0) {
+			health -= recievedDamage;
+			HealthChecker ();
+		}
 		return health;
 	}
 
 	public override float RecieveCriticalDamage(float recievedDamage){
-		health -= recievedDamage * critMultiplier;
-		HealthChecker ();
+		if (recievedDamage > 0) {
+			health -= recievedDamage * critMultiplier;
+			HealthChecker ();
+		}
 		return health;
 	}
 
 	public override void AttackPlayer (){
 		if (player.GetComponent<Movement> ().myMovement != Movement.MovementType.Dead) {
+			print ("looking at player");
 			transform.LookAt (playerTransform);
-			if (Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight)) {
+			if (Physics.Raycast (rayCastHolder.position, rayCastHolder.forward, out rayHit, distanceOfSight)) {
 				if (rayHit.transform.tag != player.tag) {
 					playerOutOfSightTimer -= Time.deltaTime;
 					if (playerOutOfSightTimer < 1) {
@@ -108,9 +117,13 @@ public class Turret : AIEnemy {
 				Vector3 shootDir = transform.forward + new Vector3 (Random.Range (-shootDirValueX, shootDirValueX), Random.Range (-shootDirValueY, shootDirValueY), 0);
 				if (Physics.Raycast (transform.position, shootDir, out bulletHit, distanceOfSight)) {
 					overheatCountDown -= Time.deltaTime;
+					print (bulletHit.transform.name);
+					Debug.DrawRay (rayCastHolder.position, rayCastHolder.forward * distanceOfSight, Color.red, 2.5f);
 					if (bulletHit.transform.tag == player.tag) {
+						print ("Damaging player");
 						player.GetComponent<Health> ().HealOrDamage ("damage", bulletDamage);
-					} else {
+					} 
+					else {
 						//dit moet een else if worden I guess, hierin moet een plaatje van de bullet komen in een muur
 						//Als het een livestock enemy is moet ie de livestock enemy damagen
 						//Als het een AI enemy is moet het stoppen met vuren
