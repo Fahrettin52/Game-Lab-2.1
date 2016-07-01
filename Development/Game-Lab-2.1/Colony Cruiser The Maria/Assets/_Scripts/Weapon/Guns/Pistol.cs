@@ -110,7 +110,7 @@ public class Pistol : AbstractWeapon {
 			break;
 		case "Body":
 			print ("Body " + damage);
-			targetTransform.GetComponent<AbstractEnemy> ().RecieveDamage (damage);
+			targetTransform.GetComponentInParent<AbstractEnemy> ().RecieveDamage (damage);
 			break;
 		case "Barrel":
 			targetTransform.GetComponent<SmokeBarrel> ().Explode ();

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class HUDManagar : MonoBehaviour {
 
 	public GameObject mainMenu;
-	public GameObject load;
+	//public GameObject load;
 	public GameObject option;
 	public GameObject credit;
 
@@ -13,10 +13,14 @@ public class HUDManagar : MonoBehaviour {
 		SceneManager.LoadScene ("Verdieping 3"); 
 	}
 
-	public void LoadButton(){
-		mainMenu.SetActive (false);
-		load.SetActive (true);
+	public void MainMenuButton(){
+		SceneManager.LoadScene ("Start"); 
 	}
+
+//	public void LoadButton(){
+//		mainMenu.SetActive (false);
+//		load.SetActive (true);
+//	}
 
 	public void OptionButton(){
 		mainMenu.SetActive (false);
@@ -35,7 +39,7 @@ public class HUDManagar : MonoBehaviour {
 
 	public void ReturnButton(){
 		mainMenu.SetActive (true);
-		load.SetActive (false);
+		//load.SetActive (false);
 		option.SetActive (false);
 		credit.SetActive (false);
 	}
