@@ -30,14 +30,13 @@ public class SurvivorManager : MonoBehaviour {
 
 	public IEnumerator DialogeChecker(int counter){
 		if (mayTalk == true) {
-			endConvo++;
-			survivorText.text = survivorConversation [counter];
-			GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
-			GetComponent<AudioSource> ().Play ();
-			if (endConvo == 4) {
-				mayTalk = false;
+			if (endConvo < 3) {
+				endConvo++;
+				survivorText.text = survivorConversation [counter];
+				GetComponent<AudioSource> ().clip = survivorAudio [curAudio];
+				GetComponent<AudioSource> ().Play ();
+				yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
 			}
-			yield return new WaitForSeconds (GetComponent<AudioSource> ().clip.length);
 		}
 	}
 
@@ -52,7 +51,7 @@ public class SurvivorManager : MonoBehaviour {
 	}
 
 	public void Continue(){	
-		if(currentConvo <= survivorConversation.Length){
+		if(currentConvo < survivorConversation.Length && GetComponent<AudioSource> ().isPlaying == false){
 			curAudio++;
 			currentConvo++;
 			StartCoroutine (DialogeChecker(currentConvo));
