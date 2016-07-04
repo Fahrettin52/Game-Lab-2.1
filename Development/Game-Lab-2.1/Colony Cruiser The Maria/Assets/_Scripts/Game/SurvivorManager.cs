@@ -16,6 +16,7 @@ public class SurvivorManager : MonoBehaviour {
 	public GameObject playerP;
 	public GameObject sword;
 	public GameObject hands;
+	public GameObject gameManager;
 
 	public int currentConvo;
 	public int curAudio;
@@ -73,5 +74,6 @@ public class SurvivorManager : MonoBehaviour {
 		player.GetComponent<WeaponManager> ().WeaponSwitch ();
 		player.GetComponent<Animator> ().enabled = false;
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
+		gameManager.GetComponent<GameManager> ().mayPause = true;
 	}
 }

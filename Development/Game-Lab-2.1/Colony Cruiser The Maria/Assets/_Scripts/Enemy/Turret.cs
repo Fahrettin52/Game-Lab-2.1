@@ -34,8 +34,10 @@ public class Turret : AIEnemy {
 	public GameObject soundManager;
 	public GameObject shotLight;
 	public GameObject shotLight2;
+	public Vector3 startRotation;
 
 	public void Start(){
+		startRotation = transform.rotation.eulerAngles;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		overheatCountDownReset = overheatCountDown;
 		playerOutOfSightTimerReset = playerOutOfSightTimer;
@@ -112,6 +114,7 @@ public class Turret : AIEnemy {
 					if (playerOutOfSightTimer < 1) {
 						CountdownResets ();
 						myState = AIState.Patrol;
+						transform.rotation = Quaternion.Euler (startRotation.x, transform.rotation.y, startRotation.z);
 						StateChecker ();
 					}
 				} 
@@ -152,9 +155,9 @@ public class Turret : AIEnemy {
 	}
 
 	public override void StateChecker (){
+		PlayerDetection ();
 		switch (myState) {
 		case AIState.Patrol:
-			PlayerDetection ();
 			Patrolling ();
 			break;
 		case AIState.Attack:

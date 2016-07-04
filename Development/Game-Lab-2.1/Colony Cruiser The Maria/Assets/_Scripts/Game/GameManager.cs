@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject player;
 	public GameObject pauseHUD;
 	public bool pausing;
+	public bool mayPause;
 
 	void Start(){
 		defaultTimeScale = Time.timeScale;
@@ -61,14 +62,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void PauseGame(){
-		pausing = !pausing;
-		pauseHUD.SetActive (pausing);
-		float timeType = curTimeScale;
-		if (Time.timeScale > 0) {
-			Time.timeScale = 0;
-		}
-		else {
-			Time.timeScale = timeType;
+		if (mayPause) {
+			pausing = !pausing;
+			pauseHUD.SetActive (pausing);
+			float timeType = curTimeScale;
+			if (Time.timeScale > 0) {
+				Time.timeScale = 0;
+			} else {
+				Time.timeScale = timeType;
+			}
 		}
 	}
 

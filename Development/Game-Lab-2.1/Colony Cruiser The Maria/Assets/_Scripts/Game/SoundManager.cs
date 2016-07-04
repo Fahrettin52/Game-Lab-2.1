@@ -72,4 +72,9 @@ public class SoundManager : MonoBehaviour {
 		myAudioSource [3].clip = myAudioClips [7];
 		myAudioSource [3].Play ();
 	}
+
+	public void OpenBrokenDoor(){
+		myAudioSource [1].clip = myAudioClips [8];
+		myAudioSource [1].Play ();	
+	}
 }

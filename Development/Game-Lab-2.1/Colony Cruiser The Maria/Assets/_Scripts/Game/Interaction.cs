@@ -43,6 +43,7 @@ public class Interaction : MonoBehaviour {
 		if (currentObject.name == "DoorBroken") {
 			currentObject.GetComponentInParent<Animator>().SetTrigger("broken");
 			particleSpark.SetActive (true);
+			soundManager.GetComponent<SoundManager> ().OpenBrokenDoor ();
 		}
     }
 
