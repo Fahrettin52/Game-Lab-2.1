@@ -2,7 +2,7 @@
 using System.Collections;
 
 public abstract class VirtualGrenades : MonoBehaviour {
-	public GameObject myPoolManager;
+	protected GameObject myPoolManager;
 	public string poolManagerString;
 	public RaycastHit rayHit;
 	public string[] blockade;

@@ -4,6 +4,15 @@ using System.Collections;
 public class Chicken : LiveStockEnemy {
 	public float flightLimit;
 	public float chanceToFlee;
+	public float disturbanceDistance;
+	public float chanceToAttack;
+	private float nextRoll;
+	public float rollRate;
+	public float regenRate;
+	private float nextRegen;
+	public float lowRiskHealth;
+	public Transform[] fleePoint;
+	private bool gotFleePoint;
 
 	public override void PlayerDetection (){
 		playerDis = Vector3.Distance(playerTransform.position, transform.position);
@@ -23,6 +32,7 @@ public class Chicken : LiveStockEnemy {
 		if(health < flightLimit){
 			float flightCheck = Random.Range (0, 100);
 			if(flightCheck < chanceToFlee){
+				gotFleePoint = false;
 				myState = LiveStockState.Flee;
 			}
 		}
@@ -50,7 +60,6 @@ public class Chicken : LiveStockEnemy {
 	public override void StateChecker (){
 		switch (myState) {
 		case LiveStockState.Patrol:
-			PlayerDetection ();
 			Patrolling ();
 			break;
 		case LiveStockState.Attack:
@@ -63,17 +72,62 @@ public class Chicken : LiveStockEnemy {
 			Regeneration ();
 			break;
 		}
+		PlayerDetection ();
 	}
 
-	public override void Patrolling (){
+	public void NextPatrolPoint(){
+		if (curPatrolPoint < patrolPoints.Length - 1 && !reversePatrol) {
+			curPatrolPoint++;
+		}
+		else {
+			curPatrolPoint = 0;
+			if(reversiblePatrol){
+				reversePatrol = true;
+			}
+		}
+		if (curPatrolPoint > 0 && reversePatrol) {
+			curPatrolPoint--;
+		}
+		else {
+			reversePatrol = false;
+		}
+		gotPatrolPoint = false;
+	}
 
+	public override void Patrolling(){
+		if(!gotPatrolPoint){
+			GetComponent<MyUnit> ().RecieveTarget (patrolPoints [curPatrolPoint]);
+			transform.LookAt (patrolPoints[curPatrolPoint]);
+			gotPatrolPoint = true;
+		}
 	}
 
 	public override void Fleeing(){
-
+		if(!gotFleePoint){
+			int randomFleePoint = Random.Range (0, fleePoint.Length);
+			GetComponent<MyUnit> ().RecieveTarget (fleePoint[randomFleePoint]);
+			gotFleePoint = true;
+		}
 	}
 
 	public override void Regeneration(){
-
+		if (playerDis > disturbanceDistance) {
+			if (Time.time > nextRegen && health < lowRiskHealth) {
+				health++;
+				nextRegen = Time.time + regenRate;
+			} 
+			else {
+				myState = LiveStockState.Patrol;
+			}
+		}
+		else {
+			if (Time.time > nextRoll) {
+				float attackRoll = Random.Range (0, 100);
+				if(attackRoll < chanceToAttack){
+					myState = LiveStockState.Attack;
+				}
+				nextRoll = Time.time + rollRate;
+			} 
+		}
 	}
 }

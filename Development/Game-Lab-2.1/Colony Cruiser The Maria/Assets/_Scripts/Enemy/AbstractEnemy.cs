@@ -8,7 +8,12 @@ public abstract class AbstractEnemy : MonoBehaviour {
 	public float distanceOfSight;
 	public GameObject player;
 	protected Transform playerTransform;
+	public Transform[] patrolPoints;
 	public RaycastHit rayHit;
+	public int curPatrolPoint;
+	protected bool gotPatrolPoint;
+	protected bool reversePatrol;
+	public bool reversiblePatrol;
 
 	public abstract void PlayerDetection();
 

@@ -18,8 +18,6 @@ public class PathFinding : MonoBehaviour {
 	}
 
 	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos){
-		Stopwatch sw = new Stopwatch ();
-		sw.Start ();
 		Vector3[] wayPoints = new Vector3[0];
 		bool pathSucces = false;
 		Node startNode = grid.NodeFromWorldPoint (startPos);
@@ -32,8 +30,6 @@ public class PathFinding : MonoBehaviour {
 				Node currentNode = openSet.RemoveFirst ();
 				closedSet.Add (currentNode);
 				if (currentNode == targetNode) {
-					sw.Stop ();
-					print ("Path found: " + sw.ElapsedMilliseconds + "ms");
 					pathSucces = true;
 					break;
 				}
@@ -41,7 +37,7 @@ public class PathFinding : MonoBehaviour {
 					if (!neighbour.walkable || closedSet.Contains (neighbour)) {
 						continue;
 					} 
-					int newMovementCostToNeighbour = currentNode.gCost + GetDistance (currentNode, neighbour);
+					float newMovementCostToNeighbour = currentNode.gCost + GetDistance (currentNode, neighbour);
 					if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains (neighbour)) {
 						neighbour.gCost = newMovementCostToNeighbour;
 						neighbour.hCost = GetDistance (neighbour, targetNode);
@@ -75,9 +71,9 @@ public class PathFinding : MonoBehaviour {
 
 	Vector3[] SimplifyPath(List<Node> path){
 		List<Vector3> waypoints = new List<Vector3> ();
-		Vector2 directionOld = Vector2.zero;
+		Vector3 directionOld = Vector3.zero;
 		for(int i = 1; i < path.Count; i++){
-			Vector2 directionNew = new Vector2 (path [i - 1].gridX - path [i].gridX, path[i-1].gridY - path[i].gridY);
+			Vector3 directionNew = new Vector3 (path [i - 1].gridX - path [i].gridX, path[i-1].gridY - path[i].gridY, path [i - 1].gridZ - path [i].gridZ);
 			if(directionNew != directionOld){
 				waypoints.Add (path[i].worldPos);
 			}
@@ -86,14 +82,9 @@ public class PathFinding : MonoBehaviour {
 		return waypoints.ToArray();
 	}
 
-	int GetDistance(Node nodeA, Node nodeB){
-		int distanceX = Mathf.Abs (nodeA.gridX - nodeB.gridX);
-		int distanceY = Mathf.Abs (nodeA.gridY - nodeB.gridY);
-		if (distanceX > distanceY) {
-			return 14 * distanceY + 10 * (distanceX - distanceY);	
-		}
-		else {
-			return 14 * distanceX + 10 * (distanceY - distanceX);
-		}
+	float GetDistance(Node nodeA, Node nodeB){
+		Vector3 startLocation = nodeA.worldPos;
+		Vector3 endLocation = nodeB.worldPos;
+		return Vector3.Distance (startLocation, endLocation);
 	}
 }

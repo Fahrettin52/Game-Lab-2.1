@@ -13,7 +13,7 @@ public class PFRequestMng : MonoBehaviour {
 
 	bool isProcessingPath;
 
-	void Start(){
+	void Awake(){
 		instance = this;
 		pathfinding = GetComponent<PathFinding> ();
 	}

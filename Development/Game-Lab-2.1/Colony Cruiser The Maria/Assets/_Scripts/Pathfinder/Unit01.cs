@@ -8,7 +8,7 @@ public class Unit01 : MonoBehaviour {
 	Vector3[] path;
 	int targetIndex;
 
-	void Awake(){
+	void Start(){
 		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound);
 	}
 

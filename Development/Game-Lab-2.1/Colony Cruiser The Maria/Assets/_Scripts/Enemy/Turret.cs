@@ -150,6 +150,7 @@ public class Turret : AIEnemy {
 			myState = AIState.Patrol;
 		}
 	}
+
 	public override void StateChecker (){
 		switch (myState) {
 		case AIState.Patrol:
