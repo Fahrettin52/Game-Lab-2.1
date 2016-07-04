@@ -2,6 +2,13 @@
 using System.Collections;
 
 public class Chicken : LiveStockEnemy {
+	public float attackDis;
+	public float damageRange;
+	public float attackAngle;
+	public float attackRate;
+	private float nextAttack;
+	public float[] attackDamage;
+	private int selectedAttack;
 	public float flightLimit;
 	public float chanceToFlee;
 	public float disturbanceDistance;
@@ -11,20 +18,24 @@ public class Chicken : LiveStockEnemy {
 	public float regenRate;
 	private float nextRegen;
 	public float lowRiskHealth;
-	public Transform[] fleePoint;
+	public Transform[] fleePoints;
 	private bool gotFleePoint;
+
+	public void Start(){
+		if(player != null){
+			playerTransform = player.transform;
+			StateChecker ();
+		}
+	}
+
+	public void Update(){
+		StateChecker ();
+	}
 
 	public override void PlayerDetection (){
 		playerDis = Vector3.Distance(playerTransform.position, transform.position);
 		if(playerDis < distanceOfSight && myState == LiveStockState.Patrol){
-			if (Physics.Raycast (transform.position, transform.forward, out rayHit, distanceOfSight)) {
-				if (rayHit.transform.tag == player.tag) {
-					myState = LiveStockState.Attack;
-				} 
-			}
-			else {
-				return;
-			}
+			myState = LiveStockState.Attack;
 		}
 	}
 
@@ -54,7 +65,40 @@ public class Chicken : LiveStockEnemy {
 	}
 
 	public override void AttackPlayer (){
-
+		if (!standStillToAttack) {
+			GetComponent<MyUnit> ().RecieveTarget (playerTransform);
+			transform.LookAt (playerTransform);
+		}
+		if (playerDis < attackDis && Time.time > nextAttack) {
+			int randomAssInt = Random.Range (0, 3);
+			switch (randomAssInt) {
+			case 0:
+				GetComponentInChildren<Animator> ().SetTrigger ("Attack");
+				selectedAttack = 0;
+				break;
+			case 1:
+				GetComponentInChildren<Animator> ().SetTrigger ("Bite");
+				selectedAttack = 1;
+				break;
+			case 2:
+				GetComponentInChildren<Animator> ().SetTrigger ("PenisAttack");
+				selectedAttack = 2;
+				break;
+			}
+			if(playerDis < damageRange){
+				standStillToAttack = true;
+				if (Vector3.Angle (transform.forward, player.transform.position - transform.position) < attackAngle) {
+					player.GetComponent<Health> ().HealOrDamage ("damage", attackDamage[selectedAttack]);
+				}
+			}
+			else {
+				standStillToAttack = false;
+			}
+			nextAttack = Time.time + attackRate;
+		}
+		else {
+			myState = LiveStockState.Patrol;
+		}
 	}
 
 	public override void StateChecker (){
@@ -104,8 +148,8 @@ public class Chicken : LiveStockEnemy {
 
 	public override void Fleeing(){
 		if(!gotFleePoint){
-			int randomFleePoint = Random.Range (0, fleePoint.Length);
-			GetComponent<MyUnit> ().RecieveTarget (fleePoint[randomFleePoint]);
+			int randomFleePoint = Random.Range (0, fleePoints.Length);
+			GetComponent<MyUnit> ().RecieveTarget (fleePoints[randomFleePoint]);
 			gotFleePoint = true;
 		}
 	}

@@ -14,6 +14,7 @@ public abstract class AbstractEnemy : MonoBehaviour {
 	protected bool gotPatrolPoint;
 	protected bool reversePatrol;
 	public bool reversiblePatrol;
+	protected bool standStillToAttack;
 
 	public abstract void PlayerDetection();
 

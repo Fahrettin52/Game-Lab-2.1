@@ -18,7 +18,7 @@ public class MyUnit : MonoBehaviour {
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccesful){
-		if(pathSuccesful && newPath.Length > 0){
+		if(pathSuccesful && newPath.Length > 0 && gameObject != null){
 			path = newPath;
 			StopCoroutine ("FollowPath");
 			StartCoroutine ("FollowPath");

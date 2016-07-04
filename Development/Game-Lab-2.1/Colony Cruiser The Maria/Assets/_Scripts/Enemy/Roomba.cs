@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Roomba : AIEnemy {
 	public float explosionRange;
-	private bool standStillForExplosion;
 	private Vector3 explosionPos;
 	private float timesHit;
 	public float damageReductionRate;
@@ -54,12 +53,12 @@ public class Roomba : AIEnemy {
 	}
 
 	public override void AttackPlayer (){
-		if (!standStillForExplosion) {
+		if (!standStillToAttack) {
 			GetComponent<MyUnit> ().RecieveTarget (playerTransform);
 		}
 		if(playerDis < explosionRange){
 			StartCoroutine (TimerToExplode());
-			standStillForExplosion = true;
+			standStillToAttack = true;
 		}
 	}
 
