@@ -6,7 +6,6 @@ public class Grid : MonoBehaviour {
 	public Node[,,] grid;
 	public float nodeRadius;
 	private float nodeDiameter;
-	public float worldPositionDivider;
 	private int gridSizeX;
 	private int gridSizeY;
 	private int gridSizeZ;
@@ -67,15 +66,6 @@ public class Grid : MonoBehaviour {
 	}
 
 	public Node NodeFromWorldPoint(Vector3 worldPosition){
-//		float percentX = (worldPosition.x + worldSize.x / worldPositionDivider) / worldSize.x;
-//		float percentY = (worldPosition.y + worldSize.y / worldPositionDivider) / worldSize.y;
-//		float percentZ = (worldPosition.z + worldSize.z / worldPositionDivider) / worldSize.z;
-//		percentX = Mathf.Clamp01 (percentX);
-//		percentY = Mathf.Clamp01 (percentY);
-//		percentZ = Mathf.Clamp01 (percentZ);
-//		int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-//		int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-//		int z = Mathf.RoundToInt((gridSizeZ - 1) * percentZ);
 		Vector3 gridWorldPosition = worldPosition - mapStartingPoint;
 		int x = Mathf.RoundToInt((gridWorldPosition.x - nodeRadius) / nodeDiameter);
 		int y = Mathf.RoundToInt((gridWorldPosition.y - nodeRadius) / nodeDiameter);
