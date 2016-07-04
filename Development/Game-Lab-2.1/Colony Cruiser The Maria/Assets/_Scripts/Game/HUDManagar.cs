@@ -9,6 +9,7 @@ public class HUDManagar : MonoBehaviour {
 	public GameObject option;
 	public GameObject credit;
 	public GameObject controls;
+	public GameObject controlsButton;
 
 	public void StartButton(){
 		SceneManager.LoadScene ("Verdieping 3"); 
@@ -30,7 +31,8 @@ public class HUDManagar : MonoBehaviour {
 
 	public void ControlsButton(){
 		mainMenu.SetActive (false);
-		option.SetActive (true);
+		controls.SetActive (true);
+		controlsButton.SetActive (false);
 	}
 
 	public void QuitButton(){
@@ -39,7 +41,8 @@ public class HUDManagar : MonoBehaviour {
 	}
 
 	public void CreditButton(){
-		controls.SetActive (false);
+		mainMenu.SetActive (false);
+		credit.SetActive (true);
 	}
 
 	public void ReturnButton(){
@@ -47,5 +50,10 @@ public class HUDManagar : MonoBehaviour {
 		//load.SetActive (false);
 		option.SetActive (false);
 		credit.SetActive (false);
+	}
+
+	public void ReturnToOptions(){
+		controls.SetActive (false);
+		controlsButton.SetActive (true);
 	}
 }
