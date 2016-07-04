@@ -103,7 +103,11 @@ ModelImporter:
     400094: Wings
     4300000: Birdie
     4300002: Wings
-    7400000: Take 001
+    7400000: Idle
+    7400002: Attack
+    7400004: Damage
+    7400006: Bite
+    7400008: PenisAttack
     9500000: //RootNode
     13700000: Birdie
     13700002: Wings
@@ -127,7 +131,627 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Birdie
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: LowerBody
+        weight: 1
+      - path: LowerBody/LeftUpperLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg/LeftToe
+        weight: 1
+      - path: LowerBody/RightUpperLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg/RightToe
+        weight: 1
+      - path: LowerBody/UpperBody
+        weight: 1
+      - path: LowerBody/UpperBody/Head
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1/BottomLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1/BottomRightTooth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1/TopLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1/TopRightMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2/LeftMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm/LeftOuterFinger
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2/RightMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm/RightOuterFinger
+        weight: 1
+      - path: LowerBody/UpperTail
+        weight: 1
+      - path: LowerBody/UpperTail/LowerTail
+        weight: 1
+      - path: Wings
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 15
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Birdie
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: LowerBody
+        weight: 1
+      - path: LowerBody/LeftUpperLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg/LeftToe
+        weight: 1
+      - path: LowerBody/RightUpperLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg/RightToe
+        weight: 1
+      - path: LowerBody/UpperBody
+        weight: 1
+      - path: LowerBody/UpperBody/Head
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1/BottomLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1/BottomRightTooth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1/TopLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1/TopRightMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2/LeftMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm/LeftOuterFinger
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2/RightMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm/RightOuterFinger
+        weight: 1
+      - path: LowerBody/UpperTail
+        weight: 1
+      - path: LowerBody/UpperTail/LowerTail
+        weight: 1
+      - path: Wings
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Damage
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Birdie
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: LowerBody
+        weight: 1
+      - path: LowerBody/LeftUpperLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg/LeftToe
+        weight: 1
+      - path: LowerBody/RightUpperLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg/RightToe
+        weight: 1
+      - path: LowerBody/UpperBody
+        weight: 1
+      - path: LowerBody/UpperBody/Head
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1/BottomLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1/BottomRightTooth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1/TopLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1/TopRightMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2/LeftMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm/LeftOuterFinger
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2/RightMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm/RightOuterFinger
+        weight: 1
+      - path: LowerBody/UpperTail
+        weight: 1
+      - path: LowerBody/UpperTail/LowerTail
+        weight: 1
+      - path: Wings
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bite
+      takeName: Take 001
+      firstFrame: 45
+      lastFrame: 75
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Birdie
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: LowerBody
+        weight: 1
+      - path: LowerBody/LeftUpperLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg/LeftToe
+        weight: 1
+      - path: LowerBody/RightUpperLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg/RightToe
+        weight: 1
+      - path: LowerBody/UpperBody
+        weight: 1
+      - path: LowerBody/UpperBody/Head
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1/BottomLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1/BottomRightTooth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1/TopLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1/TopRightMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2/LeftMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm/LeftOuterFinger
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2/RightMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm/RightOuterFinger
+        weight: 1
+      - path: LowerBody/UpperTail
+        weight: 1
+      - path: LowerBody/UpperTail/LowerTail
+        weight: 1
+      - path: Wings
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: PenisAttack
+      takeName: Take 001
+      firstFrame: 75
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Birdie
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: LowerBody
+        weight: 1
+      - path: LowerBody/LeftUpperLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg
+        weight: 1
+      - path: LowerBody/LeftUpperLeg/LeftLowerLeg/LeftToe
+        weight: 1
+      - path: LowerBody/RightUpperLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg
+        weight: 1
+      - path: LowerBody/RightUpperLeg/RightLowerLeg/RightToe
+        weight: 1
+      - path: LowerBody/UpperBody
+        weight: 1
+      - path: LowerBody/UpperBody/Head
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftMouth1/BottomLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/BottomRightTooth1/BottomRightTooth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftMouth1/TopLeftMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopLeftTooth
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightMouth1/TopRightMouth2
+        weight: 1
+      - path: LowerBody/UpperBody/Head/TopRightTooth
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftMiddleFinger1/LeftMiddleFinger2/LeftMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/LeftShoulder/LeftInnerArm/LeftMiddleArm/LeftOuterArm/LeftOuterFinger
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightMiddleFinger1/RightMiddleFinger2/RightMiddleFinger3
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm
+        weight: 1
+      - path: LowerBody/UpperBody/RightShoulder/RightUpperArm/RightMiddleArm/RightOuterArm/RightOuterFinger
+        weight: 1
+      - path: LowerBody/UpperTail
+        weight: 1
+      - path: LowerBody/UpperTail/LowerTail
+        weight: 1
+      - path: Wings
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

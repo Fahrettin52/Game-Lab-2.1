@@ -32,6 +32,8 @@ public class Turret : AIEnemy {
 	public bool rotateNegative;
 	public Transform rayCastHolder;
 	public GameObject soundManager;
+	public GameObject shotLight;
+	public GameObject shotLight2;
 
 	public void Start(){
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -122,6 +124,7 @@ public class Turret : AIEnemy {
 				if (Physics.Raycast (transform.position, shootDir, out bulletHit, distanceOfSight)) {
 					overheatCountDown -= Time.deltaTime;
 					if (Time.time > nextFire) {
+						StartCoroutine (PlayTheLight());
 						soundManager.GetComponent<SoundManager> ().Turretshot ();
 						print (bulletHit.transform.name);
 						Debug.DrawRay (rayCastHolder.position, rayCastHolder.forward * distanceOfSight, Color.red, 2.5f);
@@ -214,5 +217,13 @@ public class Turret : AIEnemy {
 	public void CountdownResets(){
 		playerOutOfSightTimer = playerOutOfSightTimerReset;
 		overheatCountDown = overheatCountDownReset;
+	}
+
+	public IEnumerator PlayTheLight(){
+		shotLight.SetActive (true);
+		shotLight2.SetActive (true);
+		yield return new WaitForSeconds (0.05f);
+		shotLight.SetActive (false);
+		shotLight2.SetActive (false);
 	}
 }
