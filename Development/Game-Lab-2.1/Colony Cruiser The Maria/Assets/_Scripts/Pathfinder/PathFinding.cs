@@ -13,16 +13,26 @@ public class PathFinding : MonoBehaviour {
 		grid = GetComponent<Grid> ();
 	}
 
-	public void StartFindPath(Vector3 startPos, Vector3 targetPos){
-		StartCoroutine (FindPath (startPos, targetPos));
+	public void StartFindPath(Vector3 startPos, Vector3 targetPos, bool flyable){
+		StartCoroutine (FindPath (startPos, targetPos, flyable));
 	}
 
-	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos){
+	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos, bool flyable){
 		Vector3[] wayPoints = new Vector3[0];
 		bool pathSucces = false;
 		Node startNode = grid.NodeFromWorldPoint (startPos);
 		Node targetNode = grid.NodeFromWorldPoint (targetPos);
-		if (startNode.walkable && targetNode.walkable) {
+		bool checkFlyableStart = new bool ();
+		bool checkFlyableTarget = new bool ();
+		if (!flyable) {
+			checkFlyableStart = startNode.walkable;
+			checkFlyableTarget = targetNode.walkable;
+		}
+		else {
+			checkFlyableStart = startNode.flyable;
+			checkFlyableTarget = targetNode.flyable;
+		}
+		if (checkFlyableStart && checkFlyableTarget) {
 			Heap<Node> openSet = new Heap<Node> (grid.MaxSize);
 			HashSet<Node> closedSet = new HashSet<Node> ();
 			openSet.Add (startNode);
@@ -34,7 +44,7 @@ public class PathFinding : MonoBehaviour {
 					break;
 				}
 				foreach (Node neighbour in grid.GetNeighbours(currentNode)) {
-					if (!neighbour.walkable || closedSet.Contains (neighbour)) {
+					if (!checkFlyableStart || closedSet.Contains (neighbour)) {
 						continue;
 					} 
 					float newMovementCostToNeighbour = currentNode.gCost + GetDistance (currentNode, neighbour);

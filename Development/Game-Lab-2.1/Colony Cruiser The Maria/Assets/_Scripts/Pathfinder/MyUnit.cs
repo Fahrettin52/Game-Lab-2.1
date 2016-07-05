@@ -8,13 +8,14 @@ public class MyUnit : MonoBehaviour {
 		Chicken
 	}
 	public WhatAmI whatAmI;
+	public bool flyable;
 	public float speed;
 	Vector3[] path;
 	int targetIndex;
 	int curTarget;
 
 	public void RecieveTarget(Transform target){
-		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound);
+		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound, flyable);
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccesful){

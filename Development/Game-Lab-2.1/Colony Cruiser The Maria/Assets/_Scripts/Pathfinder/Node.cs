@@ -9,15 +9,17 @@ public class Node : IHeapItem<Node>{
 	public int gridZ;
 	public Vector3 worldPos;
 	public bool walkable;
+	public bool flyable;
 	public Node parent;
 	private int heapIndex;
 
-	public Node(int x, int y, int z, Vector3 world, bool mayWalk){
+	public Node(int x, int y, int z, Vector3 world, bool mayWalk, bool mayFly){
 		gridX = x;
 		gridY = y;
 		gridZ = z;
 		worldPos = world;
 		walkable = mayWalk;
+		flyable = mayFly;
 	}
 
 	public float fCost{

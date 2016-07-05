@@ -5,11 +5,12 @@ public class Unit01 : MonoBehaviour {
 
 	public Transform target;
 	public float speed;
+	public bool flyable;
 	Vector3[] path;
 	int targetIndex;
 
 	void Start(){
-		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound);
+		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound, flyable);
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccesful){

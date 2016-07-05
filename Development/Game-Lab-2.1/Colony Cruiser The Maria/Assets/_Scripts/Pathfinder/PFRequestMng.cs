@@ -12,15 +12,17 @@ public class PFRequestMng : MonoBehaviour {
 	PathFinding pathfinding;
 
 	bool isProcessingPath;
+	bool amIFlyable;
 
 	void Awake(){
 		instance = this;
 		pathfinding = GetComponent<PathFinding> ();
 	}
 
-	public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback){
+	public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback, bool flyable){
 		PathRequest newRequest = new PathRequest (pathStart, pathEnd, callback);
 		if (instance != null) {
+			instance.amIFlyable = flyable;
 			instance.pathRequestQueue.Enqueue (newRequest);
 			instance.TryProcessNext ();
 		}
@@ -30,7 +32,7 @@ public class PFRequestMng : MonoBehaviour {
 		if (!isProcessingPath && pathRequestQueue.Count > 0) {
 			currentPathRequest = pathRequestQueue.Dequeue ();
 			isProcessingPath = true;
-			pathfinding.StartFindPath (currentPathRequest.pathStart, currentPathRequest.pathEnd);
+			pathfinding.StartFindPath (currentPathRequest.pathStart, currentPathRequest.pathEnd, amIFlyable);
 		}
 	}
 

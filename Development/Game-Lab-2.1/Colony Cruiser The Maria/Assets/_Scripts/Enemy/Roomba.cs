@@ -55,6 +55,7 @@ public class Roomba : AIEnemy {
 	public override void AttackPlayer (){
 		if (!standStillToAttack) {
 			GetComponent<MyUnit> ().RecieveTarget (playerTransform);
+			transform.LookAt (new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
 		}
 		if(playerDis < explosionRange){
 			StartCoroutine (TimerToExplode());

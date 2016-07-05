@@ -141,9 +141,9 @@ public class Chicken : LiveStockEnemy {
 	public override void Patrolling(){
 		if(!gotPatrolPoint){
 			GetComponent<MyUnit> ().RecieveTarget (patrolPoints [curPatrolPoint]);
-			transform.LookAt (patrolPoints[curPatrolPoint]);
 			gotPatrolPoint = true;
 		}
+		transform.LookAt (patrolPoints[curPatrolPoint]);
 	}
 
 	public override void Fleeing(){

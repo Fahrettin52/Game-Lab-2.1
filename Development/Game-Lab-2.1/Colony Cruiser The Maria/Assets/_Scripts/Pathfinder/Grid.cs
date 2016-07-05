@@ -12,6 +12,7 @@ public class Grid : MonoBehaviour {
 	public Vector3 worldSize;
 	public Vector3 mapStartingPoint;
 	public LayerMask walkableMask;
+	public LayerMask unwalkableMask;
 	public bool displayGridGizmos;
 
 	public void Awake(){
@@ -39,7 +40,11 @@ public class Grid : MonoBehaviour {
 					float nodeZ = mapStartingPoint.z + k * nodeDiameter + nodeRadius;
 					Vector3 nodePos = new Vector3 (nodeX, nodeY, nodeZ);
 					bool walkable = (Physics.CheckSphere (nodePos, nodeDiameter, walkableMask));
-					grid [i, j, k] = new Node (i, j, k, nodePos, walkable);
+					bool flyable = new bool ();
+					if(!(Physics.CheckSphere (nodePos, nodeDiameter, walkableMask)) && !(Physics.CheckSphere (nodePos, nodeDiameter, unwalkableMask))){
+						flyable = true;
+					}
+					grid [i, j, k] = new Node (i, j, k, nodePos, walkable, flyable);
 				}
 			}
 		}
