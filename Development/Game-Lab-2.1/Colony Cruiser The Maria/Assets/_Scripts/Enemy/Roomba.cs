@@ -135,6 +135,7 @@ public class Roomba : AIEnemy {
 			break;
 		}
 		PlayerDetection ();
+		transform.rotation = Quaternion.Euler (270, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 	}
 
 	public void NextPatrolPoint(){
@@ -159,9 +160,9 @@ public class Roomba : AIEnemy {
 	public void Patrolling(){
 		if(!gotPatrolPoint){
 			GetComponent<MyUnit> ().RecieveTarget (patrolPoints [curPatrolPoint]);
-			transform.LookAt (patrolPoints[curPatrolPoint]);
 			gotPatrolPoint = true;
 		}
+		transform.LookAt (new Vector3(patrolPoints[curPatrolPoint].position.x, transform.position.y, patrolPoints[curPatrolPoint].position.z));
 	}
 
 	public override void LineOfSightDetection(){
