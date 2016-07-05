@@ -1,0 +1,10 @@
+2. UI element dat je E moet drukken
+5. UI element bij de Loot
+7. wannneer je wakker wordt je collider groter maken 2.5 ofzo
+8. als je camera in de cryopod omhoog is dan gaat die instance naar 0 op de x en de y can camera
+9. Hand aminatie met cutscene
+10. camera hoger zetten ivm geen voeten
+15. clipping bij turret room
+16. clipping hallway start naar crobay vanaf andere kant
+17. clipping verzorging 
+18. clipping hallway richting broken cryo

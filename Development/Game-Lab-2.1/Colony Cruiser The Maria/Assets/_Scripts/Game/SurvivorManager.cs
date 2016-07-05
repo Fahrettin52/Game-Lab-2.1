@@ -74,5 +74,6 @@ public class SurvivorManager : MonoBehaviour {
 		player.GetComponent<Animator> ().enabled = false;
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal; 
 		gameManager.GetComponent<GameManager> ().mayPause = true;
+		Cursor.visible = false;
 	}
 }

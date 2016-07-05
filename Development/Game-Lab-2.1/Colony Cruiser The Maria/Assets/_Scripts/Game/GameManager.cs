@@ -63,12 +63,15 @@ public class GameManager : MonoBehaviour {
 
 	public void PauseGame(){
 		if (mayPause) {
+			Cursor.visible = true;
 			pausing = !pausing;
 			pauseHUD.SetActive (pausing);
 			float timeType = curTimeScale;
 			if (Time.timeScale > 0) {
 				Time.timeScale = 0;
-			} else {
+			} 
+			else {
+				Cursor.visible = false;
 				Time.timeScale = timeType;
 			}
 		}

@@ -23,6 +23,7 @@ public class LootManager : MonoBehaviour {
 	}
 
 	public void LootChecker(){
+		Cursor.visible = true;
 		lootHUD.SetActive (true);	
 		int r = Random.Range (0,0);
 		List<Sprite> ts = myLoot [r].myImages;
@@ -34,6 +35,7 @@ public class LootManager : MonoBehaviour {
 	}
 
 	public void CloseLoot(){
+		Cursor.visible = false;
 		lootHUD.SetActive (false);
 		player.GetComponent<CameraControl> ().myView = CameraControl.ViewType.Normal;
 		player.GetComponent<Movement> ().myMovement = Movement.MovementType.Normal;

@@ -53,6 +53,7 @@ public class CryoPod : MonoBehaviour {
 	}
 
 	IEnumerator PlayAnimation(){
+		Cursor.visible = false;
 		ambientSlider.value = -40;
 		eye.GetComponent<EyesTest> ().mayOpen = true;
 		camero.GetComponent<BlurFade>().white = true;
@@ -83,6 +84,7 @@ public class CryoPod : MonoBehaviour {
 		survivor.GetComponent<SurvivorManager> ().Startconvo();
 		player.GetComponentInChildren<Animator> ().speed = 0;
 		hUD.SetActive (true);
+		Cursor.visible = true;
 	}
 
 	public void CameraReset(){
