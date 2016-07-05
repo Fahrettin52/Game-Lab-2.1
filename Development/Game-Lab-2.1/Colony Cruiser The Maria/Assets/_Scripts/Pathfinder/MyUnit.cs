@@ -14,6 +14,15 @@ public class MyUnit : MonoBehaviour {
 	int targetIndex;
 	int curTarget;
 
+	public void Awake(){
+		if (whatAmI == WhatAmI.Roomba) {
+			flyable = false;
+		}
+		else {
+			flyable = true;
+		}
+	}
+
 	public void RecieveTarget(Transform target){
 		PFRequestMng.RequestPath (transform.position, target.position, OnPathFound, flyable);
 	}

@@ -41,7 +41,7 @@ public class Grid : MonoBehaviour {
 					Vector3 nodePos = new Vector3 (nodeX, nodeY, nodeZ);
 					bool walkable = (Physics.CheckSphere (nodePos, nodeDiameter, walkableMask));
 					bool flyable = new bool ();
-					if(!(Physics.CheckSphere (nodePos, nodeDiameter, walkableMask)) && !(Physics.CheckSphere (nodePos, nodeDiameter, unwalkableMask))){
+					if(!(Physics.CheckSphere (nodePos, nodeDiameter, unwalkableMask))){
 						flyable = true;
 					}
 					grid [i, j, k] = new Node (i, j, k, nodePos, walkable, flyable);
