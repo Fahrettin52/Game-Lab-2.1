@@ -37,13 +37,17 @@ public class Interaction : MonoBehaviour {
 	public void InteractDoor(GameObject currentObject) {		
 		if (currentObject.name == "Door") {
 			currentObject.GetComponentInParent<Animator>().SetTrigger ("mayOpen");
-			soundManager.GetComponent<SoundManager> ().OpenDoor ();
-			particleSpark.SetActive (true);
+			if (soundManager.GetComponent<SoundManager> ().myAudioSource [1].isPlaying == false) {
+				soundManager.GetComponent<SoundManager> ().OpenDoor ();
+				particleSpark.SetActive (true);
+			}
 		}
 		if (currentObject.name == "DoorBroken") {
 			currentObject.GetComponentInParent<Animator>().SetTrigger("broken");
 			particleSpark.SetActive (true);
-			soundManager.GetComponent<SoundManager> ().OpenBrokenDoor ();
+			if (soundManager.GetComponent<SoundManager> ().myAudioSource [1].isPlaying == false) {
+				soundManager.GetComponent<SoundManager> ().OpenBrokenDoor ();
+			}
 		}
     }
 

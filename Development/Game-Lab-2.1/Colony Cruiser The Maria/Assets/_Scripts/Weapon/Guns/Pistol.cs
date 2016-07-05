@@ -60,7 +60,7 @@ public class Pistol : AbstractWeapon {
 
 	public override void Shooting(){
 		if (Input.GetButtonDown ("Fire1")) {
-			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[1].isPlaying == false){
+			if(loadedAmmo > 0 && soundManager.GetComponent<SoundManager> ().myAudioSource[4].isPlaying == false){
 				StartCoroutine (PlayTheParticle());
 				GetComponentInParent<Animator> ().SetTrigger ("RevolverShooting");
 				soundManager.GetComponent<SoundManager> ().RevolverShot ();
